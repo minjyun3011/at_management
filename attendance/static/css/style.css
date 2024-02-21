@@ -1,0 +1,163 @@
+/* テーブル全体のスタイルを小さくする */
+.table {
+    width: 80%;
+    /* テーブルの幅を全体の80%に設定 */
+    font-size: 0.8rem;
+    /* テーブル内のフォントサイズを小さく設定 */
+    border-collapse: collapse;
+    /* セルの境界線を1本にまとめる */
+    margin-bottom: 1rem;
+    /* 下部に余白を設定 */
+    background-color: white;
+    /* テーブルの背景色を白に設定 */
+}
+
+/* テーブルの境界線スタイル */
+.table-bordered {
+    border: 1px solid #dee2e6;
+    /* 境界線の色と太さを設定 */
+}
+
+/* テーブルヘッダーのスタイル */
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+    /* ヘッダーの下部に太い境界線を設定 */
+    background-color: #f8f9fa;
+    /* ヘッダーの背景色を設定 */
+    text-align: left;
+    /* テキストを左揃えに設定 */
+    padding: 8px;
+    /* 内側の余白を設定 */
+}
+
+/* テーブルセルのスタイル */
+.table td,
+.table th {
+    padding: 0.5rem;
+    /* セルの内側の余白を小さく設定 */
+    border: 1px solid #dee2e6;
+    /* セルの境界線の色と太さを設定 */
+    text-align: left;
+    /* テキストを左揃えに設定 */
+}
+
+/* マージントップを適用するカスタムスタイル */
+.mt-8 {
+    margin-top: 2rem;
+    /* 例: 2remが望ましいマージンの大きさに相当する場合 */
+}
+
+form {
+    display: flex;
+    align-items: center;
+    /* 要素を垂直方向の中心に揃える */
+}
+
+form>* {
+    margin-right: 10px;
+    /* 要素間の余白 */
+}
+
+nav {
+    background-color: #f8f9fa;
+    /* 薄い灰色の背景 */
+    box-shadow: none;
+    /* 立体感を示す影を削除 */
+    display: flex;
+    /* リストを横並びにする */
+    align-items: center;
+    /* アイテムを中央に揃える */
+}
+
+/* ナビゲーションバーのブランド（タイトル）スタイル */
+.navbar-brand {
+    color: #000000 !important;
+    /* ブランド名を黒色に変更 */
+    font-size: 1.2em;
+    /* サイズをやや大きく設定 */
+    font-weight: bold;
+    /* 太字で表示 */
+    text-decoration: none !important;
+}
+
+/* ナビゲーションリンクのスタイル */
+.nav-link {
+    color: #6e707a !important;
+    /* より濃い灰色でリンクを表示 */
+    padding: 0.75em 1em;
+    /* リンク周囲のパディングを増やし、タッチしやすくする */
+    border-radius: 0.5em;
+    /* リンクの角を丸くする */
+    text-decoration: none !important;
+    /* リンクっぽい崖線を削除 */
+}
+
+/* カーソルを合わせたときの反応 */
+.nav-link:hover {
+    color: #1a202c !important;
+    /* ホバー時にテキスト色を深い黒で強調 */
+    background-color: transparent;
+    /* 背景色を変更しない */
+    transition: color 0.3s ease;
+    /* テキスト色の変化をスムーズに */
+}
+
+.nav-item {
+    display: inline-block;
+    margin-right: 5px;
+    /* ナビゲーションアイテム間のマージンを狭く設定 */
+}
+
+/* 横並びにするためのスタイル */
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    /* 子要素を垂直方向に中央揃え */
+}
+
+.nav-item {
+    margin-right: 1px;
+    /* 右側のマージンを設定 */
+    margin-left: 1px;
+    /* 左側のマージンを設定 */
+}
+
+.pagination {
+    list-style: none;
+    /* 箇条書きの点をなくす */
+    display: flex;
+    /* リストアイテムを横並びにする */
+    padding: 0;
+}
+
+.page-item {
+    margin: 5px;
+    /* リストアイテム間の余白 */
+}
+
+.page-link {
+    display: flex;
+    /* リンク内の要素（テキストやアイコン）を中央揃えにする */
+    justify-content: center;
+    /* 水平方向の中央揃え */
+    align-items: center;
+    /* 垂直方向の中央揃え */
+    width: 30px;
+    /* 正方形のサイズ（幅） */
+    height: 30px;
+    /* 正方形のサイズ（高さ） */
+    border: 1px solid #007bff;
+    /* 枠線 */
+    text-decoration: none;
+    /* リンクの下線を消す */
+    color: #007bff;
+    /* リンクのテキスト色 */
+}
+
+.page-item.active .page-link {
+    background-color: #007bff;
+    /* 現在のページの背景色 */
+    color: white;
+    /* 現在のページのテキスト色 */
+}

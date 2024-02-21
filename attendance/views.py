@@ -1,4 +1,5 @@
 from django.views import generic
+from .models import Kid_Information
 
-class IndexView(generic.TemplateView):
-    template_name='attendance/attendance_list.html'
+class IndexView(generic.ListView):
+    model=Kid_Information
