@@ -16,6 +16,7 @@ class Attendance(models.Model):
         attendance_dict = dict(self.ATTENDANCE_CHOICES)
         # 出席状況のラベルを取得し、name と組み合わせた文字列を返します。
         return f"({attendance_dict.get(self.choice)})"
+    
 
 class Kid_Information(models.Model):
     slug = models.SlugField('登録番号', max_length=6, unique=True)

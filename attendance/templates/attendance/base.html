@@ -7,6 +7,7 @@
     <title>出欠管理システム</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.11/main.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -28,9 +29,20 @@
     </nav>
 
     <div class="container">
-        {% block content %}
-        {% endblock %}
+        {% include "attendance/kid_information_list.html" %}
     </div>
+    {% include "attendance/calendar.html" %}
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.11/index.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            // 他のカレンダーオプション
+        });
+        calendar.render();
+    });
+</script>
 
 </html>
