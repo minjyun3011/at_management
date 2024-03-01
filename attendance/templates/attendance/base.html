@@ -1,11 +1,10 @@
 <!doctype html>
 <html lang="en">
-
+{% load static %}
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>出欠管理システム</title>
-    {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.11/main.min.css" rel="stylesheet">
 </head>
@@ -13,7 +12,6 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">2月15日(金) 本日の出席予定</a>
-
         <div class="navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 {% if user.is_superuser %}
@@ -27,22 +25,7 @@
             </ul>
         </div>
     </nav>
-
-    <div class="container">
-        {% include "attendance/kid_information_list.html" %}
-    </div>
+    {% include "attendance/kid_information_list.html" %}
     {% include "attendance/calendar.html" %}
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.11/index.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth',
-            // 他のカレンダーオプション
-        });
-        calendar.render();
-    });
-</script>
-
 </html>
