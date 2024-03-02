@@ -9,10 +9,13 @@ document.addEventListener('DOMContentLoaded', function() {
         selectable: true,
 
         select: function(info) {
-            // モーダルを表示し、ユーザーにイベントの詳細入力を促す
-            $('#eventModal').modal('show');
-            // モーダル内の開始時間と終了時間のフィールドを選択した範囲で設定するロジックをここに追加
-        },
+    var myModal = new bootstrap.Modal(document.getElementById('myModal'));
+    myModal.show();
+
+    // モーダルの開始時間と終了時間のフィールドに値を設定
+    document.getElementById('start_time').value = info.startStr;
+    document.getElementById('end_time').value = info.endStr;
+},
 
         events: function (info, successCallback, failureCallback) {
             axios.post("/api/events/", { // Djangoのビューに対応するエンドポイントに修正
@@ -32,32 +35,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
     calendar.render();
 });
-
-// イベントの送信関数（モーダルの保存ボタンに紐付ける）
 function submitEvent() {
-    var eventName = document.getElementById('eventName').value; // モーダル内の入力フィールドから値を取得
-    var gender = document.getElementById('gender').value; // 性別の選択を取得
+    var eventName = document.getElementById('full_name').value;
+    var gender = document.getElementById('gender').value;
+    var startTime = document.getElementById('start_time').value;
+    var endTime = document.getElementById('end_time').value;
 
-    // CSRFトークンを取得
-    const csrfToken = getCookie('csrftoken');
+    // CSRFトークンの取得
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
-    // フォームデータを使用してサーバーにPOSTリクエストを送信
-    axios.post('/api/add_event/', { // Djangoのビューに対応するエンドポイントに修正
+    axios.post('/api/add_event/', {
         full_name: eventName,
         gender: gender,
-        // start_time と end_time の値を適切に設定するロジックをここに追加
+        start_time: startTime,
+        end_time: endTime,
     }, {
         headers: {
+            // CSRFトークンをリクエストヘッダーに設定
             'X-CSRFToken': csrfToken,
         }
     })
     .then(function(response) {
         console.log(response.data);
-        $('#eventModal').modal('hide'); // 成功時にモーダルを閉じる
-        calendar.refetchEvents(); // イベントの追加後、イベントを再取得
+        $('#eventModal').modal('hide'); // モーダルを閉じる
+        calendar.refetchEvents(); // カレンダーのイベントを更新
     })
     .catch(function(error) {
         console.error('Error:', error);
         alert('イベントの追加に失敗しました');
     });
 }
+

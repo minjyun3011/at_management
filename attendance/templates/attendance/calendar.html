@@ -1,7 +1,6 @@
 {% load static %}
 <div id='calendar'></div>
-
-<!-- Event Modal -->
+<!-- Event Modal 内 -->
 <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -24,7 +23,9 @@
                             <option value="F">女</option>
                         </select>
                     </div>
-                    <!-- 開始時間と終了時間のフィールドは、選択された日付/時間に応じて自動的に設定されることを想定 -->
+                    <!-- 隠しフィールドをここに追加 -->
+                    <input type="hidden" id="start_time" name="start_time">
+                    <input type="hidden" id="end_time" name="end_time">
                 </form>
             </div>
             <div class="modal-footer">
@@ -34,8 +35,13 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js"></script>
-<script src="{% static 'scheduleCalendar/app.js' %}"></script>
 <!-- jQueryの追加 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- BootstrapのJavaScriptの追加 -->
+<script src="path/to/bootstrap.min.js"></script>
+<!-- Axios -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<!-- FullCalendar -->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js"></script>
+<!-- カスタムスクリプト -->
+<script src="{% static 'scheduleCalendar/app.js' %}"></script>
