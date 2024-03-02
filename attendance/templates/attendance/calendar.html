@@ -1,6 +1,41 @@
 {% load static %}
 <div id='calendar'></div>
 
-<!-- 既にbase.htmlにCSSリンクを配置するのが適切です。 -->
+<!-- Event Modal -->
+<div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="eventModalLabel">イベントの詳細</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="eventForm">
+                    <div class="form-group">
+                        <label for="full_name">フルネーム</label>
+                        <input type="text" class="form-control" id="full_name" name="full_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">性別</label>
+                        <select class="form-control" id="gender" name="gender">
+                            <option value="M">男</option>
+                            <option value="F">女</option>
+                        </select>
+                    </div>
+                    <!-- 開始時間と終了時間のフィールドは、選択された日付/時間に応じて自動的に設定されることを想定 -->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="submitEvent()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js"></script>
 <script src="{% static 'scheduleCalendar/app.js' %}"></script>
+<!-- jQueryの追加 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

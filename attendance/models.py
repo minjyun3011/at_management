@@ -43,3 +43,18 @@ class Kid_Information(models.Model):
 
     def __str__(self):
         return '{0} {1} {2} {3} {4} {5}'.format(self.slug, self.family_name, self.first_name, self.email, self.attendance, self.updated_at )
+
+class Event(models.Model):
+    GENDER_CHOICES = (
+        ('M', '男'),
+        ('F', '女'),
+    )
+    start_time = models.TimeField()  # イベントの開始時間
+    end_time = models.TimeField()    # イベントの終了時間
+    full_name = models.CharField(max_length=100)  # 参加者のフルネーム
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)  # 性別
+
+    def __str__(self):
+        # 性別に基づいて接尾語を決定
+        suffix = 'くん' if self.gender == 'M' else 'ちゃん'
+        return f"{self.start_time} 〜 {self.end_time} {self.full_name}{suffix}"

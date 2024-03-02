@@ -1,5 +1,5 @@
 // CSRF対策
-axios.defaults.xsrfHeaderName = "X-CSRFToken";
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -9,20 +9,20 @@ document.addEventListener('DOMContentLoaded', function() {
         selectable: true,
 
         select: function(info) {
-            // モーダルを表示し、ユーザーにイベントの詳細入力を促す
+            // モーダルを表示し、ユーザーにイベントの詳細入力を促す（モーダルの実装は別途必要）
             $('#eventModal').modal('show');
-            // モーダル内の開始時間と終了時間のフィールドを選択した範囲で設定するロジックをここに追加
+            // ここで必要に応じて開始時間と終了時間のフィールドを設定できます
         },
 
         events: function (info, successCallback, failureCallback) {
-            axios.post("/api/events/", { // Djangoのビューに対応するエンドポイントに修正
-                start: info.startStr,
-                end: info.endStr,
+            axios.post("/sc/list/", {
+                start_date: info.start.valueOf(),
+                end_date: info.end.valueOf(),
             })
-            .then(function(response) {
+            .then((response) => {
                 successCallback(response.data);
             })
-            .catch(function(error) {
+            .catch((error) => {
                 console.error("Event fetching failed:", error);
                 failureCallback(error);
                 alert("イベントの取得に失敗しました");
@@ -38,26 +38,35 @@ function submitEvent() {
     var eventName = document.getElementById('eventName').value; // モーダル内の入力フィールドから値を取得
     var gender = document.getElementById('gender').value; // 性別の選択を取得
 
-    // CSRFトークンを取得
-    const csrfToken = getCookie('csrftoken');
-
     // フォームデータを使用してサーバーにPOSTリクエストを送信
-    axios.post('/api/add_event/', { // Djangoのビューに対応するエンドポイントに修正
+    axios.post('/path/to/django/view/', {
         full_name: eventName,
         gender: gender,
-        // start_time と end_time の値を適切に設定するロジックをここに追加
-    }, {
-        headers: {
-            'X-CSRFToken': csrfToken,
-        }
+        // start_time と end_time の値を適切に設定
     })
-    .then(function(response) {
+    .then(response => {
         console.log(response.data);
         $('#eventModal').modal('hide'); // 成功時にモーダルを閉じる
         calendar.refetchEvents(); // イベントの追加後、イベントを再取得
     })
-    .catch(function(error) {
+    .catch(error => {
         console.error('Error:', error);
         alert('イベントの追加に失敗しました');
     });
+}
+
+// CSRFトークン取得用のヘルパー関数
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
 }
