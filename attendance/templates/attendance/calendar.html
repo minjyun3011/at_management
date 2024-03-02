@@ -1,5 +1,6 @@
 {% load static %}
-<div class="calendar" id="calendar">FullCalendar
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.11/index.min.js" defer></script>
-<script src="{% static 'js/first.js' %}" defer></script>
-</div>
+<div id='calendar'></div>
+
+<!-- 既にbase.htmlにCSSリンクを配置するのが適切です。 -->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js"></script>
+<script src="{% static 'scheduleCalendar/app.js' %}"></script>
