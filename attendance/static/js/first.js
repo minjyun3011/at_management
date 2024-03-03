@@ -1,24 +1,29 @@
-// CSRF対策
-axios.defaults.xsrfHeaderName = "X-CSRFToken";
-axios.defaults.xsrfCookieName = "csrftoken";
+// CSRFトークン取得用の関数
+function getCsrfToken() {
+    return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+}
+
+
+// FullCalendarインスタンスを格納するための変数をグローバルスコープで宣言
+var calendar;
 
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
+    calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         selectable: true,
 
         select: function(info) {
-    var eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
-    eventModal.show();
+            var eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
+            eventModal.show();
 
-    // モーダルの開始時間と終了時間のフィールドに値を設定
-    document.getElementById('start_time').value = info.startStr;
-    document.getElementById('end_time').value = info.endStr;
-},
+            // モーダルの開始時間と終了時間のフィールドに値を設定
+            document.getElementById('start_time').value = info.startStr;
+            document.getElementById('end_time').value = info.endStr;
+        },
 
         events: function (info, successCallback, failureCallback) {
-            axios.post("/api/events/", { // Djangoのビューに対応するエンドポイントに修正
+            axios.post("/api/events/", {
                 start: info.startStr,
                 end: info.endStr,
             })
@@ -35,14 +40,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     calendar.render();
 });
+
 function submitEvent() {
     var eventName = document.getElementById('full_name').value;
     var gender = document.getElementById('gender').value;
     var startTime = document.getElementById('start_time').value;
     var endTime = document.getElementById('end_time').value;
-
-    // CSRFトークンの取得
-    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
     axios.post('/api/add_event/', {
         full_name: eventName,
@@ -51,13 +54,14 @@ function submitEvent() {
         end_time: endTime,
     }, {
         headers: {
-            // CSRFトークンをリクエストヘッダーに設定
-            'X-CSRFToken': csrfToken,
+            'X-CSRFToken': getCsrfToken(),
         }
     })
     .then(function(response) {
         console.log(response.data);
-        $('#eventModal').modal('hide'); // モーダルを閉じる
+        var myModalEl = document.getElementById('eventModal');
+        var modal = bootstrap.Modal.getInstance(myModalEl);
+        modal.hide(); // モーダルを閉じる
         calendar.refetchEvents(); // カレンダーのイベントを更新
     })
     .catch(function(error) {
@@ -65,4 +69,3 @@ function submitEvent() {
         alert('イベントの追加に失敗しました');
     });
 }
-
