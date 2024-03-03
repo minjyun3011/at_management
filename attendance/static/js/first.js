@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
         selectable: true,
 
         select: function(info) {
-    var myModal = new bootstrap.Modal(document.getElementById('myModal'));
-    myModal.show();
+    var eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
+    eventModal.show();
 
     // モーダルの開始時間と終了時間のフィールドに値を設定
     document.getElementById('start_time').value = info.startStr;
