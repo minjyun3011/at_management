@@ -24,8 +24,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         events: function (info, successCallback, failureCallback) {
             axios.post("/api/get_events/", {
-                start: info.startStr,
-                end: info.endStr,
+                start_time: info.startStr,
+                end_time: info.endStr,
             })
             .then(function(response) {
                 successCallback(response.data);

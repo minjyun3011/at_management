@@ -44,20 +44,17 @@ def add_event(request):
     else:
         # フォームのバリデーションに失敗した場合は、エラーメッセージを返す
         return JsonResponse({'errors': form.errors}, status=400)
-    
+    from django.utils.dateparse import parse_datetime
+
 @csrf_exempt
 @require_http_methods(["POST"])
 def get_events(request):
     datas = json.loads(request.body)
-    start_time = datas["start_time"]
-    end_time = datas["end_time"]
-
-    # 時間に変換。JavaScriptのタイムスタンプはミリ秒なので秒に変換
-    formatted_start_time = time.strftime("%H:%M", time.localtime(int(start_time) / 1000))
-    formatted_end_time = time.strftime("%H:%M", time.localtime(int(end_time) / 1000))
+    start_time = parse_datetime(datas["start_time"])
+    end_time = parse_datetime(datas["end_time"])
 
     # FullCalendarの表示範囲内のイベントのみをフィルタリング
-    events = Event.objects.filter(start_time__lte=formatted_end_time, end_time__gte=formatted_start_time)
+    events = Event.objects.filter(start_time__lte=end_time, end_time__gte=start_time)
 
     # FullCalendarに適した形式でイベントデータを返却
     events_list = []
@@ -69,6 +66,9 @@ def get_events(request):
         })
 
     return JsonResponse(events_list, safe=False)
+
+
+
 # ロギング設定
 logger = logging.getLogger()  # ルートロガーを取得
 
