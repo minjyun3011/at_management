@@ -5,5 +5,7 @@ app_name = "attendance"
 
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
-    path('api/events/', views.add_event, name='add_event'),
+    path('api/add_event/', views.add_event, name='add_event'),
+    path('api/get_events/', views.get_events, name='get_events'),
+
     ]

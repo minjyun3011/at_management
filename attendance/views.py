@@ -3,11 +3,15 @@ from django.http import JsonResponse, HttpResponse
 from django.template import loader
 from django.views.decorators.http import require_http_methods
 from .models import Kid_Information, Event
-from .forms import EventForm, CalendarForm
+from .forms import EventForm
 import json
 import time
 from django.middleware.csrf import get_token
 from django.utils.dateparse import parse_datetime
+from django.views.decorators.csrf import csrf_exempt
+import logging
+
+
 
 class IndexView(generic.ListView):
     model = Kid_Information
@@ -18,22 +22,30 @@ def index(request):
     template = loader.get_template("attendance/base.html")
     return HttpResponse(template.render({}, request))
 
+
 @require_http_methods(["POST"])
 def add_event(request):
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        # parse_datetime を使用している場合、フロントエンドからの日付/時刻文字列が適切なフォーマットであることを確認する
-        event = Event(
-            start_time=parse_datetime(data['start_time']),
-            end_time=parse_datetime(data['end_time']),
-            full_name=data['full_name'],
-            gender=data['gender']
-        )
-        event.save()
-        return JsonResponse({'message': 'Event successfully added'}, status=200)
+    # リクエストからJSONデータを読み込む
+    data = json.loads(request.body)
+    
+    # EventFormをインスタンス化し、送信されたデータで初期化
+    form = EventForm(data)
+    
+    # フォームのバリデーションを実行
+    if form.is_valid():
+        # フォームのデータが有効であれば、フォームからモデルインスタンスを保存
+        event = form.save()
+        
+        # 成功レスポンスを返す
+        return JsonResponse({
+            'message': 'Event successfully added',
+            'event_id': event.id  # イベントIDを含むメッセージを返す（フロントエンドで何らかの用途に使用する場合）
+        }, status=200)
     else:
-        return JsonResponse({'error': 'Invalid request'}, status=400)
-
+        # フォームのバリデーションに失敗した場合は、エラーメッセージを返す
+        return JsonResponse({'errors': form.errors}, status=400)
+    
+@csrf_exempt
 @require_http_methods(["POST"])
 def get_events(request):
     datas = json.loads(request.body)
@@ -57,3 +69,26 @@ def get_events(request):
         })
 
     return JsonResponse(events_list, safe=False)
+# ロギング設定
+logger = logging.getLogger()  # ルートロガーを取得
+
+# ログファイルのハンドラーを作成
+file_handler = logging.FileHandler('/Users/satoso/Python/at_management/project/logs/file.log')
+file_handler.setLevel(logging.INFO)  # INFOレベル以上のログを記録
+
+# コンソールのハンドラーを作成
+stream_handler = logging.StreamHandler()
+stream_handler.setLevel(logging.INFO)  # INFOレベル以上のログをコンソールに出力
+
+# ロギングフォーマットを設定
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+file_handler.setFormatter(formatter)
+stream_handler.setFormatter(formatter)
+
+# ロガーにハンドラーを追加
+logger.addHandler(file_handler)
+logger.addHandler(stream_handler)
+
+# ログハンドラーをクローズ
+file_handler.close()
+stream_handler.close()

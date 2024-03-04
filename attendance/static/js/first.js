@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
 
         events: function (info, successCallback, failureCallback) {
-            axios.post("/api/events/", {
+            axios.post("/api/get_events/", {
                 start: info.startStr,
                 end: info.endStr,
             })
@@ -42,13 +42,13 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function submitEvent() {
-    var eventName = document.getElementById('full_name').value;
+    var fullName = document.getElementById('full_name').value;
     var gender = document.getElementById('gender').value;
     var startTime = document.getElementById('start_time').value;
     var endTime = document.getElementById('end_time').value;
 
     axios.post('/api/add_event/', {
-        full_name: eventName,
+        full_name: fullName,
         gender: gender,
         start_time: startTime,
         end_time: endTime,
