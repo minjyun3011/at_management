@@ -1,6 +1,5 @@
 {% load static %}
 <div id='calendar'></div>
-
 <!-- Event Modal -->
 <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -12,24 +11,28 @@
             <div class="modal-body">
                 <form id="eventForm">
                     <div class="mb-3">
-                            <label for="full_name" class="form-label">フルネーム</label>
-                            <input type="text" class="form-control" id="full_name" name="full_name">
-                        </div>
-                        <div class="mb-3">
-                            <label for="gender" class="form-label">性別</label>
-                            <select class="form-select" id="gender" name="gender">
-                                <option value="M">男</option>
-                                <option value="F">女</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="start_time" class="form-label">開始時間</label>
-                            <input type="time" class="form-control" id="start_time" name="start_time">
-                        </div>
-                        <div class="mb-3">
-                            <label for="end_time" class="form-label">終了時間</label>
-                            <input type="time" class="form-control" id="end_time" name="end_time">
-                        </div>
+                        <label for="full_name" class="form-label">フルネーム</label>
+                        <input type="text" class="form-control" id="full_name" name="full_name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="gender" class="form-label">性別</label>
+                        <select class="form-select" id="gender" name="gender">
+                            <option value="M">男</option>
+                            <option value="F">女</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="start_time" class="form-label">開始時間</label>
+                        <input type="time" class="form-control" id="start_time" name="start_time">
+                    </div>
+                    <div class="mb-3">
+                        <label for="end_time" class="form-label">終了時間</label>
+                        <input type="time" class="form-control" id="end_time" name="end_time">
+                    </div>
+                    <div class="mb-3">
+                        <label for="calendar_date" class="form-label">日付</label>
+                        <input type="date" class="form-control" id="calendar_date" name="calendar_date">
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">

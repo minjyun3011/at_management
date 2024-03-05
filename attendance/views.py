@@ -10,6 +10,7 @@ from django.middleware.csrf import get_token
 from django.utils.dateparse import parse_datetime
 from django.views.decorators.csrf import csrf_exempt
 import logging
+from django.utils.dateparse import parse_datetime
 
 
 
@@ -22,52 +23,59 @@ def index(request):
     template = loader.get_template("attendance/base.html")
     return HttpResponse(template.render({}, request))
 
-
 @require_http_methods(["POST"])
 def add_event(request):
-    # リクエストからJSONデータを読み込む
+    # HTTPリクエストの本文からデータを取得する
     data = json.loads(request.body)
-    
-    # EventFormをインスタンス化し、送信されたデータで初期化
     form = EventForm(data)
     
-    # フォームのバリデーションを実行
     if form.is_valid():
-        # フォームのデータが有効であれば、フォームからモデルインスタンスを保存
-        event = form.save()
+        event = form.save(commit=False)
         
-        # 成功レスポンスを返す
+        # カレンダーの日付を設定
+        event.calendar_date = event.start_time.date()
+        
+        event.save()
+        
         return JsonResponse({
             'message': 'Event successfully added',
-            'event_id': event.id  # イベントIDを含むメッセージを返す（フロントエンドで何らかの用途に使用する場合）
+            'event_id': event.id
         }, status=200)
     else:
-        # フォームのバリデーションに失敗した場合は、エラーメッセージを返す
         return JsonResponse({'errors': form.errors}, status=400)
     from django.utils.dateparse import parse_datetime
 
 @csrf_exempt
 @require_http_methods(["POST"])
 def get_events(request):
-    datas = json.loads(request.body)
-    start_time = parse_datetime(datas["start_time"])
-    end_time = parse_datetime(datas["end_time"])
+    try:
+        datas = json.loads(request.body)
+        start_time_str = datas.get("start_time")
+        end_time_str = datas.get("end_time")
 
-    # FullCalendarの表示範囲内のイベントのみをフィルタリング
-    events = Event.objects.filter(start_time__lte=end_time, end_time__gte=start_time)
+        # 文字列をdatetimeオブジェクトに変換
+        start_time = parse_datetime(start_time_str)
+        end_time = parse_datetime(end_time_str)
 
-    # FullCalendarに適した形式でイベントデータを返却
-    events_list = []
-    for event in events:
-        events_list.append({
-            "title": f"{event.full_name} {('くん' if event.gender == 'M' else 'ちゃん')}",
-            "start": event.start_time.strftime("%Y-%m-%dT%H:%M:%S"),
-            "end": event.end_time.strftime("%Y-%m-%dT%H:%M:%S"),
-        })
+        if not start_time or not end_time:
+            raise ValueError("Invalid start_time or end_time format")
 
-    return JsonResponse(events_list, safe=False)
+        # FullCalendarの表示範囲内のイベントのみをフィルタリング
+        events = Event.objects.filter(start_time__lte=end_time, end_time__gte=start_time)
 
+        # FullCalendarに適した形式でイベントデータを返却
+        events_list = []
+        for event in events:
+            events_list.append({
+                "title": f"{event.full_name} {('くん' if event.gender == 'M' else 'ちゃん')}",
+                "start": event.start_time.isoformat(),
+                "end": event.end_time.isoformat(),
+            })
 
+        return JsonResponse(events_list, safe=False)
+    except Exception as e:
+        logging.error(f"Error fetching events: {str(e)}")
+        return JsonResponse({'error': 'Failed to fetch events'}, status=500)
 
 # ロギング設定
 logger = logging.getLogger()  # ルートロガーを取得
