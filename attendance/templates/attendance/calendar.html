@@ -2,39 +2,45 @@
 <div id='calendar'></div>
 <!-- Event Modal -->
 <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg"> <!-- モーダルのサイズを大きくする -->
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="eventModalLabel">イベントの詳細</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+
             <div class="modal-body">
                 <form id="eventForm">
-                    <div class="mb-3">
-                        <label for="full_name" class="form-label">フルネーム</label>
-                        <input type="text" class="form-control" id="full_name" name="full_name">
+                    <div class="row custom-row-flex"> <!-- 上段の行 -->
+                        <div class="full_name"> <!-- フルネーム -->
+                            <label for="full_name" class="form-label">フルネーム</label>
+                            <input type="text" class="form-control" id="full_name" name="full_name">
+                        </div>
+                        <div class="gender"> <!-- 性別 -->
+                            <label for="gender" class="form-label">性別</label>
+                            <select class="form-select" id="gender" name="gender">
+                                <option value="M">男</option>
+                                <option value="F">女</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="gender" class="form-label">性別</label>
-                        <select class="form-select" id="gender" name="gender">
-                            <option value="M">男</option>
-                            <option value="F">女</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="start_time" class="form-label">開始時間</label>
-                        <input type="time" class="form-control" id="start_time" name="start_time">
-                    </div>
-                    <div class="mb-3">
-                        <label for="end_time" class="form-label">終了時間</label>
-                        <input type="time" class="form-control" id="end_time" name="end_time">
-                    </div>
-                    <div class="mb-3">
-                        <label for="calendar_date" class="form-label">日付</label>
-                        <input type="date" class="form-control" id="calendar_date" name="calendar_date">
+                    <div class="row custom-row-flex"> <!-- 下段の行 -->
+                        <div class="calendar_date"> <!-- 日付 -->
+                            <label for="calendar_date" class="form-label">日付</label>
+                            <input type="date" class="form-control" id="calendar_date" name="calendar_date">
+                        </div>
+                        <div class="start_time"> <!-- 開始時間 -->
+                            <label for="start_time" class="form-label">開始時間</label>
+                            <input type="time" class="form-control" id="start_time" name="start_time">
+                        </div>
+                        <div class="end_time"> <!-- 終了時間 -->
+                            <label for="end_time" class="form-label">終了時間</label>
+                            <input type="time" class="form-control" id="end_time" name="end_time">
+                        </div>
                     </div>
                 </form>
             </div>
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" onclick="submitEvent()">保存</button>
             </div>

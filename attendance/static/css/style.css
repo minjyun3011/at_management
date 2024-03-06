@@ -161,3 +161,29 @@ nav {
     color: white;
     /* 現在のページのテキスト色 */
 }
+
+.modal-dialog.modal-lg {
+    max-width: 800px; /* モーダルの幅を調整 */
+}
+
+.event-form .row {
+    margin-bottom: 1rem;
+}
+
+.event-form .col {
+    padding: 0 15px; /* カラム間のスペースを調整 */
+}
+
+/* カスタムスタイリングが必要な場合のみ */
+.form-label {
+    font-weight: bold; /* ラベルを目立たせる */
+}
+
+
+#eventForm {
+    display: flex;
+    flex-direction: column; /* 子要素を縦方向に配置 */
+}
+.custom-row-flex > div {
+    flex: 1; /* 子要素に等しい幅を割り当て */
+}
