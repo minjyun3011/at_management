@@ -41,32 +41,28 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     calendar.render();
-});
-function submitEvent() {
+});function submitEvent() {
     var fullName = document.getElementById('full_name').value;
     var gender = document.getElementById('gender').value;
-    
-    // Dateオブジェクトを生成する際の変数名が重複しているため、変更する
-    var startTimeInput = document.getElementById('start_time').value; 
-    var endTimeInput = document.getElementById('end_time').value; 
-    var calendarDateInput = document.getElementById('calendar_date').value; 
+    var startTimeInput = document.getElementById('start_time').value;
+    var endTimeInput = document.getElementById('end_time').value;
+    var calendarDateInput = document.getElementById('calendar_date').value;
 
-    // ISO文字列形式で送信
-    var startTime = new Date(startTimeInput).toISOString();
-    var endTime = new Date(endTimeInput).toISOString();
-    var calendarDate = new Date(calendarDateInput).toISOString();
+    // 日付と時間を組み合わせる
+    var combinedStartDateTime = new Date(calendarDateInput + 'T' + startTimeInput).toISOString();
+    var combinedEndDateTime = new Date(calendarDateInput + 'T' + endTimeInput).toISOString();
 
     axios.post('/api/add_event/', {
-        full_name: fullName,
-        gender: gender,
-        start_time: startTime,
-        end_time: endTime,
-        calendar_date: calendarDate, 
-    }, {
-        headers: {
-            'X-CSRFToken': getCsrfToken(),
-        }
-    })
+    full_name: fullName,
+    gender: gender,
+    start_time: combinedStartDateTime,
+    end_time: combinedEndDateTime,
+    calendar_date: calendarDateInput + 'T00:00:00',
+}, {
+    headers: {
+        'X-CSRFToken': getCsrfToken(),
+    }
+})
     .then(function(response) {
         console.log(response.data);
         // 成功時の処理

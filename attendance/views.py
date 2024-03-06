@@ -11,6 +11,7 @@ from django.utils.dateparse import parse_datetime
 from django.views.decorators.csrf import csrf_exempt
 import logging
 from django.utils.dateparse import parse_datetime
+from datetime import datetime
 
 
 
@@ -33,7 +34,7 @@ def add_event(request):
         event = form.save(commit=False)
         
         # カレンダーの日付を設定
-        event.calendar_date = event.start_time.date()
+        event.calendar_date = event.start_time.date().strftime('%Y-%m-%d')
         
         event.save()
         
@@ -42,9 +43,8 @@ def add_event(request):
             'event_id': event.id
         }, status=200)
     else:
+        print(form.errors)  # エラーをコンソールに出力
         return JsonResponse({'errors': form.errors}, status=400)
-    from django.utils.dateparse import parse_datetime
-
 
 @csrf_exempt
 @require_http_methods(["POST"])
@@ -73,6 +73,8 @@ def get_events(request):
     except Exception as e:
         logging.error(f"Error fetching events: {str(e)}")
         return JsonResponse({'error': 'Failed to fetch events'}, status=500)
+    
+
 # ロギング設定
 logger = logging.getLogger()  # ルートロガーを取得
 
