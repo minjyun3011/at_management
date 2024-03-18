@@ -1,21 +1,19 @@
-from django.views import generic
+import re
+import json
+import logging
+from django import forms
 from django.http import JsonResponse, HttpResponse
 from django.template import loader
 from django.views.decorators.http import require_http_methods
-from .models import Kid_Information, Event
-from .forms import EventForm
-import json
-import time
-from django.middleware.csrf import get_token
+from django.views.generic import ListView
 from django.utils.dateparse import parse_datetime
 from django.views.decorators.csrf import csrf_exempt
-import logging
-from django.utils.dateparse import parse_datetime
+from .models import Kid_Information, Event
+from .forms import EventForm
+from django.middleware.csrf import get_token
 from datetime import datetime
 
-
-
-class IndexView(generic.ListView):
+class IndexView(ListView):
     model = Kid_Information
     template_name = 'attendance/base.html'
 
@@ -26,7 +24,6 @@ def index(request):
 
 @require_http_methods(["POST"])
 def add_event(request):
-    # HTTPリクエストの本文からデータを取得する
     data = json.loads(request.body)
     form = EventForm(data)
     
@@ -43,7 +40,7 @@ def add_event(request):
             'event_id': event.id
         }, status=200)
     else:
-        print(form.errors)  # エラーをコンソールに出力
+        print(form.errors)
         return JsonResponse({'errors': form.errors}, status=400)
 
 @csrf_exempt
@@ -73,7 +70,6 @@ def get_events(request):
     except Exception as e:
         logging.error(f"Error fetching events: {str(e)}")
         return JsonResponse({'error': 'Failed to fetch events'}, status=500)
-    
 
 # ロギング設定
 logger = logging.getLogger()  # ルートロガーを取得

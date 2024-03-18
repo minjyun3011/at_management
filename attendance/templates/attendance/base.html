@@ -19,14 +19,12 @@
         <a class="navbar-brand" href="#">2月15日(金) 本日の出席予定</a>
         <div class="navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                {% if user.is_superuser %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'attendance:index' %}">お子さんの予定一覧</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'admin:attendance_attendance_add' %}">情報追加</a>
                 </li>
-                {% endif %}
             </ul>
         </div>
     </nav>
