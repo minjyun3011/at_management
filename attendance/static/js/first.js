@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
     gender: gender,
     start_time: combinedStartDateTime,
     end_time: combinedEndDateTime,
-    calendar_date: calendarDateInput + 'T00:00:00',
+    calendar_date: calendarDateInput,
 }, {
     headers: {
         'X-CSRFToken': getCsrfToken(),
@@ -69,6 +69,6 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .catch(function(error) {
         console.error('Error:', error);
-        alert('イベントの追加に失敗しました');
+        alert("イベントの取得に失敗しました");
     });
 }

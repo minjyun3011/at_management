@@ -2,12 +2,14 @@ import re
 from django import forms
 from .models import Event
 from django.core.exceptions import ValidationError
+import datetime
 
 def is_valid_calendar_date(calendar_date):
-    # カレンダー日付形式の正規表現パターン
+    # calendar_dateを文字列に変換する
+    calendar_date_str = calendar_date.strftime('%Y-%m-%d') if isinstance(calendar_date, datetime.date) else calendar_date
     pattern = r'^\d{4}-\d{2}-\d{2}$'
-    # 正規表現パターンにマッチするかどうかをチェック
-    return re.match(pattern, calendar_date) is not None
+    return re.match(pattern, calendar_date_str) is not None
+
 
 class EventForm(forms.ModelForm):
     class Meta:
