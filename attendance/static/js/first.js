@@ -65,8 +65,16 @@ document.addEventListener('DOMContentLoaded', function() {
 })
     .then(function(response) {
         console.log(response.data);
-        // 成功時の処理
+        // 成功時の処理：カレンダーにイベントを追加
+        calendar.addEvent({
+            id: response.data.event_id, // イベントIDを追加
+            title: fullName, // フルネームをイベントタイトルとして使用
+            start: combinedStartDateTime, // イベントの開始日時
+            end: combinedEndDateTime // イベントの終了日時
+        });
+        calendar.render(); // カレンダーの再描画を強制
     })
+
     .catch(function(error) {
         console.error('Error:', error);
         alert("イベントの取得に失敗しました");

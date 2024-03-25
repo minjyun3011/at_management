@@ -60,5 +60,12 @@ class Event(models.Model):
     def __str__(self):
         # 性別に基づいて接尾語を決定
         suffix = 'くん' if self.gender == 'M' else 'ちゃん'
-        return f"{self.calendar_date}{self.start_time} 〜 {self.end_time} {self.full_name}{suffix}"
+        
+        # start_timeとend_timeから時間部分のみをフォーマット
+        start_time_str = self.start_time.strftime('%H:%M')
+        end_time_str = self.end_time.strftime('%H:%M')
+        
+        # フォーマットされた文字列を返す
+        return f"{self.calendar_date}{start_time_str}〜{end_time_str} {self.full_name}{suffix}"
+
 
