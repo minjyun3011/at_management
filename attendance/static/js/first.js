@@ -6,7 +6,6 @@ function getCsrfToken() {
 
 // FullCalendarインスタンスを格納するための変数をグローバルスコープで宣言
 var calendar;
-
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     calendar = new FullCalendar.Calendar(calendarEl, {
@@ -16,14 +15,12 @@ document.addEventListener('DOMContentLoaded', function() {
         select: function(info) {
             var eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
             eventModal.show();
-
             
             // 選択された日付をYYYY-MM-DDの形式で取得
             var selectedDate = info.startStr.split('T')[0];
 
             // モーダルのカレンダー日付フィールドに値を設定
             document.getElementById('calendar_date').value = selectedDate;
-
         },
 
         events: function (info, successCallback, failureCallback) {

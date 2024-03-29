@@ -42,7 +42,7 @@ def add_event(request):
     else:
         print(form.errors)
         return JsonResponse({'errors': form.errors}, status=400)
-
+    
 @csrf_exempt
 @require_http_methods(["POST"])
 def get_events(request):
