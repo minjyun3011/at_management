@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
+from django.utils.formats import date_format
+
 
 
 # 保護者用画面
@@ -55,17 +57,18 @@ class Event(models.Model):
     end_time = models.DateTimeField()    # イベントの終了時間
     full_name = models.CharField(max_length=100)  # 参加者のフルネーム
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-    calendar_date = models.DateField(null=True)
+    calendar_date = models.DateField(null=True)  # カレンダーの日付、nullを許容
 
     def __str__(self):
         # 性別に基づいて接尾語を決定
         suffix = 'くん' if self.gender == 'M' else 'ちゃん'
-        
+
         # start_timeとend_timeから時間部分のみをフォーマット
-        start_time_str = self.start_time.strftime('%H:%M')
-        end_time_str = self.end_time.strftime('%H:%M')
-        
+        start_time_str = self.start_time.strftime('%H:%M')if self.start_time else "未定"
+        end_time_str = self.end_time.strftime('%H:%M')if self.end_time else "未定"
+
+        # calendar_dateがNoneでない場合のみフォーマットを適用
+        calendar_date_str = date_format(self.calendar_date, "SHORT_DATE_FORMAT") if self.calendar_date else "日付未定"
+
         # フォーマットされた文字列を返す
-        return f"{self.calendar_date}{start_time_str}〜{end_time_str} {self.full_name}{suffix}"
-
-
+        return f"{calendar_date_str} {start_time_str}〜{end_time_str} {self.full_name}{suffix}"

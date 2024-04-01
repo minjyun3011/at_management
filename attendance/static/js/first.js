@@ -48,14 +48,15 @@ document.addEventListener('DOMContentLoaded', function() {
     var calendarDateInput = document.getElementById('calendar_date').value;
 
     // 日付と時間を組み合わせる
-    var combinedStartDateTime = new Date(calendarDateInput + 'T' + startTimeInput).toISOString();
-    var combinedEndDateTime = new Date(calendarDateInput + 'T' + endTimeInput).toISOString();
+    var startDateTime = new Date(calendarDateInput + 'T' + startTimeInput).toISOString();
+    var endDateTime = new Date(calendarDateInput + 'T' + endTimeInput).toISOString();
+
 
     axios.post('/api/add_event/', {
     full_name: fullName,
     gender: gender,
-    start_time: combinedStartDateTime,
-    end_time: combinedEndDateTime,
+    start_time: startDateTime,
+    end_time: endDateTime,
     calendar_date: calendarDateInput,
 }, {
     headers: {
@@ -68,8 +69,9 @@ document.addEventListener('DOMContentLoaded', function() {
         calendar.addEvent({
             id: response.data.event_id, // イベントIDを追加
             title: fullName, // フルネームをイベントタイトルとして使用
-            start: combinedStartDateTime, // イベントの開始日時
-            end: combinedEndDateTime // イベントの終了日時
+            start: startDateTime, // イベントの開始日時
+            end: endDateTime ,// イベントの終了日時
+            calendar_date: calendarDateInput,
         });
         calendar.render(); // カレンダーの再描画を強制
     })

@@ -21,30 +21,36 @@ def index(request):
     get_token(request)
     template = loader.get_template("attendance/base.html")
     return HttpResponse(template.render({}, request))
+
+
 @require_http_methods(["POST"])
 def add_event(request):
     data = json.loads(request.body)
     form = EventForm(data)
-    
+
     if form.is_valid():
         event = form.save(commit=False)
-        # カレンダーの日付を設定
-        event.calendar_date = event.start_time.date().strftime('%Y-%m-%d')
-        event.save()
         
-        # 成功した場合のレスポンス
+        # カレンダーの日付を設定
+        event.calendar_date = event.start_time.date()
+
+        # 保存
+        event.save()
+
+        # 成功時のレスポンス
         return JsonResponse({
             'message': 'Event successfully added',
             'event_id': event.id,
             'start_time': event.start_time.strftime('%H:%M'),  # 開始時間を文字列で返す
             'end_time': event.end_time.strftime('%H:%M'),      # 終了時間を文字列で返す
-            'full_name': event.full_name,                      # フルネームを返す
+            'full_name': event.full_name,
+            'calendar_date': event.calendar_date,  # カレンダーの日付を文字列で返す
         }, status=200)
     else:
-        # バリデーションに失敗した場合の処理
-        print(form.errors)
-        return JsonResponse({'errors': form.errors}, status=400)
-
+        # バリデーションエラーの場合
+        errors = form.errors.get_json_data()
+        return JsonResponse({'errors': errors}, status=400)
+    
 @csrf_exempt
 @require_http_methods(["POST"])
 def get_events(request):
@@ -92,7 +98,3 @@ stream_handler.setFormatter(formatter)
 # ロガーにハンドラーを追加
 logger.addHandler(file_handler)
 logger.addHandler(stream_handler)
-
-# ログハンドラーをクローズ
-file_handler.close()
-stream_handler.close()
