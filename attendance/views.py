@@ -12,6 +12,7 @@ from .models import Kid_Information, Event
 from .forms import EventForm
 from django.middleware.csrf import get_token
 from datetime import datetime
+from django.shortcuts import render, redirect
 
 class IndexView(ListView):
     model = Kid_Information
@@ -78,6 +79,19 @@ def get_events(request):
     except Exception as e:
         logging.error(f"Error fetching events: {str(e)}")
         return JsonResponse({'error': 'Failed to fetch events'}, status=500)
+    
+
+
+def event_add(request):
+    if request.method == 'POST':
+        form = EventForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('attendance:event_add')  # ここでは、フォームの送信後に遷移するページを指定しています。適宜変更してください。
+    else:
+        form = EventForm()
+    return render(request, 'attendance/event_add.html', {'form': form})
+
 
 # ロギング設定
 logger = logging.getLogger()  # ルートロガーを取得
@@ -98,3 +112,5 @@ stream_handler.setFormatter(formatter)
 # ロガーにハンドラーを追加
 logger.addHandler(file_handler)
 logger.addHandler(stream_handler)
+
+
