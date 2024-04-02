@@ -17,14 +17,12 @@ from django.shortcuts import render, redirect
 class IndexView(ListView):
     model = Kid_Information
     template_name = 'attendance/base.html'
+    def index(request):
+        get_token(request)
+        template = loader.get_template("attendance/base.html")
+        return HttpResponse(template.render({}, request))
 
-def index(request):
-    get_token(request)
-    template = loader.get_template("attendance/base.html")
-    return HttpResponse(template.render({}, request))
 
-
-@require_http_methods(["POST"])
 def add_event(request):
     data = json.loads(request.body)
     form = EventForm(data)
@@ -81,13 +79,15 @@ def get_events(request):
         return JsonResponse({'error': 'Failed to fetch events'}, status=500)
     
 
-
 def event_add(request):
     if request.method == 'POST':
         form = EventForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('attendance:event_add')  # ここでは、フォームの送信後に遷移するページを指定しています。適宜変更してください。
+            logger.info('Redirecting to attendance:index')
+            response = redirect('attendance:index')
+            logger.info(f'Redirected to {response.url}')
+            return response
     else:
         form = EventForm()
     return render(request, 'attendance/event_add.html', {'form': form})

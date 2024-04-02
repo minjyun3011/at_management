@@ -129,17 +129,20 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+        },
         'file': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': '/Users/satoso/Python/at_management/project/logs/file.log'
-
+            'filename': 'myapp.log',
         },
     },
     'loggers': {
-        'django': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
+        '': {  # root logger
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
             'propagate': True,
         },
     },
