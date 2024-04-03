@@ -40,3 +40,45 @@ Not Found: /favicon.ico
 Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
 Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
 Not Found: /favicon.ico
+Watching for file changes with StatReloader
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Not Found: /favicon.ico
+Internal Server Error: /event/add/
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/Python/at_management/project/attendance/views.py", line 84, in event_add
+    data = json.loads(request.body)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Not Found: /favicon.ico
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Watching for file changes with StatReloader
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Not Found: /favicon.ico

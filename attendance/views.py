@@ -21,8 +21,19 @@ class IndexView(ListView):
         get_token(request)
         template = loader.get_template("attendance/base.html")
         return HttpResponse(template.render({}, request))
+    
+    def get_queryset(self):
+        # ここで必要な子供の情報を取得
+        return Kid_Information.objects.all()
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # カレンダーに表示するイベントデータを追加
+        context['events'] = Event.objects.all()
+        return context
 
+@csrf_exempt
+@require_http_methods(["POST"])
 def add_event(request):
     data = json.loads(request.body)
     form = EventForm(data)
