@@ -149,3 +149,259 @@ Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
 Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
 Not Found: /favicon.ico
 Form is not valid
+Watching for file changes with StatReloader
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Not Found: /favicon.ico
+Form is not valid
+Form is not valid
+/Users/satoso/Python/at_management/project/attendance/forms.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/forms.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Not Found: /favicon.ico
+Form is not valid
+/Users/satoso/Python/at_management/project/attendance/forms.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/forms.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Not Found: /favicon.ico
+Form is not valid
+/Users/satoso/Python/at_management/project/attendance/forms.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/forms.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Not Found: /favicon.ico
+Form is not valid
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Not Found: /favicon.ico
+Form is not valid
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Watching for file changes with StatReloader
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Not Found: /favicon.ico
+Internal Server Error: /api/add_event/
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/decorators/http.py", line 64, in inner
+    return func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/Python/at_management/project/attendance/views.py", line 41, in add_event
+    if form.is_valid():
+       ^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/forms/forms.py", line 197, in is_valid
+    return self.is_bound and not self.errors
+                                 ^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/forms/forms.py", line 192, in errors
+    self.full_clean()
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/forms/forms.py", line 328, in full_clean
+    self._clean_form()
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/forms/forms.py", line 349, in _clean_form
+    cleaned_data = self.clean()
+                   ^^^^^^^^^^^^
+  File "/Users/satoso/Python/at_management/project/attendance/forms.py", line 35, in clean
+    start_datetime = datetime.datetime.combine(calendar_date, datetime.datetime.strptime(start_time, '%H:%M').time())
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: strptime() argument 1 must be str, not datetime.datetime
+/Users/satoso/Python/at_management/project/attendance/forms.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Watching for file changes with StatReloader
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Not Found: /favicon.ico
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Not Found: /favicon.ico
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Not Found: /favicon.ico
+Internal Server Error: /event/add/
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/Python/at_management/project/attendance/views.py", line 95, in event_add
+    data = json.loads(request.body)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+/Users/satoso/Python/at_management/project/attendance/urls.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Not Found: /favicon.ico
+Internal Server Error: /api/event/add/
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/Python/at_management/project/attendance/views.py", line 95, in event_add
+    data = json.loads(request.body)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+/Users/satoso/Python/at_management/project/attendance/urls.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Not Found: /favicon.ico
+Internal Server Error: /api/event_add/
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/Python/at_management/project/attendance/views.py", line 95, in event_add
+    data = json.loads(request.body)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Not Found: /favicon.ico
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Not Found: /favicon.ico
+Method Not Allowed (GET): /api/event_add/
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Not Found: /favicon.ico
+Method Not Allowed (GET): /api/event_add/
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Not Found: /favicon.ico
+Watching for file changes with StatReloader
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Method Not Allowed (GET): /api/event_add/
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Method Not Allowed (GET): /api/event_add/
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Watching for file changes with StatReloader
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Watching for file changes with StatReloader
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Watching for file changes with StatReloader
+Start time: 2024-03-31T00:00:00+09:00, End time: 2024-05-12T00:00:00+09:00
+Not Found: /favicon.ico

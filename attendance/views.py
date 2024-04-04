@@ -13,6 +13,8 @@ from .forms import EventForm
 from django.middleware.csrf import get_token
 from datetime import datetime
 from django.shortcuts import render, redirect
+from django.urls import reverse
+
 
 class IndexView(ListView):
     model = Kid_Information
@@ -32,7 +34,6 @@ class IndexView(ListView):
         context['events'] = Event.objects.all()
         return context
 
-@csrf_exempt
 @require_http_methods(["POST"])
 def add_event(request):
     data = json.loads(request.body)
@@ -92,22 +93,39 @@ def get_events(request):
 
 def event_add(request):
     if request.method == 'POST':
-        form = EventForm(request.POST)
-        if form.is_valid():
-            form.save()
-            logger.info('Redirecting to attendance:index')
-            # 成功した場合、指定されたURLにリダイレクト
-            return redirect('attendance:index')
+        # AJAXリクエストの場合
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            data = json.loads(request.body)
+            form = EventForm(data)
+            if form.is_valid():
+                event = form.save(commit=False)
+                event.calendar_date = event.start_time.date()
+                event.save()
+                return JsonResponse({
+                    'message': 'Event successfully added',
+                    'event_id': event.id,
+                    'start_time': event.start_time.strftime('%H:%M'),
+                    'end_time': event.end_time.strftime('%H:%M'),
+                    'full_name': event.full_name,
+                    'calendar_date': event.calendar_date,
+                }, status=200)
+            else:
+                # バリデーションエラーの場合
+                errors = form.errors.get_json_data()
+                return JsonResponse({'errors': errors}, status=400)
         else:
-            # バリデーションに失敗した場合、フォームとエラーメッセージを再表示
-            logger.error('Form is not valid')
-            # エラーメッセージを含んだフォームオブジェクトをテンプレートに渡す
-            return render(request, 'attendance/event_add.html', {'form': form})
+            # 通常のPOSTリクエストの場合
+            form = EventForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('attendance:index')
+            else:
+                return render(request, 'attendance/event_add.html', {'form': form})
     else:
-        # GETリクエストの場合、新しいフォームを表示
+        # GETリクエストの場合
         form = EventForm()
-    return render(request, 'attendance/event_add.html', {'form': form})
-
+        return render(request, 'attendance/event_add.html', {'form': form})
+    
 # ロギング設定
 logger = logging.getLogger()  # ルートロガーを取得
 
