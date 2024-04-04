@@ -96,13 +96,17 @@ def event_add(request):
         if form.is_valid():
             form.save()
             logger.info('Redirecting to attendance:index')
-            response = redirect('attendance:index')
-            logger.info(f'Redirected to {response.url}')
-            return response
+            # 成功した場合、指定されたURLにリダイレクト
+            return redirect('attendance:index')
+        else:
+            # バリデーションに失敗した場合、フォームとエラーメッセージを再表示
+            logger.error('Form is not valid')
+            # エラーメッセージを含んだフォームオブジェクトをテンプレートに渡す
+            return render(request, 'attendance/event_add.html', {'form': form})
     else:
+        # GETリクエストの場合、新しいフォームを表示
         form = EventForm()
     return render(request, 'attendance/event_add.html', {'form': form})
-
 
 # ロギング設定
 logger = logging.getLogger()  # ルートロガーを取得
