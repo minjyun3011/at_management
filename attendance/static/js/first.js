@@ -114,8 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(response => response.json())
     .then(data => {
         console.log(data);
-        response = redirect('attendance:index')
-        return response
+        window.location.href = '/';
     })
     .catch(error => console.error('Error:', error));
 }

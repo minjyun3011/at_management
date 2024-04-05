@@ -15,6 +15,7 @@
 </head>
 
 <body>
+    {% block navbar %}
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">2月15日(金) 本日の出席予定</a>
         <div class="navbar-collapse" id="navbarSupportedContent">
@@ -28,9 +29,13 @@
             </ul>
         </div>
     </nav>
+    {% endblock %}
+
+    {% block content %}
     <!-- コンテンツのインクルード -->
     {% include "attendance/kid_information_list.html" %}
     {% include "attendance/calendar.html" %}
+    {% endblock %}
 
 
     <!-- JavaScriptの読み込み -->
