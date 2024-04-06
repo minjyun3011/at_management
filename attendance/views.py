@@ -14,6 +14,8 @@ from django.middleware.csrf import get_token
 from datetime import datetime
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.core.serializers import serialize
+
 
 
 class IndexView(ListView):
@@ -33,6 +35,10 @@ class IndexView(ListView):
         # カレンダーに表示するイベントデータを追加
         context['events'] = Event.objects.all()
         return context
+    
+    def my_view(request):
+        events_json = serialize('json', Event.objects.all())
+        return render(request, 'attendance:index', {'events': events_json})
 
 @require_http_methods(["POST"])
 def add_event(request):

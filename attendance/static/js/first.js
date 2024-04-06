@@ -127,7 +127,16 @@ function submitEvent() {
         return response.json(); // レスポンスをJSONとして解析
     })
     .then(data => {
-        console.log(data); // データをコンソールに出力
+        console.log(data);
+        if (calendar) { // カレンダーが初期化されているか確認
+            calendar.addEvent({
+                title: fullName, // フルネームをイベントタイトルとして使用
+                start: startDateTime,
+                end: endDateTime,
+                // 他の必要なプロパティをここに追加
+            });
+            calendar.render(); // カレンダーを再描画
+        }
         window.location.href = '/'; // メインページにリダイレクト
     })
     .catch(error => console.error('Error:', error)); // エラーがあればコンソールに出力
