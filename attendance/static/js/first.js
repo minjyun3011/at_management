@@ -3,44 +3,47 @@ function getCsrfToken() {
     return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 }
 
-
 // FullCalendarインスタンスを格納するための変数をグローバルスコープで宣言
 var calendar;
+
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
-    calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        selectable: true,
+    if (calendarEl) { // この条件を追加して、calendarElが存在する場合にのみカレンダーを初期化
+        calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            selectable: true,
 
-        select: function(info) {
-            var eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
-            eventModal.show();
-            
-            // 選択された日付をYYYY-MM-DDの形式で取得
-            var selectedDate = info.startStr.split('T')[0];
+            select: function(info) {
+                var eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
+                eventModal.show();
 
-            // モーダルのカレンダー日付フィールドに値を設定
-            document.getElementById('calendar_date').value = selectedDate;
-        },
+                // 選択された日付をYYYY-MM-DDの形式で取得
+                var selectedDate = info.startStr.split('T')[0];
 
-        events: function (info, successCallback, failureCallback) {
-            axios.post("/api/get_events/", {
-                start_time: info.startStr,
-                end_time: info.endStr,
-            })
-            .then(function(response) {
-                successCallback(response.data);
-            })
-            .catch(function(error) {
-                console.error("Event fetching failed:", error);
-                failureCallback(error);
-                alert("イベントの取得に失敗しました");
-            });
-        },
-    });
+                // モーダルのカレンダー日付フィールドに値を設定
+                document.getElementById('calendar_date').value = selectedDate;
+            },
 
-    calendar.render();
-}); function submitEvent() {
+            events: function(info, successCallback, failureCallback) {
+                axios.post("/api/get_events/", {
+                    start_time: info.startStr,
+                    end_time: info.endStr,
+                })
+                .then(function(response) {
+                    successCallback(response.data);
+                })
+                .catch(function(error) {
+                    console.error("Event fetching failed:", error);
+                    failureCallback(error);
+                    alert("イベントの取得に失敗しました");
+                });
+            },
+        });
+
+        calendar.render();
+    }
+});
+function submitEvent() {
     var fullName = document.getElementById('full_name').value;
     var gender = document.getElementById('gender').value;
     var startTimeInput = document.getElementById('start_time').value;
@@ -81,6 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Error:', error);
         alert("イベントの取得に失敗しました");
     });
+
 }function submitForm() {
     // 入力フィールドから値を取得
     var fullName = document.getElementById('full_name').value;
@@ -93,28 +97,39 @@ document.addEventListener('DOMContentLoaded', function() {
     var startDateTime = calendarDate + 'T' + startTime + ":00";
     var endDateTime = calendarDate + 'T' + endTime + ":00";
 
-    // FormDataオブジェクトを作成して、フォームのデータを追加
-    var formData = new FormData();
-    formData.append('full_name', fullName);
-    formData.append('gender', gender);
-    formData.append('start_time', startDateTime);
-    formData.append('end_time', endDateTime);
+    // データをJSON形式でエンコード
+    var jsonData = JSON.stringify({
+        full_name: fullName,
+        gender: gender,
+        calendar_date: calendarDate, // ここに calendar_date を追加
+        start_time: startDateTime,
+        end_time: endDateTime
+    });
 
     // CSRFトークンを取得
     var csrftoken = getCsrfToken();
 
     // fetch APIを使用して非同期リクエストを送信
-    fetch('/api/event_add', {  // 送信先URLを指定
+    fetch('/api/event_add/', { // 送信先URLを指定
         method: 'POST',
-        body: formData,
+        body: jsonData, // JSON形式のデータをbodyに設定
         headers: {
-            "X-CSRFToken": csrftoken
+            "X-CSRFToken": csrftoken,
+            "Content-Type": "application/json",// コンテントタイプをJSONに設定
+            "X-Requested-With": "XMLHttpRequest" 
         },
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        window.location.href = '/';
+    .then(response => {
+        if (!response.ok) {
+            // レスポンスのステータスがOKではない場合、エラーを投げる
+            throw new Error(`Server responded with status ${response.status}`);
+        }
+        return response.json(); // レスポンスをJSONとして解析
     })
-    .catch(error => console.error('Error:', error));
+    .then(data => {
+        console.log(data); // データをコンソールに出力
+        window.location.href = '/'; // メインページにリダイレクト
+    })
+    .catch(error => console.error('Error:', error)); // エラーがあればコンソールに出力
 }
+

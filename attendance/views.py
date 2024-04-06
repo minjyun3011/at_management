@@ -92,15 +92,25 @@ def get_events(request):
     
 
 def event_add(request):
+    print("Request received with method:", request.method)  # リクエストメソッドを出力
     if request.method == 'POST':
+        print("Processing POST request")
         # AJAXリクエストの場合
         if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-            data = json.loads(request.body)
+            print("Detected AJAX POST request")
+            try:
+                data = json.loads(request.body)
+                print("Request body loaded:", data)
+            except json.JSONDecodeError as e:
+                print("Error decoding JSON:", e)
+                return HttpResponse(status=400, content='Invalid JSON')
+
             form = EventForm(data)
             if form.is_valid():
                 event = form.save(commit=False)
                 event.calendar_date = event.start_time.date()
                 event.save()
+                print("Event saved:", event.id)  # 保存されたイベントIDを出力
                 return JsonResponse({
                     'message': 'Event successfully added',
                     'event_id': event.id,
@@ -112,9 +122,10 @@ def event_add(request):
             else:
                 # バリデーションエラーの場合
                 errors = form.errors.get_json_data()
+                print("Form validation errors:", errors)  # バリデーションエラーを出力
                 return JsonResponse({'errors': errors}, status=400)
         else:
-            # 通常のPOSTリクエストの場合
+            print("Detected non-AJAX POST request")
             form = EventForm(request.POST)
             if form.is_valid():
                 form.save()
@@ -123,9 +134,9 @@ def event_add(request):
                 return render(request, 'attendance/event_add.html', {'form': form})
     else:
         # GETリクエストの場合
+        print("Processing GET request")
         form = EventForm()
         return render(request, 'attendance/event_add.html', {'form': form})
-    
 # ロギング設定
 logger = logging.getLogger()  # ルートロガーを取得
 
