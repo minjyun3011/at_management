@@ -5,29 +5,47 @@ function getCsrfToken() {
 
 // FullCalendarインスタンスを格納するための変数をグローバルスコープで宣言
 var calendar;
+// サーバーからイベントデータを取得してカレンダーに表示する関数
+function fetchEvents() {
+    axios.get('/api/get_events') // 修正されたエンドポイント
+        .then(response => {
+            const events = response.data;
+            events.forEach(event => calendar.addEvent(event)); // カレンダーにイベントを追加
+            
+            // 取得したイベントデータをローカルストレージに保存
+            localStorage.setItem('events', JSON.stringify(events));
+        })
+        .catch(error => {
+            console.error('Error fetching events:', error);
+        });
+}
+function saveEventToLocalstorage(eventData) {
+    // ローカルストレージから現在のイベントリストを取得する
+    const existingEvents = JSON.parse(localStorage.getItem('events')) || [];
+    // 新しいイベントデータをリストに追加する
+    existingEvents.push(eventData);
+    // 更新されたリストをローカルストレージに保存する
+    localStorage.setItem('events', JSON.stringify(existingEvents));
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
-    if (calendarEl) { // この条件を追加して、calendarElが存在する場合にのみカレンダーを初期化
+    if (calendarEl) {
         calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
             selectable: true,
-
             select: function(info) {
                 var eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
                 eventModal.show();
-
-                // 選択された日付をYYYY-MM-DDの形式で取得
                 var selectedDate = info.startStr.split('T')[0];
-
-                // モーダルのカレンダー日付フィールドに値を設定
                 document.getElementById('calendar_date').value = selectedDate;
             },
-
             events: function(info, successCallback, failureCallback) {
                 axios.post("/api/get_events/", {
                     start_time: info.startStr,
                     end_time: info.endStr,
+                }, {
+                    headers: { 'X-CSRFToken': getCsrfToken() },
                 })
                 .then(function(response) {
                     successCallback(response.data);
@@ -41,8 +59,23 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         calendar.render();
+        loadOrFetchEvents(); // イベントのロードまたはフェッチを呼び出す
     }
 });
+
+function loadOrFetchEvents() {
+    var storedEvents = JSON.parse(localStorage.getItem('events'));
+    if (storedEvents) {
+        storedEvents.forEach(event => calendar.addEvent({
+            title: event.full_name,
+            start: event.start_time,
+            end: event.end_time,
+            allDay: true
+        }));
+    }
+}
+
+
 function submitEvent() {
     var fullName = document.getElementById('full_name').value;
     var gender = document.getElementById('gender').value;
@@ -86,59 +119,59 @@ function submitEvent() {
     });
 
 }function submitForm() {
-    // 入力フィールドから値を取得
     var fullName = document.getElementById('full_name').value;
     var gender = document.getElementById('gender').value;
     var calendarDate = document.getElementById('calendar_date').value;
     var startTime = document.getElementById('start_time').value;
     var endTime = document.getElementById('end_time').value;
 
-    // 日付と時間を組み合わせてISO 8601形式の文字列を作成
-    var startDateTime = calendarDate + 'T' + startTime + ":00";
-    var endDateTime = calendarDate + 'T' + endTime + ":00";
+    // 日付と時間を組み合わせてISO8601形式に変換
+    var startDateTime = new Date(calendarDate + 'T' + startTime).toISOString();
+    var endDateTime = new Date(calendarDate + 'T' + endTime).toISOString();
 
-    // データをJSON形式でエンコード
     var jsonData = JSON.stringify({
         full_name: fullName,
         gender: gender,
-        calendar_date: calendarDate, // ここに calendar_date を追加
+        calendar_date: calendarDate,
         start_time: startDateTime,
         end_time: endDateTime
     });
 
-    // CSRFトークンを取得
-    var csrftoken = getCsrfToken();
-
-    // fetch APIを使用して非同期リクエストを送信
-    fetch('/api/event_add/', { // 送信先URLを指定
+    fetch('/api/event_add/', {
         method: 'POST',
-        body: jsonData, // JSON形式のデータをbodyに設定
+        body: jsonData,
         headers: {
-            "X-CSRFToken": csrftoken,
-            "Content-Type": "application/json",// コンテントタイプをJSONに設定
-            "X-Requested-With": "XMLHttpRequest" 
+            "X-CSRFToken": getCsrfToken(),
+            "Content-Type": "application/json",
+            "X-Requested-With": "XMLHttpRequest"
         },
     })
     .then(response => {
         if (!response.ok) {
-            // レスポンスのステータスがOKではない場合、エラーを投げる
             throw new Error(`Server responded with status ${response.status}`);
         }
-        return response.json(); // レスポンスをJSONとして解析
+        return response.json();  // サーバーからのレスポンスをJSON形式で解析
     })
     .then(data => {
-        console.log(data);
-        if (calendar) { // カレンダーが初期化されているか確認
+        console.log("Received data from servers:", data);  // サーバーから受け取ったデータをログに記録
+        saveEventToLocalstorage(data);
+
+        // カレンダーが初期化されているかチェックし、イベントを追加
+        if (calendar) {
+            console.log("Calendar is initialized, adding event."); 
             calendar.addEvent({
-                title: fullName, // フルネームをイベントタイトルとして使用
+                title: fullName,
                 start: startDateTime,
                 end: endDateTime,
-                // 他の必要なプロパティをここに追加
+                allDay: true
             });
-            calendar.render(); // カレンダーを再描画
+            console.log("Event added, now rendering the calendar."); 
+            calendar.render();  // カレンダーの再描画
+        } else {
+            console.log("Calendar is not initialized."); 
         }
-        window.location.href = '/'; // メインページにリダイレクト
     })
-    .catch(error => console.error('Error:', error)); // エラーがあればコンソールに出力
+    .catch(error => {
+        console.error("Error in processing the response:", error); 
+    });
 }
-

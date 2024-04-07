@@ -125,6 +125,7 @@ def event_add(request):
                     'full_name': event.full_name,
                     'calendar_date': event.calendar_date,
                 }, status=200)
+                
             else:
                 # バリデーションエラーの場合
                 errors = form.errors.get_json_data()
@@ -143,6 +144,7 @@ def event_add(request):
         print("Processing GET request")
         form = EventForm()
         return render(request, 'attendance/event_add.html', {'form': form})
+    
 # ロギング設定
 logger = logging.getLogger()  # ルートロガーを取得
 
