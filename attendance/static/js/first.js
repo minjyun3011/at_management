@@ -6,26 +6,88 @@ function getCsrfToken() {
 // FullCalendarインスタンスを格納するための変数をグローバルスコープで宣言
 var calendar;
 // サーバーからイベントデータを取得してカレンダーに表示する関数
-function fetchEvents() {
-    axios.get('/api/get_events') // 修正されたエンドポイント
-        .then(response => {
-            const events = response.data;
-            events.forEach(event => calendar.addEvent(event)); // カレンダーにイベントを追加
+// function fetchEvents() {
+//     axios.get('/api/get_events') // 修正されたエンドポイント
+//         .then(response => {
+//             const events = response.data;
+//             events.forEach(event => calendar.addEvent(event)); // カレンダーにイベントを追加
             
-            // 取得したイベントデータをローカルストレージに保存
-            localStorage.setItem('events', JSON.stringify(events));
-        })
-        .catch(error => {
-            console.error('Error fetching events:', error);
-        });
-}
+//             // 取得したイベントデータをローカルストレージに保存
+//             localStorage.setItem('events', JSON.stringify(events));
+//         })
+//         .catch(error => {
+//             console.error('Error fetching events:', error);
+//         });
+// }
 function saveEventToLocalstorage(eventData) {
     // ローカルストレージから現在のイベントリストを取得する
-    const existingEvents = JSON.parse(localStorage.getItem('events')) || [];
+    const eventsJson = localStorage.getItem('events');
+    console.log("Retrieved events from localStorage:", eventsJson); // 取得したデータの生のJSONを表示
+
+    const existingEvents = eventsJson ? JSON.parse(eventsJson) : [];
+    console.log("Parsed existing events:", existingEvents); // 解析後のイベントリストを表示
+
     // 新しいイベントデータをリストに追加する
     existingEvents.push(eventData);
+    console.log("Updated events list with new event:", existingEvents); // 更新後のイベントリストを表示
+
     // 更新されたリストをローカルストレージに保存する
     localStorage.setItem('events', JSON.stringify(existingEvents));
+    console.log("Saved updated events list to localStorage."); // 保存処理が完了したことを表示
+}
+function initializeCalendar() {
+    var calendarEl = document.getElementById('calendar');
+    if (calendarEl) {
+        calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            selectable: true,
+            select: function(info) {
+                var eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
+                eventModal.show();
+                var selectedDate = info.startStr.split('T')[0];
+                document.getElementById('calendar_date').value = selectedDate;
+            },
+            events: function(info, successCallback, failureCallback) {
+                axios.post("/api/get_events/", {
+                    start_time: info.startStr,
+                    end_time: info.endStr,
+                }, {
+                    headers: { 'X-CSRFToken': getCsrfToken() },
+                })
+                .then(function(response) {
+                    successCallback(response.data);
+                })
+                .catch(function(error) {
+                    console.error("Event fetching failed:", error);
+                    failureCallback(error);
+                    alert("イベントの取得に失敗しました");
+                });
+            },
+        });
+
+        calendar.render();
+        // loadOrFetchEvents(); // イベントのロードまたはフェッチを呼び出す
+    }
+}
+
+function saveEventAndRefreshCalendar(eventData) {
+    // カレンダーがすでに初期化されているかを確認
+    if (calendar) {
+        // カレンダーにイベントを追加
+        calendar.addEvent({
+            title: eventData.full_name,
+            start: eventData.start_time,
+            end: eventData.end_time,
+            allDay: true
+        });
+        // 必要に応じて、ここでカレンダーの再初期化や特定の更新処理を行う
+        console.log("Calendar updated with new event.");
+    } else {
+        // 必要に応じてカレンダーを初期化
+        console.log("Initializing calendar...");
+        initializeCalendar(); // この関数はカレンダーを初期化するためのものです
+        // 初期化後、イベントを追加する処理も必要に応じて実装
+    }
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -59,21 +121,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         calendar.render();
-        loadOrFetchEvents(); // イベントのロードまたはフェッチを呼び出す
+        // loadOrFetchEvents(); // イベントのロードまたはフェッチを呼び出す
     }
 });
-
-function loadOrFetchEvents() {
-    var storedEvents = JSON.parse(localStorage.getItem('events'));
-    if (storedEvents) {
-        storedEvents.forEach(event => calendar.addEvent({
-            title: event.full_name,
-            start: event.start_time,
-            end: event.end_time,
-            allDay: true
-        }));
-    }
-}
 
 
 function submitEvent() {
@@ -153,25 +203,25 @@ function submitEvent() {
         return response.json();  // サーバーからのレスポンスをJSON形式で解析
     })
     .then(data => {
-        console.log("Received data from servers:", data);  // サーバーから受け取ったデータをログに記録
-        saveEventToLocalstorage(data);
+    console.log("Received data from servers:", data);
+    saveEventToLocalstorage(data);
 
-        // カレンダーが初期化されているかチェックし、イベントを追加
-        if (calendar) {
-            console.log("Calendar is initialized, adding event."); 
-            calendar.addEvent({
-                title: fullName,
-                start: startDateTime,
-                end: endDateTime,
-                allDay: true
-            });
-            console.log("Event added, now rendering the calendar."); 
-            calendar.render();  // カレンダーの再描画
-        } else {
-            console.log("Calendar is not initialized."); 
-        }
-    })
-    .catch(error => {
-        console.error("Error in processing the response:", error); 
-    });
+    // カレンダーがまだ初期化されていない場合のみ初期化を行う
+    if (!calendar) {
+        console.log("Initializing calendar because it's not yet initialized.");
+        initializeCalendar();
+    }
+
+    // イベントの追加処理（カレンダーが初期化されていることが保証されている）
+    console.log("Calendar is initialized, adding event.");
+    saveEventAndRefreshCalendar(data);
+    console.log("Event added, now rendering the calendar.");
+    calendar.render();
+    
+    // その後にページのリダイレクトを行う
+    window.location.href = '/';
+})
+.catch(error => {
+    console.error("Error in processing the response:", error);
+});
 }
