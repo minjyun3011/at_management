@@ -5,20 +5,7 @@ function getCsrfToken() {
 
 // FullCalendarインスタンスを格納するための変数をグローバルスコープで宣言
 var calendar;
-// サーバーからイベントデータを取得してカレンダーに表示する関数
-// function fetchEvents() {
-//     axios.get('/api/get_events') // 修正されたエンドポイント
-//         .then(response => {
-//             const events = response.data;
-//             events.forEach(event => calendar.addEvent(event)); // カレンダーにイベントを追加
-            
-//             // 取得したイベントデータをローカルストレージに保存
-//             localStorage.setItem('events', JSON.stringify(events));
-//         })
-//         .catch(error => {
-//             console.error('Error fetching events:', error);
-//         });
-// }
+
 function saveEventToLocalstorage(eventData) {
     // ローカルストレージから現在のイベントリストを取得する
     const eventsJson = localStorage.getItem('events');
