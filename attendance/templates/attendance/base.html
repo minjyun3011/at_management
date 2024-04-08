@@ -13,29 +13,6 @@
     <meta name="csrf-token" content="{{ csrf_token }}">
     
 </head>
-
-<!-- <script type="text/javascript">
-    {% if events %}
-    var events = JSON.parse('{{ events|safe }}');
-    {% else %}
-    var events = [];
-    {% endif %}
-    
-    // FullCalendarにイベントを追加する処理
-    document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        if (calendarEl && events.length > 0) {
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                events: events
-            });
-            calendar.render();
-        }
-    });
-</script> -->
-
-
-
 <body>
     {% block navbar %}
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -56,14 +33,46 @@
     {% block content %}
     <!-- コンテンツのインクルード -->
     {% include "attendance/kid_information_list.html" %}
+    <div id='calendar'></div>
     {% include "attendance/calendar.html" %}
     {% endblock %}
+<!-- JavaScriptの読み込み -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js"></script>
+<!-- <script>
+// グローバル変数としてカレンダーインスタンスを宣言
+var calendar;
 
+// ページが完全に読み込まれた後に実行
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar'); // カレンダーを表示する要素の取得
+    if (calendarEl) {
+        calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            // ここに他のカレンダーオプションを配置
+        });
+        calendar.render(); // カレンダーを描画
 
-    <!-- JavaScriptの読み込み -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js"></script>
-    <script src="{% static 'js/first.js' %}"></script>
+        // ローカルストレージからイベントを読み込む関数を呼び出し
+        loadOrFetchEvents();
+    }
+});
+
+// ローカルストレージからイベントデータを取得してカレンダーに追加する関数
+function loadOrFetchEvents() {
+    var storedEvents = JSON.parse(localStorage.getItem('events') || '[]');
+    storedEvents.forEach(function(eventData) {
+        calendar.addEvent({
+            title: eventData.full_name,
+            start: eventData.start_time,
+            end: eventData.end_time,
+            allDay: true
+        });
+    });
+}
+</script> -->
+<script src="{% static 'js/first.js' %}"></script>
+
 </body>
 </html>
