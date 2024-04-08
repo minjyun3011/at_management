@@ -86,7 +86,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 end: endDateTime,
             });
         });
-        
         // カレンダーを描画
         console.log('Rendering calendar...');
         calendar.render();
