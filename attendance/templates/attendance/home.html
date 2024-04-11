@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>出欠管理システム</title>
+    <title>保護者ノーマルページ</title>
     <!-- CSSファイルの読み込み -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.css">
@@ -16,17 +16,11 @@
 <body>
     {% block navbar %}
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">2月15日(金) 本日の出席予定</a>
+        <a class="navbar-brand" href="#">佐藤 壮くん</a>
         <div class="navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'admin:attendance_attendance_add' %}">管理サイト</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'attendance:event_add' %}">情報追加</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'attendance:event_add' %}">印刷</a>
+                    <a class="nav-link" href="{% url 'admin:attendance_attendance_add' %}">個人情報設定</a>
                 </li>
             </ul>
         </div>
