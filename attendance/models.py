@@ -93,7 +93,7 @@ class Attendance_info(models.Model):
 # (職員閲覧用)欠席加算の有無に関するテーブル
 class AbsenceAccrual(models.Model):
     attendance = models.OneToOneField(
-        'Attendance',
+        'Attendance_info',
         on_delete=models.CASCADE,
         verbose_name="出席記録",
         primary_key=True
