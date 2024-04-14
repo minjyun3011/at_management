@@ -1,4 +1,16 @@
-{% extends "attendance/home.html" %}
-{%  block content %}
 
-{%  endblock %}
+{%  block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>本日の利用予定</title>
+</head>
+<body>
+    <h1>12月15日(水) 10:00〜14:00 送迎あり(行き)</h1>
+    <p>{{ attendance.date }}</p>
+    <p>{{ attendance.start_time }}{{ attendance.end_time }}</p>
+    <p>{{ attendance.status }}</p>
+</body>
+</html>
+{%  endblock %} 

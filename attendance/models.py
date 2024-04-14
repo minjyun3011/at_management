@@ -103,7 +103,8 @@ class AbsenceAccrual(models.Model):
     def __str__(self):
         return f'{self.attendance.user.name} - {self.attendance.date} - {"Eligible" if self.accrual_eligible else "Not Eligible"}'
 
-
+####
+    
 
 # 保護者用画面
 class Attendance(models.Model):

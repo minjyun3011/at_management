@@ -20,10 +20,10 @@ from django.core.serializers import serialize
 
 class IndexView(ListView):
     model = Kid_Information
-    template_name = 'attendance/base.html'
+    template_name = 'attendance/home.html'
     def index(request):
         get_token(request)
-        template = loader.get_template("attendance/base.html")
+        template = loader.get_template("attendance/home.html")
         return HttpResponse(template.render({}, request))
     
     def get_queryset(self):
