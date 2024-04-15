@@ -1,22 +1,23 @@
 import re
 import json
 import logging
+from datetime import datetime
 from django import forms
+from .forms import EventForm
+from django.views.generic.edit import FormView
 from django.http import JsonResponse, HttpResponse
 from django.template import loader
-from django.views.decorators.http import require_http_methods
 from django.views.generic import ListView
+from django.views.generic.edit import FormView
+from django.urls import reverse, reverse_lazy  # reverse_lazy を追加
 from django.utils.dateparse import parse_datetime
+from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
+from django.core.serializers import serialize
+from django.shortcuts import render, redirect
+from django.middleware.csrf import get_token
 from .models import Kid_Information, Event
 from .forms import EventForm
-from django.middleware.csrf import get_token
-from datetime import datetime
-from django.shortcuts import render, redirect
-from django.urls import reverse
-from django.core.serializers import serialize
-
-
 
 class IndexView(ListView):
     model = Kid_Information
@@ -97,54 +98,41 @@ def get_events(request):
         return JsonResponse({'error': 'Failed to fetch events'}, status=500)
     
 
-def event_add(request):
-    print("Request received with method:", request.method)  # リクエストメソッドを出力
-    if request.method == 'POST':
-        print("Processing POST request")
-        # AJAXリクエストの場合
-        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-            print("Detected AJAX POST request")
-            try:
-                data = json.loads(request.body)
-                print("Request body loaded:", data)
-            except json.JSONDecodeError as e:
-                print("Error decoding JSON:", e)
-                return HttpResponse(status=400, content='Invalid JSON')
+class EventAddView(FormView):
+    template_name = 'attendance/event_add.html'
+    form_class = EventForm
+    success_url = reverse_lazy('home')  # 成功時のリダイレクト先
 
-            form = EventForm(data)
-            if form.is_valid():
-                event = form.save(commit=False)
-                event.calendar_date = event.start_time.date()
-                event.save()
-                print("Event saved:", event.id)  # 保存されたイベントIDを出力
-                return JsonResponse({
-                    'message': 'Event successfully added',
-                    'event_id': event.id,
-                    'start_time': event.start_time.strftime('%H:%M'),
-                    'end_time': event.end_time.strftime('%H:%M'),
-                    'full_name': event.full_name,
-                    'calendar_date': event.calendar_date,
-                }, status=200)
-                
-            else:
-                # バリデーションエラーの場合
-                errors = form.errors.get_json_data()
-                print("Form validation errors:", errors)  # バリデーションエラーを出力
-                return JsonResponse({'errors': errors}, status=400)
+    def form_valid(self, form):
+        event = form.save(commit=False)  # フォームのデータをまだデータベースには保存しない
+        event.calendar_date = event.start_time.date()  # 開始時間からカレンダー日付を設定
+        event.save()  # データベースに保存
+
+        if self.request.is_ajax():
+            # AJAXリクエストの場合はJSONレスポンスを返す
+            data = {
+                'message': 'Event successfully added',
+                'event_id': event.id,
+                'start_time': event.start_time.strftime('%H:%M'),
+                'end_time': event.end_time.strftime('%H:%M'),
+                'full_name': event.full_name,
+                'calendar_date': event.calendar_date.isoformat(),
+            }
+            return JsonResponse(data, status=200)
         else:
-            print("Detected non-AJAX POST request")
-            form = EventForm(request.POST)
-            if form.is_valid():
-                form.save()
-                return redirect('attendance:index')
-            else:
-                return render(request, 'attendance/event_add.html', {'form': form})
-    else:
-        # GETリクエストの場合
-        print("Processing GET request")
-        form = EventForm()
-        return render(request, 'attendance/event_add.html', {'form': form})
-    
+            # 非AJAXリクエストの場合は指定された成功URLにリダイレクト
+            return super().form_valid(form)
+
+    def form_invalid(self, form):
+        if self.request.is_ajax():
+            # フォームが無効な場合のAJAXリクエスト処理
+            return JsonResponse(form.errors, status=400)
+        else:
+            # フォームが無効な場合の通常のリクエスト処理
+            return super().form_invalid(form)
+        
+####
+
 # ロギング設定
 logger = logging.getLogger()  # ルートロガーを取得
 
