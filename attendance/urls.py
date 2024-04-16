@@ -1,11 +1,14 @@
 from django.urls import path, include
 from . import views
+from .views import HomePageView, Attendance_TodayView
+
 
 app_name = "attendance"
 
 urlpatterns = [
-    path('', views.IndexView.as_view(), name='index'),
-    path('event/add/', views.EventAddView.as_view(), name='event_add'),
-    path('api/add_event/', views.add_event, name='add_event'),
-    path('api/get_events/', views.get_events, name='get_events'),
+    path('', HomePageView.as_view(), name='home'),
+    path('attendance/<int:pk>/', Attendance_TodayView.as_view(), name='attendance-detail'),
+    # path('event/add/', views.EventAddView.as_view(), name='event_add'),
+    # path('api/add_event/', views.add_event, name='add_event'),
+    # path('api/get_events/', views.get_events, name='get_events'),
     ]

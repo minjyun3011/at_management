@@ -1,14 +1,22 @@
 import re
 from django import forms
-from .models import Event
+from .models import Event, User
 from django.core.exceptions import ValidationError
 import datetime
+from .models import Attendance_info
+
 
 def is_valid_calendar_date(calendar_date):
     # calendar_dateを文字列に変換する
     calendar_date_str = calendar_date.strftime('%Y-%m-%d') if isinstance(calendar_date, datetime.date) else calendar_date
     pattern = r'^\d{4}-\d{2}-\d{2}$'
     return re.match(pattern, calendar_date_str) is not None
+
+
+class AttendanceForm(forms.ModelForm):
+    class Meta:
+        model = Attendance_info
+        fields = ['user', 'date', 'start_time', 'end_time', 'status']  # 必要なフィールドに調整してください
 
 class EventForm(forms.ModelForm):
     class Meta:
@@ -28,3 +36,18 @@ class EventForm(forms.ModelForm):
         if not is_valid_calendar_date(calendar_date):
             raise ValidationError('Invalid calendar date format')
         return calendar_date
+
+
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['name', 'birthdate', 'gender', 'recipient_number', 'education_level', 'welfare_exemption']
+        widgets = {
+            'birthdate': forms.DateInput(attrs={'type': 'date'}),
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'recipient_number': forms.TextInput(attrs={'class': 'form-control'}),
+            'gender': forms.Select(attrs={'class': 'form-control'}),
+            'education_level': forms.Select(attrs={'class': 'form-control'}),
+            'welfare_exemption': forms.NumberInput(attrs={'class': 'form-control'}),
+        }
