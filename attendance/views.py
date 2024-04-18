@@ -21,29 +21,42 @@ from django.utils import timezone
 
 
 from django.views.generic.detail import DetailView
-from .models import Attendance_info
+
 
 from .forms import UserForm
 
 from django.urls import path, include
 
+from django.views.generic.edit import CreateView
+from .models import User, Attendance_info
 from django.views.generic import TemplateView
-from .forms import AttendanceForm
 
-
-class HomePageView(TemplateView):
-    template_name = 'attendance/home0.html'
+class HomePageView(CreateView):
+    model = User
     form_class = UserForm
+    template_name = 'attendance/home0.html'
+    success_url = reverse_lazy('attendance:home1')  # home1 へのリダイレクト
 
-class Attendance_TodayView(DetailView):
-    model = Attendance_info
-    template_name = 'attendance/home1.html'  # 詳細表示用のテンプレート
+    # def get_success_url(self):
+    #     # 新しく作成されたユーザーのIDをURLに含める
+    #     return reverse('attendance:attendance-detail', kwargs={'pk': self.object.pk})
+    
+    def form_valid(self, form):
+        # フォームデータが有効であれば保存し、get_success_urlで定義されたURLにリダイレクト
+        return super().form_valid(form)
+    
+class Home1View(TemplateView):
+    template_name = 'attendance/home1.html'
 
-    def get_context_data(self, **kwargs):
-        # ビューのコンテキストに追加のデータを挿入するためのメソッド
-        context = super().get_context_data(**kwargs)
-        context['now'] = timezone.now()  # 現在の時刻データを追加
-        return context
+# class Attendance_TodayView(DetailView):
+#     model = Attendance_info
+#     template_name = 'attendance/home1.html'  # 詳細表示用のテンプレート
+
+#     def get_context_data(self, **kwargs):
+#         # ビューのコンテキストに追加のデータを挿入するためのメソッド
+#         context = super().get_context_data(**kwargs)
+#         context['now'] = timezone.now()  # 現在の時刻データを追加
+#         return context
     
 # @require_http_methods(["POST"])
 # def add_event(request):
