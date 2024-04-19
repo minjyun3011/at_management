@@ -23,7 +23,7 @@ from django.utils import timezone
 from django.views.generic.detail import DetailView
 
 
-from .forms import UserForm
+from .forms import UserForm,  CheckUserForm
 
 from django.urls import path, include
 
@@ -45,6 +45,37 @@ class HomePageView(CreateView):
         # フォームデータが有効であれば保存し、get_success_urlで定義されたURLにリダイレクト
         return super().form_valid(form)
     
+
+
+class CheckUserView(FormView):
+    template_name = 'attendance/home0.html'
+    form_class = CheckUserForm  # 受給者番号をチェックするフォームクラス
+
+    def form_valid(self, form):
+        recipient_number = form.cleaned_data['recipient_number_login']
+        try:
+            user = User.objects.get(recipient_number=recipient_number)
+            attendance_info = Attendance_info.objects.filter(user=user).first()
+            if attendance_info:
+                return redirect('attendance:attendance_detail', pk=attendance_info.pk)
+            else:
+                # 関連する出欠情報がない場合、ユーザー登録画面にリダイレクト
+                return redirect('attendance:register', pk=user.pk)
+        except User.DoesNotExist:
+            form.add_error(None, "この受給者番号のユーザーは存在しません。")
+            return self.form_invalid(form)
+
+class UserRegistrationView(FormView):
+    model = User
+    form_class = UserForm
+    template_name = 'attendance/home0.html'
+    success_url = reverse_lazy('attendance:home')  # 適切なリダイレクト先を設定
+
+    def form_valid(self, form):
+        user = form.save()
+        # 新しくユーザーを登録した後、該当ユーザーの出欠情報画面にリダイレクト
+        return redirect('attendance:attendance_detail', pk=user.pk)
+
 class Home1View(TemplateView):
     template_name = 'attendance/home1.html'
 

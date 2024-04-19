@@ -37,6 +37,18 @@ class EventForm(forms.ModelForm):
             raise ValidationError('Invalid calendar date format')
         return calendar_date
 
+class CheckUserForm(forms.Form):
+    recipient_number = forms.CharField(
+        label="受給者番号",
+        max_length=20,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '受給者番号を入力'})
+    )
+
+    def clean_recipient_number(self):
+        recipient_number = self.cleaned_data.get('recipient_number')
+        if not User.objects.filter(recipient_number=recipient_number).exists():
+            raise forms.ValidationError("この受給者番号は登録されていません。")
+        return recipient_number
 
 
 class UserForm(forms.ModelForm):

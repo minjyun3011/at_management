@@ -6,6 +6,19 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
+<!-- 受給者番号でログインするフォーム -->
+<div class="container mt-3">
+    <h2>受給者番号でログイン</h2>
+    <form method="post" action="{% url 'attendance:check_user' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="recipient_number_login">受給者番号:</label>
+            <input type="text" class="form-control" id="recipient_number_login" name="recipient_number_login" required>
+        </div>
+        <button type="submit" class="btn btn-success">ログイン</button>
+    </form>
+</div>
+
 <div class="container mt-5">
     <h2>利用者の初期登録</h2>
     <form method="post" action="{% url 'attendance:home' %}">

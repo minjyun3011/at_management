@@ -82,6 +82,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+function clearAllEventsFromLocalStorage() {
+    localStorage.removeItem('events');  // 'events' キーに関連するデータを削除
+    console.log("All events data removed from localStorage.");
+}
+
 
 function submitEvent() {
     var fullName = document.getElementById('full_name').value;
