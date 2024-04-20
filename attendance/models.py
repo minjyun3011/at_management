@@ -30,7 +30,7 @@ class User(models.Model):
         default=GenderChoices.OTHER,
         verbose_name="性別"
     )
-    recipient_number = models.CharField(max_length=20, unique=True, verbose_name="受給者番号")
+    recipient_number = models.CharField(max_length=20, unique=True, blank=True, null=True, verbose_name="受給者番号")
     education_level = models.CharField(
         max_length=2,
         choices=EducationLevelChoices.choices,

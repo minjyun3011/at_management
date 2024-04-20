@@ -9,61 +9,64 @@ from django.http import JsonResponse, HttpResponse
 from django.template import loader
 from django.views.generic import ListView
 from django.views.generic.edit import FormView
-from django.urls import reverse, reverse_lazy  # reverse_lazy を追加
+from django.urls import reverse, reverse_lazy
 from django.utils.dateparse import parse_datetime
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 from django.core.serializers import serialize
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.middleware.csrf import get_token
 from .models import Kid_Information, Event
 from django.utils import timezone
 
-
-from django.views.generic.detail import DetailView
-
-
-from .forms import UserForm,  CheckUserForm
+from .forms import UserForm, CheckUserForm
 
 from django.urls import path, include
 
 from django.views.generic.edit import CreateView
 from .models import User, Attendance_info
 from django.views.generic import TemplateView
+from django.contrib import messages 
 
-class HomePageView(CreateView):
-    model = User
-    form_class = UserForm
+class HomePageView(FormView):
     template_name = 'attendance/home0.html'
-    success_url = reverse_lazy('attendance:home1')  # home1 へのリダイレクト
+    form_class = CheckUserForm
 
-    # def get_success_url(self):
-    #     # 新しく作成されたユーザーのIDをURLに含める
-    #     return reverse('attendance:attendance-detail', kwargs={'pk': self.object.pk})
-    
     def form_valid(self, form):
-        # フォームデータが有効であれば保存し、get_success_urlで定義されたURLにリダイレクト
-        return super().form_valid(form)
-    
+        recipient_number = form.cleaned_data['recipient_number']
+        user = get_object_or_404(User, recipient_number=recipient_number)
+        # User が存在する場合
+        return redirect('attendance:home1')  # home1 にリダイレクト
+
+    def form_invalid(self, form):
+        # フォームが無効の場合は、エラーメッセージを表示するために同じページに戻る
+        return super().form_invalid(form)
 
 
 class CheckUserView(FormView):
     template_name = 'attendance/home0.html'
-    form_class = CheckUserForm  # 受給者番号をチェックするフォームクラス
+    form_class = CheckUserForm
 
     def form_valid(self, form):
-        recipient_number = form.cleaned_data['recipient_number_login']
-        try:
-            user = User.objects.get(recipient_number=recipient_number)
+        recipient_number = form.cleaned_data['recipient_number']
+        user = User.objects.filter(recipient_number=recipient_number).first()
+        
+        if user:
             attendance_info = Attendance_info.objects.filter(user=user).first()
             if attendance_info:
-                return redirect('attendance:attendance_detail', pk=attendance_info.pk)
+                # 出欠情報が存在する場合、その詳細ページへリダイレクト
+                return redirect('attendance:home1', pk=attendance_info.pk)
             else:
-                # 関連する出欠情報がない場合、ユーザー登録画面にリダイレクト
+                # 出欠情報がない場合、ユーザーの登録画面にリダイレクト（受給者番号があれば直接遷移）
                 return redirect('attendance:register', pk=user.pk)
-        except User.DoesNotExist:
-            form.add_error(None, "この受給者番号のユーザーは存在しません。")
+        else:
+            # 受給者番号が見つからない場合はエラーをフォームに追加して同じページに留まる
+            messages.error(self.request, "この受給者番号のユーザーは存在しません。")
             return self.form_invalid(form)
+
+    def form_invalid(self, form):
+        # フォームが無効の場合は、エラーメッセージを表示するために同じページに戻る
+        return super().form_invalid(form)
 
 class UserRegistrationView(FormView):
     model = User
@@ -78,6 +81,16 @@ class UserRegistrationView(FormView):
 
 class Home1View(TemplateView):
     template_name = 'attendance/home1.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user_id = self.request.session.get('user_id')  # セッションからユーザーIDを取得
+        if user_id:
+            user = get_object_or_404(User, pk=user_id)
+            context['user'] = user
+            context['attendance_infos'] = Attendance_info.objects.filter(user=user).order_by('-date')
+        return context
+
 
 # class Attendance_TodayView(DetailView):
 #     model = Attendance_info
