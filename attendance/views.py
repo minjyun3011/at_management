@@ -49,35 +49,54 @@ class CheckUserView(FormView):
 
     def form_valid(self, form):
         recipient_number = form.cleaned_data['recipient_number']
-        user = User.objects.filter(recipient_number=recipient_number).first()
+        user = get_object_or_404(User, recipient_number=recipient_number)
+        return redirect('attendance:home1')
+
+
+
+
+    # def form_valid(self, form):
+    #     recipient_number = form.cleaned_data['recipient_number']
+    #     user = User.objects.filter(recipient_number=recipient_number).first()
         
-        if user:
-            attendance_info = Attendance_info.objects.filter(user=user).first()
-            if attendance_info:
-                # 出欠情報が存在する場合、その詳細ページへリダイレクト
-                return redirect('attendance:home1', pk=attendance_info.pk)
-            else:
-                # 出欠情報がない場合、ユーザーの登録画面にリダイレクト（受給者番号があれば直接遷移）
-                return redirect('attendance:register', pk=user.pk)
-        else:
-            # 受給者番号が見つからない場合はエラーをフォームに追加して同じページに留まる
-            messages.error(self.request, "この受給者番号のユーザーは存在しません。")
-            return self.form_invalid(form)
+    #     if user:
+    #         attendance_info = Attendance_info.objects.filter(user=user).first()
+    #         if attendance_info:
+    #             # 出欠情報が存在する場合、その詳細ページへリダイレクト
+    #             return redirect('attendance:home1', pk=attendance_info.pk)
+    #         else:
+    #             # 出欠情報がない場合、ユーザーの登録画面にリダイレクト（受給者番号があれば直接遷移）
+    #             return redirect('attendance:register', pk=user.pk)
+    #     else:
+    #         # 受給者番号が見つからない場合はエラーをフォームに追加して同じページに留まる
+    #         messages.error(self.request, "この受給者番号のユーザーは存在しません。")
+    #         return self.form_invalid(form)
 
-    def form_invalid(self, form):
-        # フォームが無効の場合は、エラーメッセージを表示するために同じページに戻る
-        return super().form_invalid(form)
+    # def form_invalid(self, form):
+    #     # フォームが無効の場合は、エラーメッセージを表示するために同じページに戻る
+    #     return super().form_invalid(form)
 
-class UserRegistrationView(FormView):
+class UserRegistrationView(CreateView):
     model = User
     form_class = UserForm
     template_name = 'attendance/home0.html'
-    success_url = reverse_lazy('attendance:home')  # 適切なリダイレクト先を設定
+    success_url = reverse_lazy('attendance:home1')
 
     def form_valid(self, form):
-        user = form.save()
-        # 新しくユーザーを登録した後、該当ユーザーの出欠情報画面にリダイレクト
-        return redirect('attendance:attendance_detail', pk=user.pk)
+        self.object = form.save()
+        return super().form_valid(form)
+
+
+# class UserRegistrationView(FormView):
+#     model = User
+#     form_class = UserForm
+#     template_name = 'attendance/home0.html'
+#     success_url = reverse_lazy('attendance:home')  # 適切なリダイレクト先を設定
+
+#     def form_valid(self, form):
+#         user = form.save()
+#         # 新しくユーザーを登録した後、該当ユーザーの出欠情報画面にリダイレクト
+#         return redirect('attendance:attendance_detail', pk=user.pk)
 
 class Home1View(TemplateView):
     template_name = 'attendance/home1.html'
