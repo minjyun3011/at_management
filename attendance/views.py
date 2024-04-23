@@ -52,10 +52,17 @@ class CheckUserView(FormView):
         user = User.objects.filter(recipient_number=recipient_number).first()
         
         if user:
+            # ユーザーが見つかった場合、ユーザーに関連する出席情報を検索
             attendance_info = Attendance_info.objects.filter(user=user).first()
-            return redirect('attendance:home1', pk=attendance_info.pk)
+            if attendance_info:
+                # 出席情報が存在する場合はその情報の詳細ページへリダイレクト
+                return redirect('attendance:home1', pk=attendance_info.pk)
+            else:
+                # 出席情報がない場合は適切なエラーメッセージを表示してユーザー登録画面にリダイレクト
+                messages.error(self.request, "出席情報が見つかりませんでした。")
+                return redirect('attendance:user_registration', pk=user.pk)
         else:
-            # 受給者番号が見つからない場合はエラーをフォームに追加して同じページに留まる
+            # ユーザーが見つからない場合はエラーをフォームに追加して同じページに留まる
             messages.error(self.request, "この受給者番号のユーザーは存在しません。")
             return self.form_invalid(form)
 
