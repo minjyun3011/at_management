@@ -19,7 +19,7 @@
 </head>
 
 <body>
-    #一番上のメニューバー
+    <!-- 一番上のメニューバー -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">本日の利用予定 佐藤くん</a>
         <div class="navbar-collapse" id="navbarSupportedContent">
@@ -30,11 +30,11 @@
             </ul>
         </div>
     </nav>
-    #本日の予定の表示
+    <!-- 本日の予定の表示 -->
     {% include "attendance/home2.html" %}
-    #カレンダー表示
+    <!-- カレンダー表示 -->
     <div id='calendar'></div>
-    #イベントモーダル表示
+    <!-- イベントモーダル表示 -->
     {% include "attendance/calendar.html" %}
     <button onclick="clearAllEventsFromLocalStorage()">Clear All Events</button>
 </body>

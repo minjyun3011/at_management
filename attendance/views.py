@@ -60,9 +60,6 @@ class CheckUserView(FormView):
         return super().form_invalid(form)
 
 
-
-    
-
 class UserRegistrationView(CreateView):
     model = User
     form_class = UserForm
@@ -87,43 +84,43 @@ class Home1View(TemplateView):
         return context
 
 
-# class Attendance_TodayView(DetailView):
-#     model = Attendance_info
-#     template_name = 'attendance/home1.html'  # 詳細表示用のテンプレート
+class Attendance_TodayView(TemplateView):
+    model = Attendance_info
+    template_name = 'attendance/home1.html'  # 詳細表示用のテンプレート
 
-#     def get_context_data(self, **kwargs):
-#         # ビューのコンテキストに追加のデータを挿入するためのメソッド
-#         context = super().get_context_data(**kwargs)
-#         context['now'] = timezone.now()  # 現在の時刻データを追加
-#         return context
+    def get_context_data(self, **kwargs):
+        # ビューのコンテキストに追加のデータを挿入するためのメソッド
+        context = super().get_context_data(**kwargs)
+        context['now'] = timezone.now()  # 現在の時刻データを追加
+        return context
     
-# @require_http_methods(["POST"])
-# def add_event(request):
-#     data = json.loads(request.body)
-#     form = EventForm(data)
+@require_http_methods(["POST"])
+def add_event(request):
+    data = json.loads(request.body)
+    form = EventForm(data)
 
-#     if form.is_valid():
-#         event = form.save(commit=False)
+    if form.is_valid():
+        event = form.save(commit=False)
         
-#         # カレンダーの日付を設定
-#         event.calendar_date = event.start_time.date()
+        # カレンダーの日付を設定
+        event.calendar_date = event.start_time.date()
 
-#         # 保存
-#         event.save()
+        # 保存
+        event.save()
 
-#         # 成功時のレスポンス
-#         return JsonResponse({
-#             'message': 'Event successfully added',
-#             'event_id': event.id,
-#             'start_time': event.start_time.strftime('%H:%M'),  # 開始時間を文字列で返す
-#             'end_time': event.end_time.strftime('%H:%M'),      # 終了時間を文字列で返す
-#             'full_name': event.full_name,
-#             'calendar_date': event.calendar_date,  # カレンダーの日付を文字列で返す
-#         }, status=200)
-#     else:
-#         # バリデーションエラーの場合
-#         errors = form.errors.get_json_data()
-#         return JsonResponse({'errors': errors}, status=400)
+        # 成功時のレスポンス
+        return JsonResponse({
+            'message': 'Event successfully added',
+            'event_id': event.id,
+            'start_time': event.start_time.strftime('%H:%M'),  # 開始時間を文字列で返す
+            'end_time': event.end_time.strftime('%H:%M'),      # 終了時間を文字列で返す
+            'full_name': event.full_name,
+            'calendar_date': event.calendar_date,  # カレンダーの日付を文字列で返す
+        }, status=200)
+    else:
+        # バリデーションエラーの場合
+        errors = form.errors.get_json_data()
+        return JsonResponse({'errors': errors}, status=400)
     
 #カレンダー選択後にその日付のイベントデータを取得して表示するために必要な関数
 @csrf_exempt
