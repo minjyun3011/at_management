@@ -26,32 +26,36 @@
                         <input type="time" class="form-control" id="end_time" name="end_time">
                     </div>
                     <!-- 出席状態 -->
+                    <!-- 出席状態の選択 -->
                     <div class="form-group">
-                        <label for="status" class="form-label">出席状態</label>
-                        <select class="form-control" id="status" name="status">
-                            {% for status, description in form.status.field.choices %}
-                                <option value="{{ status }}">{{ description }}</option>
+                        <label for="status">出席状態:</label>
+                        <select id="status" name="status" class="form-control">
+                            {% for code, name in form.fields.status.choices %}
+                            <option value="{{ code }}" {% if form.fields.status.value==code %} selected {% endif %}>{{ name }}</option>
                             {% endfor %}
                         </select>
                     </div>
-                    <!-- 送迎サービス（往路） -->
+
+                    <!-- 送迎サービス（往路）の選択 -->
                     <div class="form-group">
-                        <label for="transportation_to" class="form-label">送迎サービス（往路）</label>
-                        <select class="form-control" id="transportation_to" name="transportation_to">
-                            {% for code, description in form.transportation_to.field.choices %}
-                                <option value="{{ code }}">{{ description }}</option>
+                        <label for="transportation_to">送迎サービス（往路）:</label>
+                        <select id="transportation_to" name="transportation_to" class="form-control">
+                            {% for code, name in form.fields.transportation_to.choices %}
+                            <option value="{{ code }}" {% if form.fields.transportation_to.value==code %} selected {% endif %}>{{ name }}</option>
                             {% endfor %}
                         </select>
                     </div>
-                    <!-- 送迎サービス（復路） -->
+
+                    <!-- 送迎サービス（復路）の選択 -->
                     <div class="form-group">
-                        <label for="transportation_from" class="form-label">送迎サービス（復路）</label>
-                        <select class="form-control" id="transportation_from" name="transportation_from">
-                            {% for code, description in form.transportation_from.field.choices %}
-                                <option value="{{ code }}">{{ description }}</option>
+                        <label for="transportation_from">送迎サービス（復路）:</label>
+                        <select id="transportation_from" name="transportation_from" class="form-control">
+                            {% for code, name in form.fields.transportation_from.choices %}
+                            <option value="{{ code }}" {% if form.fields.transportation_from.value==code %} selected {% endif %}>{{ name }}</option>
                             {% endfor %}
                         </select>
                     </div>
+
                     <!-- 欠席理由 -->
                     <div class="form-group">
                         <label for="absence_reason" class="form-label">欠席理由</label>
