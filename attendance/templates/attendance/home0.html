@@ -21,7 +21,7 @@
 
 <div class="container mt-5">
     <h2>利用者の初期登録</h2>
-    <form method="post" action="{% url 'attendance:home' %}">
+    <form method="post" action="{% url 'attendance:register' %}">
         {% csrf_token %}
         <div class="form-group">
             <label for="name">氏名:</label>

@@ -28,19 +28,8 @@ from .models import User, Attendance_info
 from django.views.generic import TemplateView
 from django.contrib import messages 
 
-class HomePageView(FormView):
+class HomePageView(TemplateView):
     template_name = 'attendance/home0.html'
-    form_class = UserForm
-
-    def form_valid(self, form):
-        recipient_number = form.cleaned_data['recipient_number']
-        user = get_object_or_404(User, recipient_number=recipient_number)
-        print("DEBUG: User retrieved:", user)  # デバッグ出力
-        return redirect('attendance:home1')  # home1 にリダイレクト
-
-    def form_invalid(self, form):
-        # フォームが無効の場合は、エラーメッセージを表示するために同じページに戻る
-        return super().form_invalid(form)
 
 
 class CheckUserView(FormView):
