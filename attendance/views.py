@@ -125,34 +125,30 @@ class Home1View(TemplateView):
 #         errors = form.errors.get_json_data()
 #         return JsonResponse({'errors': errors}, status=400)
     
-# @csrf_exempt
-# @require_http_methods(["POST"])
-# def get_events(request):
-#     try:
-#         data = json.loads(request.body)
-#         start_time_str = data.get("start_time")
-#         end_time_str = data.get("end_time")
-
-#         if not isinstance(start_time_str, str) or not isinstance(end_time_str, str):
-#             return JsonResponse({'error': 'start_time and end_time must be strings'}, status=400)
-
-#         # ログ出力でデータ形式を確認
-#         logging.info(f"Start time: {start_time_str}, End time: {end_time_str}")
-
-#         # パースしてみる（エラーがあればキャッチされる）
-#         start_time = parse_datetime(start_time_str)
-#         end_time = parse_datetime(end_time_str)
-
-#         if start_time is None or end_time is None:
-#             raise ValueError("Invalid date format")
-
-#         # ここにイベントを取得するロジックを追加
-
-#         return JsonResponse({'message': 'Events fetched successfully'})
-#     except Exception as e:
-#         logging.error(f"Error fetching events: {str(e)}")
-#         return JsonResponse({'error': 'Failed to fetch events'}, status=500)
+#カレンダー選択後にその日付のイベントデータを取得して表示するために必要な関数
+@csrf_exempt
+@require_http_methods(["POST"])
+def get_events(request):
+    data = request.POST
+    start_date = data.get('start_time')
+    end_date = data.get('end_time')
     
+    events = Attendance_info.objects.filter(
+        date__range=[start_date, end_date]
+    ).select_related('user')
+
+    events_data = [{
+        'id': event.id,
+        'title': f"{event.user.name} - {event.get_status_display()}",
+        'start': datetime.datetime.combine(event.date, event.start_time).isoformat(),
+        'end': datetime.datetime.combine(event.date, event.end_time).isoformat(),
+        'status': event.get_status_display(),
+        'transportation_to': event.get_transportation_to_display(),
+        'transportation_from': event.get_transportation_from_display(),
+        'absence_reason': event.absence_reason
+    } for event in events]
+
+    return JsonResponse(events_data, safe=False)
 
 # class EventAddView(FormView):
 #     template_name = 'attendance/event_add.html'

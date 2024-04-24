@@ -6,22 +6,22 @@ function getCsrfToken() {
 // FullCalendarインスタンスを格納するための変数をグローバルスコープで宣言
 var calendar;
 
-function saveEventToLocalstorage(eventData) {
-    // ローカルストレージから現在のイベントリストを取得する
-    const eventsJson = localStorage.getItem('events');
-    console.log("Retrieved events from localStorage:", eventsJson); // 取得したデータの生のJSONを表示
+// function saveEventToLocalstorage(eventData) {
+//     // ローカルストレージから現在のイベントリストを取得する
+//     const eventsJson = localStorage.getItem('events');
+//     console.log("Retrieved events from localStorage:", eventsJson); // 取得したデータの生のJSONを表示
 
-    const existingEvents = eventsJson ? JSON.parse(eventsJson) : [];
-    console.log("Parsed existing events:", existingEvents); // 解析後のイベントリストを表示
+//     const existingEvents = eventsJson ? JSON.parse(eventsJson) : [];
+//     console.log("Parsed existing events:", existingEvents); // 解析後のイベントリストを表示
 
-    // 新しいイベントデータをリストに追加する
-    existingEvents.push(eventData);
-    console.log("Updated events list with new event:", existingEvents); // 更新後のイベントリストを表示
+//     // 新しいイベントデータをリストに追加する
+//     existingEvents.push(eventData);
+//     console.log("Updated events list with new event:", existingEvents); // 更新後のイベントリストを表示
 
-    // 更新されたリストをローカルストレージに保存する
-    localStorage.setItem('events', JSON.stringify(existingEvents));
-    console.log("Saved updated events list to localStorage."); // 保存処理が完了したことを表示
-}
+//     // 更新されたリストをローカルストレージに保存する
+//     localStorage.setItem('events', JSON.stringify(existingEvents));
+//     console.log("Saved updated events list to localStorage."); // 保存処理が完了したことを表示
+// }
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM fully loaded and parsed');

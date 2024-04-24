@@ -13521,3 +13521,43 @@ django.urls.exceptions.NoReverseMatch: Reverse for 'register' with no arguments 
 Watching for file changes with StatReloader
 /Users/satoso/Python/at_management/project/attendance/urls.py changed, reloading.
 Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /api/get_events/
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/forms.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/forms.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/forms.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/forms.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/forms.py changed, reloading.
+Watching for file changes with StatReloader

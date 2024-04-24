@@ -2,50 +2,66 @@
 <div id='calendar'></div>
 <!-- Event Modal -->
 <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg"> <!-- モーダルのサイズを大きくする -->
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="eventModalLabel">イベントの詳細</h5>
+                <h5 class="modal-title" id="eventModalLabel">出席情報の入力</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-
             <div class="modal-body">
                 <form id="eventForm">
-                    <div class="row custom-row-flex"> <!-- 上段の行 -->
-                        <div class="full_name"> <!-- フルネーム -->
-                            <label for="full_name" class="form-label">フルネーム</label>
-                            <input type="text" class="form-control" id="full_name" name="full_name">
-                        </div>
-                        <div class="gender"> <!-- 性別 -->
-                            <label for="gender" class="form-label">性別</label>
-                            <select class="form-select" id="gender" name="gender">
-                                <option value="M">男</option>
-                                <option value="F">女</option>
-                            </select>
-                        </div>
+                    <!-- 日付 -->
+                    <div class="form-group">
+                        <label for="calendar_date" class="form-label">日付</label>
+                        <input type="date" class="form-control" id="calendar_date" name="calendar_date">
                     </div>
-                    <div class="row custom-row-flex"> <!-- 下段の行 -->
-                        <div class="calendar_date"> <!-- 日付 -->
-                            <label for="calendar_date" class="form-label">日付</label>
-                            <input type="date" class="form-control" id="calendar_date" name="calendar_date">
-                        </div>
-                        <div class="start_time"> <!-- 開始時間 -->
-                            <label for="start_time" class="form-label">開始時間</label>
-                            <input type="time" class="form-control" id="start_time" name="start_time">
-                        </div>
-                        <div class="end_time"> <!-- 終了時間 -->
-                            <label for="end_time" class="form-label">終了時間</label>
-                            <input type="time" class="form-control" id="end_time" name="end_time">
-                        </div>
+                    <!-- 開始時間 -->
+                    <div class="form-group">
+                        <label for="start_time" class="form-label">開始時間</label>
+                        <input type="time" class="form-control" id="start_time" name="start_time">
+                    </div>
+                    <!-- 終了時間 -->
+                    <div class="form-group">
+                        <label for="end_time" class="form-label">終了時間</label>
+                        <input type="time" class="form-control" id="end_time" name="end_time">
+                    </div>
+                    <!-- 出席状態 -->
+                    <div class="form-group">
+                        <label for="status" class="form-label">出席状態</label>
+                        <select class="form-control" id="status" name="status">
+                            {% for status, description in form.status.field.choices %}
+                                <option value="{{ status }}">{{ description }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <!-- 送迎サービス（往路） -->
+                    <div class="form-group">
+                        <label for="transportation_to" class="form-label">送迎サービス（往路）</label>
+                        <select class="form-control" id="transportation_to" name="transportation_to">
+                            {% for code, description in form.transportation_to.field.choices %}
+                                <option value="{{ code }}">{{ description }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <!-- 送迎サービス（復路） -->
+                    <div class="form-group">
+                        <label for="transportation_from" class="form-label">送迎サービス（復路）</label>
+                        <select class="form-control" id="transportation_from" name="transportation_from">
+                            {% for code, description in form.transportation_from.field.choices %}
+                                <option value="{{ code }}">{{ description }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <!-- 欠席理由 -->
+                    <div class="form-group">
+                        <label for="absence_reason" class="form-label">欠席理由</label>
+                        <textarea class="form-control" id="absence_reason" name="absence_reason" rows="3"></textarea>
                     </div>
                 </form>
             </div>
-
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" onclick="submitEvent()">保存</button>
             </div>
         </div>
     </div>
 </div>
-
-
