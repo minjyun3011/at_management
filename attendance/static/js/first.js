@@ -60,19 +60,19 @@ document.addEventListener('DOMContentLoaded', function() {
         // ローカルストレージからイベントデータを読み込む
         var storedEvents = JSON.parse(localStorage.getItem('events') || '[]');
         console.log('Loaded events from localStorage:', storedEvents);
-        // storedEvents.forEach(function(eventData) {
-        //     var startDateTime = eventData.calendar_date + 'T' + eventData.start_time + ':00';
-        //     var endDateTime = eventData.calendar_date + 'T' + eventData.end_time + ':00';
+        storedEvents.forEach(function(eventData) {
+            var startDateTime = eventData.calendar_date + 'T' + eventData.start_time + ':00';
+            var endDateTime = eventData.calendar_date + 'T' + eventData.end_time + ':00';
 
-        //     console.log('Adding event:', eventData);
-        //     calendar.addEvent({
-        //         title: eventData.full_name,
-        //         gender:gender,
-        //         calendar:eventData.calendar_date,
-        //         start: startDateTime,
-        //         end: endDateTime,
-        //     });
-        // });
+            console.log('Adding event:', eventData);
+            calendar.addEvent({
+                title: eventData.full_name,
+                gender:gender,
+                calendar:eventData.calendar_date,
+                start: startDateTime,
+                end: endDateTime,
+            });
+        });
         // カレンダーを描画
         console.log('Rendering calendar...');
         calendar.render();
