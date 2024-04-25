@@ -25,14 +25,12 @@
                         <label for="end_time" class="form-label">終了時間</label>
                         <input type="time" class="form-control" id="end_time" name="end_time">
                     </div>
-                    <!-- 出席状態 -->
                     <!-- 出席状態の選択 -->
                     <div class="form-group">
                         <label for="status">出席状態:</label>
                         <select id="status" name="status" class="form-control">
-                            {% for code, name in form.fields.status.choices %}
-                            <option value="{{ code }}" {% if form.fields.status.value==code %} selected {% endif %}>{{ name }}</option>
-                            {% endfor %}
+                            <option value="PR">出席</option>
+                            <option value="AB">欠席</option>
                         </select>
                     </div>
 
@@ -40,9 +38,8 @@
                     <div class="form-group">
                         <label for="transportation_to">送迎サービス（往路）:</label>
                         <select id="transportation_to" name="transportation_to" class="form-control">
-                            {% for code, name in form.fields.transportation_to.choices %}
-                            <option value="{{ code }}" {% if form.fields.transportation_to.value==code %} selected {% endif %}>{{ name }}</option>
-                            {% endfor %}
+                            <option value="US">利用</option>
+                            <option value="NU">未利用</option>
                         </select>
                     </div>
 
@@ -50,11 +47,11 @@
                     <div class="form-group">
                         <label for="transportation_from">送迎サービス（復路）:</label>
                         <select id="transportation_from" name="transportation_from" class="form-control">
-                            {% for code, name in form.fields.transportation_from.choices %}
-                            <option value="{{ code }}" {% if form.fields.transportation_from.value==code %} selected {% endif %}>{{ name }}</option>
-                            {% endfor %}
+                            <option value="US">利用</option>
+                            <option value="NU">未利用</option>
                         </select>
                     </div>
+
 
                     <!-- 欠席理由 -->
                     <div class="form-group">

@@ -27,9 +27,9 @@ class AttendanceInfoForm(forms.ModelForm):
             'date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'start_time': forms.TimeInput(attrs={'type': 'time', 'class': 'form-control'}),
             'end_time': forms.TimeInput(attrs={'type': 'time', 'class': 'form-control'}),
-            'status': forms.Select(choices=Attendance_info.AttendanceStatus.choices, attrs={'class': 'form-control'}),
-            'transportation_to': forms.Select(choices=Attendance_info.TransportationService.choices, attrs={'class': 'form-control'}),
-            'transportation_from': forms.Select(choices=Attendance_info.TransportationService.choices, attrs={'class': 'form-control'}),
+            'status': forms.Select(attrs={'class': 'form-control'}),
+            'transportation_to': forms.Select(attrs={'class': 'form-control'}),
+            'transportation_from': forms.Select(attrs={'class': 'form-control'}),
             'absence_reason': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
         }
 
