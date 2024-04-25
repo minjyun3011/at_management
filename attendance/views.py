@@ -27,6 +27,8 @@ from django.views.generic.edit import CreateView
 from .models import User, Attendance_info
 from django.views.generic import TemplateView
 from django.contrib import messages 
+from django.contrib.auth import get_user_model  # この行を追加
+
 
 class HomePageView(TemplateView):
     template_name = 'attendance/home0.html'
@@ -94,24 +96,31 @@ class Attendance_TodayView(TemplateView):
         context['now'] = timezone.now()  # 現在の時刻データを追加
         return context
     
+# ロガーの設定
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 @csrf_exempt
 @require_http_methods(["POST"])
 def add_event(request):
     try:
         data = json.loads(request.body)
-        # クライアントからのリクエストにユーザー情報を追加（例えば、ログインしているユーザーのID）
-        # この例では、ユーザーがログインしていると仮定しています。適宜調整が必要です。
-        data['user'] = request.user.id if hasattr(request.user, 'id') else None
+        logger.debug("Request data: %s", data)
 
         form = AttendanceInfoForm(data)
+        logger.debug("Form valid: %s", form.is_valid())
+        if form.errors:
+            logger.debug("Form errors: %s", form.errors)
+
         if form.is_valid():
             event = form.save(commit=False)
-            event.user = request.user  # ユーザー情報の設定
+            # User インスタンスの取得と割り当てのログ
+            user = get_user_model().objects.get(username=request.user.username)
+            logger.debug("User obtained: %s", user)
+            event.user = user
             event.save()
 
-            # 成功時のデータをクライアントに送信
-            return JsonResponse({
+            response_data = {
                 'message': 'Event successfully added',
                 'eventData': {
                     'id': event.id,
@@ -123,25 +132,18 @@ def add_event(request):
                     'transportation_from': event.get_transportation_from_display(),
                     'absence_reason': event.absence_reason or "N/A",
                 }
-            }, status=200)
+            }
+            logger.debug("Event added: %s", response_data)
+            return JsonResponse(response_data, status=200)
         else:
-            # バリデーションエラーの場合、エラー情報を返す
             return JsonResponse({'errors': form.errors}, status=400)
+
     except Exception as e:
-        # 例外が発生した場合、エラーログを記録し、クライアントにはエラーメッセージを返す
-        import logging
-        logger = logging.getLogger(__name__)
         logger.error("Failed to add event: %s", str(e))
         return JsonResponse({'error': 'Internal Server Error', 'message': str(e)}, status=500)
-    
+
+
 #カレンダー選択後にその日付の元々のイベントデータを取得して入力欄に表示しておくために必要な関数
-import json
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_http_methods
-from .models import Attendance_info
-
-
 @csrf_exempt
 @require_http_methods(["POST"])
 def get_events(request):

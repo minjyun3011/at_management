@@ -16660,3 +16660,54 @@ Watching for file changes with StatReloader
 Not Found: /favicon.ico
 Failed to add event: Cannot assign "<SimpleLazyObject: <User: so>>": "Attendance_info.user" must be a "User" instance.
 Internal Server Error: /api/add_event/
+Watching for file changes with StatReloader
+Failed to add event: Cannot assign "<SimpleLazyObject: <User: so>>": "Attendance_info.user" must be a "User" instance.
+Internal Server Error: /api/add_event/
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Failed to add event: name 'get_user_model' is not defined
+Internal Server Error: /api/add_event/
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Failed to add event: Cannot assign "<User: so>": "Attendance_info.user" must be a "User" instance.
+Internal Server Error: /api/add_event/
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Internal Server Error: /api/add_event/
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Failed to add event: Cannot assign "<User: so>": "Attendance_info.user" must be a "User" instance.
+Internal Server Error: /api/add_event/
