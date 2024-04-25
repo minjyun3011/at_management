@@ -94,58 +94,95 @@ class Attendance_TodayView(TemplateView):
         context['now'] = timezone.now()  # 現在の時刻データを追加
         return context
     
+
 @csrf_exempt
 @require_http_methods(["POST"])
 def add_event(request):
-    data = json.loads(request.body)
-    form = AttendanceInfoForm(data)
+    try:
+        data = json.loads(request.body)
+        # クライアントからのリクエストにユーザー情報を追加（例えば、ログインしているユーザーのID）
+        # この例では、ユーザーがログインしていると仮定しています。適宜調整が必要です。
+        data['user'] = request.user.id if hasattr(request.user, 'id') else None
 
-    if form.is_valid():
-        event = form.save()
-        # 成功時のデータをクライアントに送信
-        return JsonResponse({
-            'message': 'Event successfully added',
-            'eventData': {
-                'id': event.id,
-                'title': f"{event.status} - {event.date}",
-                'start': datetime.datetime.combine(event.date, event.start_time).isoformat(),
-                'end': datetime.datetime.combine(event.date, event.end_time).isoformat(),
-                'status': event.get_status_display(),
-                'transportation_to': event.get_transportation_to_display(),
-                'transportation_from': event.get_transportation_from_display(),
-                'absence_reason': event.absence_reason or "N/A",
-            }
-        }, status=200)
-    else:
-        # バリデーションエラーの場合
-        return JsonResponse({'errors': form.errors}, status=400)
+        form = AttendanceInfoForm(data)
+        if form.is_valid():
+            event = form.save(commit=False)
+            event.user = request.user  # ユーザー情報の設定
+            event.save()
 
+            # 成功時のデータをクライアントに送信
+            return JsonResponse({
+                'message': 'Event successfully added',
+                'eventData': {
+                    'id': event.id,
+                    'title': f"{event.status} - {event.calendar_date}",
+                    'start': datetime.datetime.combine(event.calendar_date, event.start_time).isoformat(),
+                    'end': datetime.datetime.combine(event.calendar_date, event.end_time).isoformat(),
+                    'status': event.get_status_display(),
+                    'transportation_to': event.get_transportation_to_display(),
+                    'transportation_from': event.get_transportation_from_display(),
+                    'absence_reason': event.absence_reason or "N/A",
+                }
+            }, status=200)
+        else:
+            # バリデーションエラーの場合、エラー情報を返す
+            return JsonResponse({'errors': form.errors}, status=400)
+    except Exception as e:
+        # 例外が発生した場合、エラーログを記録し、クライアントにはエラーメッセージを返す
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.error("Failed to add event: %s", str(e))
+        return JsonResponse({'error': 'Internal Server Error', 'message': str(e)}, status=500)
     
-#カレンダー選択後にその日付のイベントデータを取得して表示するために必要な関数
+#カレンダー選択後にその日付の元々のイベントデータを取得して入力欄に表示しておくために必要な関数
+import json
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
+from .models import Attendance_info
+
+
 @csrf_exempt
 @require_http_methods(["POST"])
 def get_events(request):
-    data = request.POST
-    start_date = data.get('start_time')
-    end_date = data.get('end_time')
+    try:
+        calendar_data = json.loads(request.body)
+        start_date_str = calendar_data.get('start_time')
+        end_date_str = calendar_data.get('end_time')
+
+        # 文字列からdatetimeオブジェクトに変換
+        start_date = parse_datetime(start_date_str)
+        end_date = parse_datetime(end_date_str)
+
+        if not (start_date and end_date):
+            return JsonResponse({'error': 'Invalid date format'}, status=400)
+
+        # datetimeオブジェクトの日付部分だけを取得
+        start_date = start_date.date()
+        end_date = end_date.date()
+
+        events = Attendance_info.objects.filter(
+            calendar_date__range=[start_date, end_date]
+        ).select_related('user')
+
+        events_data = [{
+            'calendar_date': event.calendar_date.strftime('%Y-%m-%d'),
+            'start': event.start_time.strftime('%H:%M'),
+            'end': event.end_time.strftime('%H:%M'),
+            'status': event.status,
+            'transportation_to': event.transportation_to,
+            'transportation_from': event.transportation_from,
+            'absence_reason': event.absence_reason
+        } for event in events]
+
+        return JsonResponse(events_data, safe=False)
+    except Exception as e:
+        # エラー内容をログに記録
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.error("Error fetching events: %s", str(e))
+        return JsonResponse({'error': 'Internal Server Error', 'message': str(e)}, status=500)
     
-    events = Attendance_info.objects.filter(
-        date__range=[start_date, end_date]
-    ).select_related('user')
-
-    events_data = [{
-        'id': event.id,
-        'title': f"{event.user.name} - {event.get_status_display()}",
-        'start': datetime.datetime.combine(event.date, event.start_time).isoformat(),
-        'end': datetime.datetime.combine(event.date, event.end_time).isoformat(),
-        'status': event.get_status_display(),
-        'transportation_to': event.get_transportation_to_display(),
-        'transportation_from': event.get_transportation_from_display(),
-        'absence_reason': event.absence_reason
-    } for event in events]
-
-    return JsonResponse(events_data, safe=False)
-
 # class EventAddView(FormView):
 #     template_name = 'attendance/event_add.html'
 #     form_class = EventForm

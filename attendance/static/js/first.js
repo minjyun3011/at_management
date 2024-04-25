@@ -61,17 +61,19 @@ document.addEventListener('DOMContentLoaded', function() {
         var storedEvents = JSON.parse(localStorage.getItem('events') || '[]');
         console.log('Loaded events from localStorage:', storedEvents);
         storedEvents.forEach(function(eventData) {
-            var startDateTime = eventData.calendar_date + 'T' + eventData.start_time + ':00';
-            var endDateTime = eventData.calendar_date + 'T' + eventData.end_time + ':00';
+        var startDateTime = eventData.date + 'T' + eventData.start_time + ':00';
+        var endDateTime = eventData.date + 'T' + eventData.end_time + ':00';
 
-            console.log('Adding event:', eventData);
-            calendar.addEvent({
-                title: eventData.full_name,
-                gender:gender,
-                calendar:eventData.calendar_date,
-                start: startDateTime,
-                end: endDateTime,
-            });
+        console.log('Adding event:', eventData);
+        calendar.addEvent({
+            title: eventData.title, // 'full_name' が正しくない場合は 'title' に変更
+            start: startDateTime,
+            end: endDateTime,
+            status: eventData.status, // 出席状態を表示
+            transportation_to: eventData.transportation_to, // 送迎サービス（往路）
+            transportation_from: eventData.transportation_from, // 送迎サービス（復路）
+            absence_reason: eventData.absence_reason // 欠席理由
+        });
         });
         // カレンダーを描画
         console.log('Rendering calendar...');
@@ -102,7 +104,7 @@ function submitEvent() {
     var endDateTime = new Date(dateInput + 'T' + endTimeInput).toISOString();
 
     axios.post('/api/add_event/', {
-        date: dateInput,
+        calendar_date: dateInput,
         start_time: startTimeInput,
         end_time: endTimeInput,
         status: statusInput,
@@ -119,7 +121,6 @@ function submitEvent() {
         saveEventToLocalstorage(response.data);
         calendar.addEvent({
             id: response.data.event_id, // イベントIDを追加
-            title: response.data.title, // イベントタイトルとして使用
             start: startDateTime, // イベントの開始日時
             end: endDateTime, // イベントの終了日時
             status: statusInput, // 出席状態

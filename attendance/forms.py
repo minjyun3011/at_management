@@ -22,9 +22,9 @@ class UserForm(forms.ModelForm):
 class AttendanceInfoForm(forms.ModelForm):
     class Meta:
         model = Attendance_info
-        fields = ['date', 'start_time', 'end_time', 'status', 'transportation_to', 'transportation_from', 'absence_reason']
+        fields = ['calendar_date', 'start_time', 'end_time', 'status', 'transportation_to', 'transportation_from', 'absence_reason']
         widgets = {
-            'date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'calendar_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'start_time': forms.TimeInput(attrs={'type': 'time', 'class': 'form-control'}),
             'end_time': forms.TimeInput(attrs={'type': 'time', 'class': 'form-control'}),
             'status': forms.Select(attrs={'class': 'form-control'}),
@@ -33,8 +33,8 @@ class AttendanceInfoForm(forms.ModelForm):
             'absence_reason': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
         }
 
-    def clean_date(self):
-        date = self.cleaned_data.get('date')
+    def clean_calendar_date(self):
+        date = self.cleaned_data.get('calendar_date')
         # ここで日付の形式や論理を検証する
         if not date:  # 日付が正しくない場合
             raise ValidationError('Invalid date format')
@@ -47,6 +47,7 @@ class AttendanceInfoForm(forms.ModelForm):
         if start_time and end_time and end_time <= start_time:
             raise ValidationError('End time must be after start time.')
         return cleaned_data
+    
 def is_valid_calendar_date(calendar_date):
     # calendar_dateを文字列に変換する
     calendar_date_str = calendar_date.strftime('%Y-%m-%d') if isinstance(calendar_date, datetime.date) else calendar_date

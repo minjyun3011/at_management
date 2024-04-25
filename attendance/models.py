@@ -59,7 +59,7 @@ class Attendance_info(models.Model):
         NOT_USED = 'NU', '未利用'
 
     user = models.ForeignKey('User', on_delete=models.CASCADE, verbose_name="利用者")
-    date = models.DateField(verbose_name="日付")
+    calendar_date = models.DateField(verbose_name="日付")
     start_time = models.TimeField(verbose_name="開始時間")
     end_time = models.TimeField(verbose_name="終了時間")
     status = models.CharField(
@@ -84,10 +84,10 @@ class Attendance_info(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name="更新日時")
 
     class Meta:
-        unique_together = ('user', 'date')  # 利用者と日付の組み合わせはユニーク
+        unique_together = ('user', 'calendar_date')  # 利用者と日付の組み合わせはユニーク
 
     def __str__(self):
-        return f'{self.user.name} - {self.date} - {self.get_status_display()}'
+        return f'{self.user.name} - {self.calendar_date} - {self.get_status_display()}'
 
 
 # (職員閲覧用)欠席加算の有無に関するテーブル
