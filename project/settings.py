@@ -126,27 +126,28 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
+    'version': 1,  # ロギング設定のバージョンを指定
+    'disable_existing_loggers': False,  # 既存のロガーを無効化しない
     'handlers': {
         'console': {
-            'level': 'INFO',
-            'class': 'logging.StreamHandler',
+            'level': 'INFO',  # コンソールへの出力レベルをINFOに設定
+            'class': 'logging.StreamHandler',  # 標準出力にログを送る
         },
         'file': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': 'myapp.log',
+            'level': 'INFO',  # ファイルへの出力レベルもINFOに設定
+            'class': 'logging.FileHandler',  # ファイルにログを書き出す
+            'filename': 'myapp.log',  # ログファイルの名前
         },
     },
     'loggers': {
-        '': {  # root logger
-            'handlers': ['console', 'file'],
-            'level': 'INFO',
-            'propagate': True,
+        '': {  # root loggerを設定
+            'handlers': ['console', 'file'],  # コンソールとファイルのハンドラーを追加
+            'level': 'INFO',  # ロガーのレベルをINFOに設定
+            'propagate': True,  # ロガーの伝播を許可
         },
     },
 }
+
 
 STATIC_URL = '/static/'
 
@@ -156,3 +157,7 @@ STATICFILES_DIRS = [
 
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]

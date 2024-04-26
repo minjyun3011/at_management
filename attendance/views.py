@@ -28,7 +28,8 @@ from .models import User, Attendance_info
 from django.views.generic import TemplateView
 from django.contrib import messages 
 from django.contrib.auth import get_user_model  # この行を追加
-
+from django.contrib.auth import login, authenticate
+logger = logging.getLogger(__name__)
 
 class HomePageView(TemplateView):
     template_name = 'attendance/home0.html'
@@ -62,27 +63,52 @@ class CheckUserView(FormView):
         return super().form_invalid(form)
 
 
+
 class UserRegistrationView(CreateView):
     model = User
     form_class = UserForm
     template_name = 'attendance/home0.html'
-    success_url = reverse_lazy('attendance:home1')
+    success_url = reverse_lazy('attendance:home1')  # デフォルトのリダイレクト先
+
+    def get_success_url(self):
+        if hasattr(self, 'is_existing_user') and self.is_existing_user:
+            # 既存のユーザーの場合のリダイレクト先
+            return reverse_lazy('some_other_view')
+        else:
+            # 新規ユーザーの場合のリダイレクト先
+            return super().get_success_url()
 
     def form_valid(self, form):
-        self.object = form.save()
-        return super().form_valid(form)
-
+        recipient_number = form.cleaned_data.get('recipient_number')
+        print("Checking for existing user with recipient number:", recipient_number)
+        existing_user = User.objects.filter(recipient_number=recipient_number).first()
+        if existing_user:
+            print("User exists, trying to authenticate")
+            user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+            if user is not None:
+                print("Authentication successful, logging in user")
+                login(self.request, user)
+                self.is_existing_user = True  # フラグを設定して既存のユーザーであることを記録
+                return redirect(self.get_success_url())
+            else:
+                print("Authentication failed, adding error to form")
+                form.add_error(None, 'Invalid login details.')
+                return self.form_invalid(form)
+        else:
+            print("No existing user, creating new user")
+            self.object = form.save()
+            login(self.request, self.object)  # Register and login the user
+            self.is_existing_user = False  # フラグを設定して新規ユーザーであることを記録
+            return redirect(self.get_success_url())
 
 class Home1View(TemplateView):
     template_name = 'attendance/home1.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user_id = self.request.session.get('user_id')  # セッションからユーザーIDを取得
-        if user_id:
-            user = get_object_or_404(User, pk=user_id)
-            context['user'] = user
-            context['attendance_infos'] = Attendance_info.objects.filter(user=user).order_by('-date')
+        user = self.request.user
+        if user.is_authenticated:
+            context['attendance_infos'] = Attendance_info.objects.filter(user=user).order_by('-calendar_date')
         return context
 
 
@@ -99,7 +125,6 @@ class Attendance_TodayView(TemplateView):
 # ロガーの設定
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
-
 @csrf_exempt
 @require_http_methods(["POST"])
 def add_event(request):
@@ -107,18 +132,16 @@ def add_event(request):
         data = json.loads(request.body)
         logger.debug("Request data: %s", data)
 
+        # フォームのデータにユーザー名を追加
+        data['user'] = request.user.username
+
         form = AttendanceInfoForm(data)
         logger.debug("Form valid: %s", form.is_valid())
         if form.errors:
             logger.debug("Form errors: %s", form.errors)
 
         if form.is_valid():
-            event = form.save(commit=False)
-            # User インスタンスの取得と割り当てのログ
-            user = get_user_model().objects.get(username=request.user.username)
-            logger.debug("User obtained: %s", user)
-            event.user = user
-            event.save()
+            event = form.save()
 
             response_data = {
                 'message': 'Event successfully added',
