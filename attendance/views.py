@@ -34,7 +34,7 @@ logger = logging.getLogger(__name__)
 class HomePageView(TemplateView):
     template_name = 'attendance/home0.html'
 
-
+# 受給者番号の入力でログインするパターン（２回目以降）
 class CheckUserView(FormView):
     template_name = 'attendance/home0.html'
     form_class = CheckUserForm
@@ -42,17 +42,12 @@ class CheckUserView(FormView):
     def form_valid(self, form):
         recipient_number = form.cleaned_data['recipient_number']
         user = User.objects.filter(recipient_number=recipient_number).first()
-        
+
         if user:
             # ユーザーが見つかった場合、ユーザーに関連する出席情報を検索
             attendance_info = Attendance_info.objects.filter(user=user).first()
-            if attendance_info:
-                # 出席情報が存在する場合はその情報の詳細ページへリダイレクト
-                return redirect('attendance:home1', pk=attendance_info.pk)
-            else:
-                # 出席情報がない場合は適切なエラーメッセージを表示してユーザー登録画面にリダイレクト
-                messages.error(self.request, "出席情報が見つかりませんでした。")
-                return redirect('attendance:user_registration', pk=user.pk)
+            # 出席情報の有無にかかわらず、ユーザー専用の詳細ページへリダイレクト
+            return redirect('attendance:home1', pk=user.pk)
         else:
             # ユーザーが見つからない場合はエラーをフォームに追加して同じページに留まる
             messages.error(self.request, "この受給者番号のユーザーは存在しません。")
