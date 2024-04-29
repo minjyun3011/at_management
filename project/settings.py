@@ -130,19 +130,19 @@ LOGGING = {
     'disable_existing_loggers': False,  # 既存のロガーを無効化しない
     'handlers': {
         'console': {
-            'level': 'INFO',  # コンソールへの出力レベルをINFOに設定
+            'level': 'DEBUG',  # コンソールへの出力レベルをINFOに設定
             'class': 'logging.StreamHandler',  # 標準出力にログを送る
         },
         'file': {
-            'level': 'INFO',  # ファイルへの出力レベルもINFOに設定
+            'level': 'DEBUG',  # ファイルへの出力レベルもINFOに設定
             'class': 'logging.FileHandler',  # ファイルにログを書き出す
-            'filename': 'myapp.log',  # ログファイルの名前
+            'filename': os.path.join(BASE_DIR, 'file.log'),
         },
     },
     'loggers': {
         '': {  # root loggerを設定
             'handlers': ['console', 'file'],  # コンソールとファイルのハンドラーを追加
-            'level': 'INFO',  # ロガーのレベルをINFOに設定
+            'level': 'DEBUG',  # ロガーのレベルをINFOに設定
             'propagate': True,  # ロガーの伝播を許可
         },
     },

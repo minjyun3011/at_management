@@ -35,67 +35,62 @@ class HomePageView(TemplateView):
     template_name = 'attendance/home0.html'
 
 # 受給者番号の入力でログインするパターン（２回目以降）
+
 class CheckUserView(FormView):
     template_name = 'attendance/home0.html'
     form_class = CheckUserForm
 
     def form_valid(self, form):
         recipient_number = form.cleaned_data['recipient_number']
+        logger.debug(f"Checking for user with recipient number: {recipient_number}")
         user = User.objects.filter(recipient_number=recipient_number).first()
 
         if user:
-            # ユーザーが見つかった場合、ユーザーに関連する出席情報を検索
-            attendance_info = Attendance_info.objects.filter(user=user).first()
-            # 出席情報の有無にかかわらず、ユーザー専用の詳細ページへリダイレクト
-            return redirect('attendance:home1', pk=user.pk)
+            logger.debug(f"User found: {user.pk}")
+            self.request.session.modified = True
+            # ユーザーIDをセッションに保存
+            self.request.session['user_id'] = user.pk
+            # ユーザー専用の詳細ページへリダイレクト
+            logger.debug("Redirecting to user-specific detail page")
+            return redirect(reverse('attendance:home1'))
         else:
             # ユーザーが見つからない場合はエラーをフォームに追加して同じページに留まる
+            logger.debug("User not found, adding error to form")
             messages.error(self.request, "この受給者番号のユーザーは存在しません。")
             return self.form_invalid(form)
 
     def form_invalid(self, form):
-        # フォームが無効の場合は、エラーメッセージを表示するために同じページに戻る
+        # フォームが無効の場合は、エラーメッセージを設定して同じページに戻る
+        logger.debug(f"Form invalid, errors: {form.errors}")
+        form.add_error(None, 'エラーメッセージをここに追加してください')
         return super().form_invalid(form)
-
 
 
 class UserRegistrationView(CreateView):
     model = User
     form_class = UserForm
     template_name = 'attendance/home0.html'
-    success_url = reverse_lazy('attendance:home1')  # デフォルトのリダイレクト先
-
-    def get_success_url(self):
-        if hasattr(self, 'is_existing_user') and self.is_existing_user:
-            # 既存のユーザーの場合のリダイレクト先
-            return reverse_lazy('some_other_view')
-        else:
-            # 新規ユーザーの場合のリダイレクト先
-            return super().get_success_url()
+    success_url = reverse_lazy('attendance:home1')
 
     def form_valid(self, form):
         recipient_number = form.cleaned_data.get('recipient_number')
-        print("Checking for existing user with recipient number:", recipient_number)
-        existing_user = User.objects.filter(recipient_number=recipient_number).first()
-        if existing_user:
-            print("User exists, trying to authenticate")
-            user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
-            if user is not None:
-                print("Authentication successful, logging in user")
-                login(self.request, user)
-                self.is_existing_user = True  # フラグを設定して既存のユーザーであることを記録
-                return redirect(self.get_success_url())
-            else:
-                print("Authentication failed, adding error to form")
-                form.add_error(None, 'Invalid login details.')
-                return self.form_invalid(form)
+        if User.objects.filter(recipient_number=recipient_number).exists():
+            logger.debug("User with this recipient number already exists.")
+            form.add_error(None, 'この受給者番号のユーザーは既に存在しています。')
+            return self.form_invalid(form)
         else:
-            print("No existing user, creating new user")
+            logger.debug("No existing user, creating new user")
             self.object = form.save()
-            login(self.request, self.object)  # Register and login the user
-            self.is_existing_user = False  # フラグを設定して新規ユーザーであることを記録
+            logger.debug(f"New user {self.object.name} created and saved.")
+            login(self.request, self.object)
             return redirect(self.get_success_url())
 
+    def form_invalid(self, form):
+        # Form invalidのログを記録
+        logger.debug(f"Form invalid, errors: {form.errors}")
+        return super().form_invalid(form)
+
+#まだ未完成(4月28日時点）
 class Home1View(TemplateView):
     template_name = 'attendance/home1.html'
 
