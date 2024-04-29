@@ -82,7 +82,6 @@ class UserRegistrationView(CreateView):
             logger.debug("No existing user, creating new user")
             self.object = form.save()
             logger.debug(f"New user {self.object.name} created and saved.")
-            login(self.request, self.object)
             return redirect(self.get_success_url())
 
     def form_invalid(self, form):
@@ -98,7 +97,7 @@ class Home1View(TemplateView):
         context = super().get_context_data(**kwargs)
         user = self.request.user
         if user.is_authenticated:
-            context['attendance_infos'] = Attendance_info.objects.filter(user=user).order_by('-calendar_date')
+            context['attendance_infos'] = User.objects.filter(user=user).order_by('-calendar_date')
         return context
 
 

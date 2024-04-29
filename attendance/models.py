@@ -3,6 +3,8 @@ from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.formats import date_format
 import datetime
+from django.contrib.auth.models import AbstractUser
+
 
 # 利用者の個人情報テーブル
 class User(models.Model):

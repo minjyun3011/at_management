@@ -1,75 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>利用者の初期登録</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
+
 <body>
-<!-- 受給者番号でログインするフォーム -->
-<div class="container mt-3">
-    <h2>受給者番号でログイン</h2>
-    <form method="post" action="{% url 'attendance:check_user' %}">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="recipient_number">受給者番号:</label>
-            <input type="text" class="form-control" id="recipient_number" name="recipient_number" required>
-        </div>
-        <button type="submit" class="btn btn-success">ログイン</button>
-    </form>
-</div>
+    <!-- 受給者番号でログインするフォーム -->
+    <div class="container mt-3">
+        <h2>受給者番号でログイン</h2>
+        <form method="post" action="{% url 'attendance:check_user' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="recipient_number">受給者番号:</label>
+                <input type="text" class="form-control" id="recipient_number" name="recipient_number" required>
+            </div>
+            <button type="submit" class="btn btn-success">ログイン</button>
+        </form>
+    </div>
 
 
-<div class="container mt-5">
-    <h2>利用者の初期登録</h2>
-    <form method="post" action="{% url 'attendance:register' %}">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="name">氏名:</label>
-            <input type="text" class="form-control" id="name" name="name" value="{{ form.name.value|default_if_none:'' }}" required>
-            {% if form.name.errors %}
+    <div class="container mt-5">
+        <h2>利用者の初期登録</h2>
+        <form method="post" action="{% url 'attendance:register' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">氏名:</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ form.name.value|default_if_none:'' }}" required>
+                {% if form.name.errors %}
                 {% for error in form.name.errors %}
-                    <div class="alert alert-danger">{{ error }}</div>
+                <div class="alert alert-danger">{{ error }}</div>
                 {% endfor %}
-            {% endif %}
-        </div>
-        <div class="form-group">
-            <label for="birthdate">生年月日:</label>
-            <input type="date" class="form-control" id="birthdate" name="birthdate" value="{{ form.birthdate.value|default_if_none:'' }}" required>
-            {% if form.birthdate.errors %}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="birthdate">生年月日:</label>
+                <input type="date" class="form-control" id="birthdate" name="birthdate" value="{{ form.birthdate.value|default_if_none:'' }}" required>
+                {% if form.birthdate.errors %}
                 {% for error in form.birthdate.errors %}
-                    <div class="alert alert-danger">{{ error }}</div>
+                <div class="alert alert-danger">{{ error }}</div>
                 {% endfor %}
-            {% endif %}
-        </div>
-        <div class="form-group">
-            <label for="recipient_number">受給者番号:</label>
-            <input type="text" class="form-control" id="recipient_number" name="recipient_number" value="{{ form.recipient_number.value|default_if_none:'' }}" required>
-            <!-- {% if form.recipient_number.errors %}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="gender">性別:</label>
+                <select class="form-control" id="gender" name="gender">
+                    <option value="">選択してください</option>
+                    <option value="M">男の子</option>
+                    <option value="F">女の子</option>
+                    <option value="O">その他</option>
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="recipient_number">受給者番号:</label>
+                <input type="text" class="form-control" id="recipient_number" name="recipient_number" value="{{ form.recipient_number.value|default_if_none:'' }}" required>
+                <!-- {% if form.recipient_number.errors %}
                 {% for error in form.recipient_number.errors %}
                     <div class="alert alert-danger">{{ error }}</div>
                 {% endfor %}
             {% endif %} -->
-        </div>
-        <div class="form-group">
-            <label for="education_level">教育区分:</label>
-            <select class="form-control" id="education_level" name="education_level">
-                <option value="KY" {% if form.education_level.value == 'KY' %}selected{% endif %}>年少</option>
-                <option value="KM" {% if form.education_level.value == 'KM' %}selected{% endif %}>年中</option>
-                <!-- Add other options similarly -->
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="welfare_exemption">児童福祉関連の免除額:</label>
-            <input type="number" class="form-control" id="welfare_exemption" name="welfare_exemption" value="{{ form.welfare_exemption.value|default_if_none:'' }}" required>
-            {% if form.welfare_exemption.errors %}
+            </div>
+            <div class="form-group">
+                <label for="education_level">教育区分:</label>
+                <select class="form-control" id="education_level" name="education_level">
+                    <option value="">選択してください</option>
+                    <option value="KY">年少</option>
+                    <option value="KM">年中</option>
+                    <!-- Add other options similarly -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="welfare_exemption">児童福祉関連の免除額:</label>
+                <input type="number" class="form-control" id="welfare_exemption" name="welfare_exemption" value="{{ form.welfare_exemption.value|default_if_none:'' }}" required>
+                {% if form.welfare_exemption.errors %}
                 {% for error in form.welfare_exemption.errors %}
-                    <div class="alert alert-danger">{{ error }}</div>
+                <div class="alert alert-danger">{{ error }}</div>
                 {% endfor %}
-            {% endif %}
-        </div>
-        <button type="submit" class="btn btn-primary">登録</button>
-    </form>
-</div>
+                {% endif %}
+            </div>
+            <button type="submit" class="btn btn-primary">登録</button>
+        </form>
+    </div>
 </body>
+
 </html>

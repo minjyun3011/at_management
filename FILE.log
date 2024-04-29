@@ -71,3 +71,495 @@ Watching for file changes with StatReloader
 Watching for file changes with StatReloader
 Not Found: /favicon.ico
 Form invalid, errors: <ul class="errorlist"><li>gender<ul class="errorlist"><li>このフィールドは必須です。</li></ul></li></ul>
+Watching for file changes with StatReloader
+Form invalid, errors: <ul class="errorlist"><li>gender<ul class="errorlist"><li>このフィールドは必須です。</li></ul></li></ul>
+Watching for file changes with StatReloader
+Internal Server Error: /
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/smartif.py", line 180, in translate_token
+    op = OPERATORS[token]
+         ~~~~~~~~~^^^^^^^
+KeyError: "form.education_level.value=='KY'"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/loader.py", line 42, in select_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/backends/django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 196, in compile_nodelist
+    return parser.parse()
+           ^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 510, in parse
+    raise self.error(token, e)
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/defaulttags.py", line 960, in do_if
+    condition = TemplateIfParser(parser, bits).parse()
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/defaulttags.py", line 893, in __init__
+    super().__init__(*args, **kwargs)
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/smartif.py", line 171, in __init__
+    mapped_tokens.append(self.translate_token(token))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/smartif.py", line 182, in translate_token
+    return self.create_var(token)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/defaulttags.py", line 896, in create_var
+    return TemplateLiteral(self.template_parser.compile_filter(value), value)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 597, in compile_filter
+    return FilterExpression(token, self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 698, in __init__
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: '=='KY'' from 'form.education_level.value=='KY''
+Watching for file changes with StatReloader
+Internal Server Error: /
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/smartif.py", line 180, in translate_token
+    op = OPERATORS[token]
+         ~~~~~~~~~^^^^^^^
+KeyError: "form.gender.value=='M'"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/loader.py", line 42, in select_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/backends/django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 196, in compile_nodelist
+    return parser.parse()
+           ^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 510, in parse
+    raise self.error(token, e)
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/defaulttags.py", line 960, in do_if
+    condition = TemplateIfParser(parser, bits).parse()
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/defaulttags.py", line 893, in __init__
+    super().__init__(*args, **kwargs)
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/smartif.py", line 171, in __init__
+    mapped_tokens.append(self.translate_token(token))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/smartif.py", line 182, in translate_token
+    return self.create_var(token)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/defaulttags.py", line 896, in create_var
+    return TemplateLiteral(self.template_parser.compile_filter(value), value)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 597, in compile_filter
+    return FilterExpression(token, self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 698, in __init__
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: '=='M'' from 'form.gender.value=='M''
+Watching for file changes with StatReloader
+Internal Server Error: /
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/smartif.py", line 180, in translate_token
+    op = OPERATORS[token]
+         ~~~~~~~~~^^^^^^^
+KeyError: 'form.gender.value=='
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/loader.py", line 42, in select_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/backends/django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 196, in compile_nodelist
+    return parser.parse()
+           ^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 510, in parse
+    raise self.error(token, e)
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/defaulttags.py", line 960, in do_if
+    condition = TemplateIfParser(parser, bits).parse()
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/defaulttags.py", line 893, in __init__
+    super().__init__(*args, **kwargs)
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/smartif.py", line 171, in __init__
+    mapped_tokens.append(self.translate_token(token))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/smartif.py", line 182, in translate_token
+    return self.create_var(token)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/defaulttags.py", line 896, in create_var
+    return TemplateLiteral(self.template_parser.compile_filter(value), value)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 597, in compile_filter
+    return FilterExpression(token, self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 698, in __init__
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: '==' from 'form.gender.value=='
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Checking for user with recipient number: 00007182
+User found: 1
+Redirecting to user-specific detail page
+Internal Server Error: /home1/
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 226, in get
+    context = self.get_context_data(**kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/Python/at_management/project/attendance/views.py", line 101, in get_context_data
+    context['attendance_infos'] = Attendance_info.objects.filter(user=user).order_by('-calendar_date')
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/models/query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/models/query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/models/query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1613, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1645, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1532, in build_filter
+    self.check_related_objects(join_info.final_field, value, join_info.opts)
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1346, in check_related_objects
+    self.check_query_object_type(value, opts, field)
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1323, in check_query_object_type
+    raise ValueError(
+ValueError: Cannot query "so": Must be "User" instance.
+No existing user, creating new user
+New user 池本 圭 created and saved.
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/edit.py", line 182, in post
+    return super().post(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/edit.py", line 151, in post
+    return self.form_valid(form)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/Python/at_management/project/attendance/views.py", line 85, in form_valid
+    login(self.request, self.object)
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/contrib/auth/__init__.py", line 152, in login
+    user_logged_in.send(sender=user.__class__, request=request, user=user)
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/dispatch/dispatcher.py", line 189, in send
+    response = receiver(signal=self, sender=sender, **named)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/contrib/auth/models.py", line 23, in update_last_login
+    user.save(update_fields=["last_login"])
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/models/base.py", line 801, in save
+    raise ValueError(
+ValueError: The following fields do not exist in this model, are m2m fields, or are non-concrete fields: last_login
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/project/settings.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/project/settings.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+No existing user, creating new user
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/backends/sqlite3/base.py", line 329, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: table attendance_user has no column named password
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/edit.py", line 182, in post
+    return super().post(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/edit.py", line 151, in post
+    return self.form_valid(form)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/Python/at_management/project/attendance/views.py", line 83, in form_valid
+    self.object = form.save()
+                  ^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/forms/models.py", line 552, in save
+    self.instance.save()
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/contrib/auth/base_user.py", line 78, in save
+    super().save(*args, **kwargs)
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/models/base.py", line 822, in save
+    self.save_base(
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/models/base.py", line 909, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/models/base.py", line 1067, in _save_table
+    results = self._do_insert(
+              ^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/models/base.py", line 1108, in _do_insert
+    return manager._insert(
+           ^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/models/query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1823, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/backends/sqlite3/base.py", line 329, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: table attendance_user has no column named password
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/project/settings.py changed, reloading.
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+No existing user, creating new user
+New user 池本　圭 created and saved.
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/edit.py", line 182, in post
+    return super().post(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/edit.py", line 151, in post
+    return self.form_valid(form)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/Python/at_management/project/attendance/views.py", line 85, in form_valid
+    login(self.request, self.object)
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/contrib/auth/__init__.py", line 152, in login
+    user_logged_in.send(sender=user.__class__, request=request, user=user)
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/dispatch/dispatcher.py", line 189, in send
+    response = receiver(signal=self, sender=sender, **named)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/contrib/auth/models.py", line 23, in update_last_login
+    user.save(update_fields=["last_login"])
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/models/base.py", line 801, in save
+    raise ValueError(
+ValueError: The following fields do not exist in this model, are m2m fields, or are non-concrete fields: last_login
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Form invalid, errors: <ul class="errorlist"><li>recipient_number<ul class="errorlist"><li>この 受給者番号 を持った User が既に存在します。</li></ul></li></ul>
+No existing user, creating new user
+New user 佐藤　壮太 created and saved.
+Internal Server Error: /home1/
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 226, in get
+    context = self.get_context_data(**kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/Python/at_management/project/attendance/views.py", line 100, in get_context_data
+    context['attendance_infos'] = User.objects.filter(user=user).order_by('-calendar_date')
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/models/query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/models/query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/models/query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1613, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1645, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1495, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1307, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1772, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'user' into field. Choices are: attendance_info, birthdate, education_level, gender, id, name, recipient_number, welfare_exemption
