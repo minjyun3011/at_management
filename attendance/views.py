@@ -89,16 +89,18 @@ class UserRegistrationView(CreateView):
         logger.debug(f"Form invalid, errors: {form.errors}")
         return super().form_invalid(form)
 
-#まだ未完成(4月28日時点）
+#home0.htmlからのリダイレクト直後の処理内容
 class Home1View(TemplateView):
     template_name = 'attendance/home1.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user = self.request.user
-        if user.is_authenticated:
-            context['attendance_infos'] = User.objects.filter(user=user).order_by('-calendar_date')
+        recipient_number = self.request.session.get('recipient_number')
+        if recipient_number:
+            attendance_infos = Attendance_info.objects.filter(user__recipient_number=recipient_number).order_by('-calendar_date')
+            context['attendance_infos'] = attendance_infos
         return context
+
 
 
 class Attendance_TodayView(TemplateView):
