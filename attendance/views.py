@@ -35,34 +35,27 @@ class HomePageView(TemplateView):
     template_name = 'attendance/home0.html'
 
 # 受給者番号の入力でログインするパターン（２回目以降）
-
 class CheckUserView(FormView):
     template_name = 'attendance/home0.html'
     form_class = CheckUserForm
 
     def form_valid(self, form):
         recipient_number = form.cleaned_data['recipient_number']
-        logger.debug(f"Checking for user with recipient number: {recipient_number}")
         user = User.objects.filter(recipient_number=recipient_number).first()
 
         if user:
-            logger.debug(f"User found: {user.pk}")
             self.request.session.modified = True
-            # ユーザーIDをセッションに保存
             self.request.session['user_id'] = user.pk
-            # ユーザー専用の詳細ページへリダイレクト
-            logger.debug("Redirecting to user-specific detail page")
+            # recipient_number をセッションに保存
+            self.request.session['recipient_number'] = recipient_number
             return redirect(reverse('attendance:home1'))
         else:
-            # ユーザーが見つからない場合はエラーをフォームに追加して同じページに留まる
-            logger.debug("User not found, adding error to form")
-            messages.error(self.request, "この受給者番号のユーザーは存在しません。")
+            # ユーザーが見つからない場合はエラーメッセージを設定して同じページに留まる
+            messages.error(self.request, "正確な受給者番号を入力してください。")
             return self.form_invalid(form)
 
     def form_invalid(self, form):
         # フォームが無効の場合は、エラーメッセージを設定して同じページに戻る
-        logger.debug(f"Form invalid, errors: {form.errors}")
-        form.add_error(None, 'エラーメッセージをここに追加してください')
         return super().form_invalid(form)
 
 
@@ -116,6 +109,7 @@ class Attendance_TodayView(TemplateView):
 # ロガーの設定
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+
 @csrf_exempt
 @require_http_methods(["POST"])
 def add_event(request):
@@ -157,101 +151,31 @@ def add_event(request):
         return JsonResponse({'error': 'Internal Server Error', 'message': str(e)}, status=500)
 
 
-#カレンダー選択後にその日付の元々のイベントデータを取得して入力欄に表示しておくために必要な関数
+#カレンダー選択後にその日付の中に入っているイベントデータを取得して入力欄に表示しておくために必要な関数
 @csrf_exempt
 @require_http_methods(["POST"])
 def get_events(request):
     try:
         calendar_data = json.loads(request.body)
+        recipient_number = request.session.get('recipient_number')
+        #セッションに保存されているrecipient_numberが本当にUserモデルのものなのか照合
+        user = User.objects.get(recipient_number=recipient_number)
+
+        # 入力された開始日と終了日を取得
         start_date_str = calendar_data.get('start_time')
         end_date_str = calendar_data.get('end_time')
 
-        # 文字列からdatetimeオブジェクトに変換
-        start_date = parse_datetime(start_date_str)
-        end_date = parse_datetime(end_date_str)
-
-        if not (start_date and end_date):
-            return JsonResponse({'error': 'Invalid date format'}, status=400)
-
-        # datetimeオブジェクトの日付部分だけを取得
-        start_date = start_date.date()
-        end_date = end_date.date()
+        # 文字列からdatetimeオブジェクトに変換し、日付の部分だけを抽出
+        start_date = parse_datetime(start_date_str).date()
+        end_date = parse_datetime(end_date_str).date()
 
         events = Attendance_info.objects.filter(
+            user=user,
             calendar_date__range=[start_date, end_date]
-        ).select_related('user')
+        ).values('id', 'calendar_date', 'start_time', 'end_time', 'status', 'transportation_to', 'transportation_from', 'absence_reason')
 
-        events_data = [{
-            'calendar_date': event.calendar_date.strftime('%Y-%m-%d'),
-            'start': event.start_time.strftime('%H:%M'),
-            'end': event.end_time.strftime('%H:%M'),
-            'status': event.status,
-            'transportation_to': event.transportation_to,
-            'transportation_from': event.transportation_from,
-            'absence_reason': event.absence_reason
-        } for event in events]
+        events_data = list(events)  # QuerySetをリストに変換してJSON可能な形式にする
 
-        return JsonResponse(events_data, safe=False)
+        return JsonResponse(events_data, safe=False)  # リスト形式のレスポンスを許可
     except Exception as e:
-        # エラー内容をログに記録
-        import logging
-        logger = logging.getLogger(__name__)
-        logger.error("Error fetching events: %s", str(e))
         return JsonResponse({'error': 'Internal Server Error', 'message': str(e)}, status=500)
-    
-# class EventAddView(FormView):
-#     template_name = 'attendance/event_add.html'
-#     form_class = EventForm
-#     success_url = reverse_lazy('home')  # 成功時のリダイレクト先
-
-#     def form_valid(self, form):
-#         event = form.save(commit=False)  # フォームのデータをまだデータベースには保存しない
-#         event.calendar_date = event.start_time.date()  # 開始時間からカレンダー日付を設定
-#         event.save()  # データベースに保存
-
-#         if self.request.is_ajax():
-#             # AJAXリクエストの場合はJSONレスポンスを返す
-#             data = {
-#                 'message': 'Event successfully added',
-#                 'event_id': event.id,
-#                 'start_time': event.start_time.strftime('%H:%M'),
-#                 'end_time': event.end_time.strftime('%H:%M'),
-#                 'full_name': event.full_name,
-#                 'calendar_date': event.calendar_date.isoformat(),
-#             }
-#             return JsonResponse(data, status=200)
-#         else:
-#             # 非AJAXリクエストの場合は指定された成功URLにリダイレクト
-#             return super().form_valid(form)
-
-#     def form_invalid(self, form):
-#         if self.request.is_ajax():
-#             # フォームが無効な場合のAJAXリクエスト処理
-#             return JsonResponse(form.errors, status=400)
-#         else:
-#             # フォームが無効な場合の通常のリクエスト処理
-#             return super().form_invalid(form)
-        
-# ####
-
-# # ロギング設定
-# logger = logging.getLogger()  # ルートロガーを取得
-
-# # ログファイルのハンドラーを作成
-# file_handler = logging.FileHandler('/Users/satoso/Python/at_management/project/logs/file.log')
-# file_handler.setLevel(logging.INFO)  # INFOレベル以上のログを記録
-
-# # コンソールのハンドラーを作成
-# stream_handler = logging.StreamHandler()
-# stream_handler.setLevel(logging.INFO)  # INFOレベル以上のログをコンソールに出力
-
-# # ロギングフォーマットを設定
-# formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-# file_handler.setFormatter(formatter)
-# stream_handler.setFormatter(formatter)
-
-# # ロガーにハンドラーを追加
-# logger.addHandler(file_handler)
-# logger.addHandler(stream_handler)
-
-

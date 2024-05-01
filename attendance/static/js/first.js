@@ -47,7 +47,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .then(function(response) {
                     console.log('Events fetched successfully', response.data);
-                    successCallback(response.data);
+                    response.data.forEach(event => {
+                        calendar.addEvent({
+                            id: event.id,
+                            title: event.title || `${event.status} - ${event.calendar_date}`, // タイトルがない場合はステータスと日付を表示
+                            start: event.start_time,
+                            end: event.end_time,
+                            status: event.status,
+                            transportation_to: event.transportation_to,
+                            transportation_from: event.transportation_from,
+                            absence_reason: event.absence_reason
+                        });
+                    });
                 })
                 .catch(function(error) {
                     console.error("Event fetching failed:", error);
@@ -57,24 +68,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // ローカルストレージからイベントデータを読み込む
-        var storedEvents = JSON.parse(localStorage.getItem('events') || '[]');
-        console.log('Loaded events from localStorage:', storedEvents);
-        storedEvents.forEach(function(eventData) {
-        var startDateTime = eventData.date + 'T' + eventData.start_time + ':00';
-        var endDateTime = eventData.date + 'T' + eventData.end_time + ':00';
-
-        console.log('Adding event:', eventData);
-        calendar.addEvent({
-            title: eventData.title, // 'full_name' が正しくない場合は 'title' に変更
-            start: startDateTime,
-            end: endDateTime,
-            status: eventData.status, // 出席状態を表示
-            transportation_to: eventData.transportation_to, // 送迎サービス（往路）
-            transportation_from: eventData.transportation_from, // 送迎サービス（復路）
-            absence_reason: eventData.absence_reason // 欠席理由
-        });
-        });
         // カレンダーを描画
         console.log('Rendering calendar...');
         calendar.render();
@@ -83,6 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Calendar element not found.');
     }
 });
+
 
 function clearAllEventsFromLocalStorage() {
     localStorage.removeItem('events');  // 'events' キーに関連するデータを削除
@@ -118,9 +112,10 @@ function submitEvent() {
     })
     .then(function(response) {
         console.log(response.data);
-        saveEventToLocalstorage(response.data);
+        saveEventToLocalstorage(response.data);  // ローカルストレージに保存
         calendar.addEvent({
             id: response.data.event_id, // イベントIDを追加
+            title: response.data.eventData.title || 'No Title',  // レスポンスからタイトルを取得、なければデフォルト値
             start: startDateTime, // イベントの開始日時
             end: endDateTime, // イベントの終了日時
             status: statusInput, // 出席状態
@@ -129,50 +124,11 @@ function submitEvent() {
             absence_reason: absenceReasonInput, // 欠席理由
         });
         calendar.render(); // カレンダーの再描画を強制
+        // 処理成功後にhome1.htmlへ画面遷移
+        window.location.href = '/home1/';
     })
     .catch(function(error) {
         console.error('Error:', error);
         alert("イベントの追加に失敗しました");
     });
 }
-
-
-function submitForm() {
-    var fullName = document.getElementById('full_name').value;
-    var gender = document.getElementById('gender').value;
-    var calendarDate = document.getElementById('calendar_date').value;
-    var startTime = document.getElementById('start_time').value;
-    var endTime = document.getElementById('end_time').value;
-
-    // 日付と時間を組み合わせてISO8601形式に変換
-    var startDateTime = new Date(calendarDate + 'T' + startTime).toISOString();
-    var endDateTime = new Date(calendarDate + 'T' + endTime).toISOString();
-
-    var jsonData = JSON.stringify({
-        full_name: fullName,
-        gender: gender,
-        calendar_date: calendarDate,
-        start_time: startDateTime,
-        end_time: endDateTime
-    });
-
-    fetch('/api/event_add/', {
-        method: 'POST',
-        body: jsonData,
-        headers: {
-            "X-CSRFToken": getCsrfToken(),
-            "Content-Type": "application/json",
-            "X-Requested-With": "XMLHttpRequest"
-        },
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`Server responded with status ${response.status}`);
-        }
-        return response.json();  // サーバーからのレスポンスをJSON形式で解析
-    })
-    .then(data => {
-    console.log("Received data from servers:", data);
-    saveEventToLocalstorage(data);
-    window.location.href = '/';
-})}
