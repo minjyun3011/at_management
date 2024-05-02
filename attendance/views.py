@@ -44,13 +44,12 @@ class CheckUserView(FormView):
         user = User.objects.filter(recipient_number=recipient_number).first()
 
         if user:
-            self.request.session.modified = True
             self.request.session['user_id'] = user.pk
-            # recipient_number をセッションに保存
             self.request.session['recipient_number'] = recipient_number
+            self.request.session['user_name'] = user.name
+            self.request.session['user_gender'] = user.gender
             return redirect(reverse('attendance:home1'))
         else:
-            # ユーザーが見つからない場合はエラーメッセージを設定して同じページに留まる
             messages.error(self.request, "正確な受給者番号を入力してください。")
             return self.form_invalid(form)
 
@@ -86,13 +85,14 @@ class UserRegistrationView(CreateView):
 class Home1View(TemplateView):
     template_name = 'attendance/home1.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        recipient_number = self.request.session.get('recipient_number')
-        if recipient_number:
-            attendance_infos = Attendance_info.objects.filter(user__recipient_number=recipient_number).order_by('-calendar_date')
-            context['attendance_infos'] = attendance_infos
-        return context
+    #セッションを使用しない場合にのみ有効な処理
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     recipient_number = self.request.session.get('recipient_number')
+    #     if recipient_number:
+    #         attendance_infos = Attendance_info.objects.filter(user__recipient_number=recipient_number).order_by('-calendar_date')
+    #         context['attendance_infos'] = attendance_infos
+    #     return context
 
 
 
