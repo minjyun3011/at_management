@@ -111,24 +111,29 @@ function submitEvent() {
         }
     })
     .then(function(response) {
-        console.log(response.data);
-        saveEventToLocalstorage(response.data);  // ローカルストレージに保存
-        calendar.addEvent({
-            id: response.data.event_id, // イベントIDを追加
-            title: response.data.eventData.title || 'No Title',  // レスポンスからタイトルを取得、なければデフォルト値
-            start: startDateTime, // イベントの開始日時
-            end: endDateTime, // イベントの終了日時
-            status: statusInput, // 出席状態
-            transportation_to: transportationToInput, // 往路の送迎サービス
-            transportation_from: transportationFromInput, // 復路の送迎サービス
-            absence_reason: absenceReasonInput, // 欠席理由
-        });
-        calendar.render(); // カレンダーの再描画を強制
-        // 処理成功後にhome1.htmlへ画面遷移
-        window.location.href = '/home1/';
-    })
-    .catch(function(error) {
-        console.error('Error:', error);
-        alert("イベントの追加に失敗しました");
+    console.log(response.data);
+    saveEventToLocalstorage(response.data);  // ローカルストレージに保存
+    const startTime = new Date(response.data.eventData.start).toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' });
+    const endTime = new Date(response.data.eventData.end).toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' });
+    const eventTitle = `${startTime} ~ ${endTime}`;
+
+    calendar.addEvent({
+        id: response.data.event_id, // イベントIDを追加
+        title: eventTitle,  // タイムレンジをタイトルとして使用
+        start: response.data.eventData.start, // イベントの開始日時
+        end: response.data.eventData.end, // イベントの終了日時
+        status: response.data.eventData.status, // 出席状態
+        transportation_to: response.data.eventData.transportation_to, // 往路の送迎サービス
+        transportation_from: response.data.eventData.transportation_from, // 復路の送迎サービス
+        absence_reason: response.data.eventData.absence_reason, // 欠席理由
     });
+    calendar.render(); // カレンダーの再描画を強制
+    // 処理成功後にhome1.htmlへ画面遷移
+    window.location.href = '/home1/';
+})
+.catch(function(error) {
+    console.error('Error:', error);
+    alert("イベントの追加に失敗しました");
+});
+
 }

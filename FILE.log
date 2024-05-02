@@ -736,3 +736,65 @@ Not Found: /favicon.ico
 /Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
 Watching for file changes with StatReloader
 Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Request data: {'calendar_date': '2024-05-08', 'start_time': '11:32', 'end_time': '13:32', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': ''}
+Form valid: True
+Failed to add event: NOT NULL constraint failed: attendance_attendance_info.user_id
+Internal Server Error: /api/add_event/
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Request data: {'calendar_date': '2024-05-08', 'start_time': '19:23', 'end_time': '20:23', 'status': 'PR', 'transportation_to': 'NU', 'transportation_from': 'US', 'absence_reason': ''}
+Form valid: True
+Failed to add event: NOT NULL constraint failed: attendance_attendance_info.user_id
+Internal Server Error: /api/add_event/
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Request data: {'calendar_date': '2024-05-07', 'start_time': '19:27', 'end_time': '21:27', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': ''}
+Failed to add event: type object 'datetime.datetime' has no attribute 'datetime'
+Internal Server Error: /api/add_event/
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Request data: {'calendar_date': '2024-05-01', 'start_time': '19:34', 'end_time': '20:34', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': ''}
+Event added: {'message': 'Event successfully added', 'eventData': {'id': 6, 'title': 'PR - 2024-05-01', 'start': '2024-05-01T19:34:00', 'end': '2024-05-01T20:34:00', 'status': '出席', 'transportation_to': '利用', 'transportation_from': '利用', 'absence_reason': 'N/A'}}
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Request data: {'calendar_date': '2024-05-01', 'start_time': '19:47', 'end_time': '21:47', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': ''}
+Failed to add event: UNIQUE constraint failed: attendance_attendance_info.user_id, attendance_attendance_info.calendar_date
+Internal Server Error: /api/add_event/
+Request data: {'calendar_date': '2024-05-03', 'start_time': '19:47', 'end_time': '21:47', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': ''}
+Event added: {'message': 'Event successfully added', 'eventData': {'id': 7, 'title': 'PR - 2024-05-03', 'start': '2024-05-03T19:47:00', 'end': '2024-05-03T21:47:00', 'status': '出席', 'transportation_to': '利用', 'transportation_from': '利用', 'absence_reason': 'N/A'}}
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader

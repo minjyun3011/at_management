@@ -32,7 +32,7 @@ class User(models.Model):
         default=GenderChoices.OTHER,
         verbose_name="性別"
     )
-    recipient_number = models.CharField(max_length=20, unique=True, blank=True, null=True, verbose_name="受給者番号")
+    recipient_number = models.CharField(max_length=20, unique=True, verbose_name="受給者番号", primary_key=True)
     education_level = models.CharField(
         max_length=2,
         choices=EducationLevelChoices.choices,
@@ -60,7 +60,8 @@ class Attendance_info(models.Model):
         USED = 'US', '利用'
         NOT_USED = 'NU', '未利用'
 
-    user = models.ForeignKey('User', on_delete=models.CASCADE, verbose_name="利用者")
+    user = models.CharField(verbose_name="利用者", max_length=50)
+    recipient_number = models.ForeignKey('User', on_delete=models.CASCADE, verbose_name="受給者番号")
     calendar_date = models.DateField(verbose_name="日付")
     start_time = models.TimeField(verbose_name="開始時間")
     end_time = models.TimeField(verbose_name="終了時間")

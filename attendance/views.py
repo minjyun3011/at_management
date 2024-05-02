@@ -29,6 +29,8 @@ from django.views.generic import TemplateView
 from django.contrib import messages 
 from django.contrib.auth import get_user_model  # この行を追加
 from django.contrib.auth import login, authenticate
+from datetime import datetime
+
 logger = logging.getLogger(__name__)
 
 class HomePageView(TemplateView):
@@ -117,24 +119,25 @@ def add_event(request):
         data = json.loads(request.body)
         logger.debug("Request data: %s", data)
 
-        # フォームのデータにユーザー名を追加
-        data['user'] = request.user.username
+        # セッションから受給者番号を取得して、対応するUserオブジェクトを取得
+        recipient_number = request.session.get('recipient_number')
+        user = User.objects.get(recipient_number=recipient_number)
 
+        # フォームを初期化し、データをバリデーション
         form = AttendanceInfoForm(data)
-        logger.debug("Form valid: %s", form.is_valid())
-        if form.errors:
-            logger.debug("Form errors: %s", form.errors)
-
         if form.is_valid():
-            event = form.save()
+            event = form.save(commit=False)
+            event.user = user  # Userオブジェクトを設定
+            event.save()  # イベントを保存
 
+            # イベント追加成功のレスポンスデータ
             response_data = {
                 'message': 'Event successfully added',
                 'eventData': {
                     'id': event.id,
                     'title': f"{event.status} - {event.calendar_date}",
-                    'start': datetime.datetime.combine(event.calendar_date, event.start_time).isoformat(),
-                    'end': datetime.datetime.combine(event.calendar_date, event.end_time).isoformat(),
+                    'start': datetime.combine(event.calendar_date, event.start_time).isoformat(),
+                    'end': datetime.combine(event.calendar_date, event.end_time).isoformat(),
                     'status': event.get_status_display(),
                     'transportation_to': event.get_transportation_to_display(),
                     'transportation_from': event.get_transportation_from_display(),
@@ -144,8 +147,14 @@ def add_event(request):
             logger.debug("Event added: %s", response_data)
             return JsonResponse(response_data, status=200)
         else:
+            # フォームが無効であればエラーを返す
+            logger.debug("Form errors: %s", form.errors)
             return JsonResponse({'errors': form.errors}, status=400)
 
+    except User.DoesNotExist:
+        # Userが見つからない場合
+        logger.error("User not found with recipient_number: %s", recipient_number)
+        return JsonResponse({'error': 'User not found'}, status=404)
     except Exception as e:
         logger.error("Failed to add event: %s", str(e))
         return JsonResponse({'error': 'Internal Server Error', 'message': str(e)}, status=500)
