@@ -13,3 +13,4 @@ urlpatterns = [
     path('api/get_events/', views.get_events, name='get_events'),
     path('api/add_event/',views.add_event, name='add_event' ),
 ]
+

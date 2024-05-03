@@ -53,8 +53,6 @@ class Attendance_info(models.Model):
     class TransportationService(models.TextChoices):
         USED = 'US', '利用'
         NOT_USED = 'NU', '未利用'
-
-    name = models.CharField(verbose_name="お名前",max_length=20)
     recipient_number = models.ForeignKey('User', on_delete=models.CASCADE, verbose_name="受給者番号", to_field='recipient_number')
     calendar_date = models.DateField(verbose_name="日付")
     start_time = models.TimeField(verbose_name="開始時間")
@@ -83,13 +81,13 @@ class Attendance_info(models.Model):
     class Meta:
         unique_together = ('recipient_number', 'calendar_date')  # recipient_numberと日付の組み合わせはユニーク
 
-    def __str__(self):
-    # recipient_numberを通じてUserモデルからnameを取得
-        if self.recipient_number:
-            user_name = self.name
-        else:
-            user_name = "Unknown User"
-        return f'{user_name} - {self.calendar_date} - {self.status}'
+    # def __str__(self):
+    # # recipient_numberを通じてUserモデルからnameを取得
+    #     if self.recipient_number:
+    #         user_name = self.name
+    #     else:
+    #         user_name = "Unknown User"
+    #     return f'{user_name} - {self.calendar_date} - {self.status}'
 
 
 class AbsenceAccrual(models.Model):
@@ -99,12 +97,10 @@ class AbsenceAccrual(models.Model):
         verbose_name="出席記録",
         primary_key=True
     )
-    name = models.CharField(verbose_name="お名前",max_length=20)
-    calendar_date = models.DateField(verbose_name="日付")
     accrual_eligible = models.BooleanField(default=False, verbose_name="加算対象")
 
-    def __str__(self):
-        # Attendance_info の recipient_number を使用して User の name にアクセス
-        user_name = self.name  # User の名前(セッションで取得？）)
-        eligible_status = "Eligible" if self.accrual_eligible else "Not Eligible"
-        return f'{user_name} - {self.calendar_date} - {eligible_status}'
+    # def __str__(self):
+    #     # Attendance_info の recipient_number を使用して User の name にアクセス
+    #     user_name = self.name  # User の名前(セッションで取得？）)
+    #     eligible_status = "Eligible" if self.accrual_eligible else "Not Eligible"
+    #     return f'{user_name} - {self.calendar_date} - {eligible_status}'

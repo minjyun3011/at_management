@@ -85,19 +85,19 @@ class Home1View(TemplateView):
     #         context['attendance_infos'] = attendance_infos
     #     return context
 
-class Attendance_TodayView(TemplateView):
-    model = Attendance_info
-    template_name = 'attendance/home1.html'  # 詳細表示用のテンプレート
+# class Attendance_TodayView(TemplateView):
+#     model = Attendance_info
+#     template_name = 'attendance/home1.html'  # 詳細表示用のテンプレート
 
-    def get_context_data(self, **kwargs):
-        # ビューのコンテキストに追加のデータを挿入するためのメソッド
-        context = super().get_context_data(**kwargs)
-        context['now'] = timezone.now()  # 現在の時刻データを追加
-        return context
+#     def get_context_data(self, **kwargs):
+#         # ビューのコンテキストに追加のデータを挿入するためのメソッド
+#         context = super().get_context_data(**kwargs)
+#         context['now'] = timezone.now()  # 現在の時刻データを追加
+#         return context
     
-# ロガーの設定
-logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+# # ロガーの設定
+# logger = logging.getLogger(__name__)
+# logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 @csrf_exempt
 @require_http_methods(["POST"])
