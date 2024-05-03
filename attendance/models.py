@@ -1,10 +1,5 @@
 from django.db import models
-from django.utils import timezone
-from django.utils.text import slugify
-from django.utils.formats import date_format
 import datetime
-from django.contrib.auth.models import AbstractUser
-
 
 # 利用者の個人情報テーブル
 class User(models.Model):
@@ -49,7 +44,6 @@ class User(models.Model):
         today = datetime.date.today()
         return today.year - self.birthdate.year - ((today.month, today.day) < (self.birthdate.month, self.birthdate.day))
 
-
 # 利用者の日ごとの出欠情報テーブル
 class Attendance_info(models.Model):
     class AttendanceStatus(models.TextChoices):
@@ -60,8 +54,8 @@ class Attendance_info(models.Model):
         USED = 'US', '利用'
         NOT_USED = 'NU', '未利用'
 
-    user = models.CharField(verbose_name="利用者", max_length=50)
-    recipient_number = models.ForeignKey('User', on_delete=models.CASCADE, verbose_name="受給者番号")
+    name = models.CharField(verbose_name="お名前",max_length=20)
+    recipient_number = models.ForeignKey('User', on_delete=models.CASCADE, verbose_name="受給者番号", to_field='recipient_number')
     calendar_date = models.DateField(verbose_name="日付")
     start_time = models.TimeField(verbose_name="開始時間")
     end_time = models.TimeField(verbose_name="終了時間")
@@ -87,13 +81,17 @@ class Attendance_info(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name="更新日時")
 
     class Meta:
-        unique_together = ('user', 'calendar_date')  # 利用者と日付の組み合わせはユニーク
+        unique_together = ('recipient_number', 'calendar_date')  # recipient_numberと日付の組み合わせはユニーク
 
     def __str__(self):
-        return f'{self.user.name} - {self.calendar_date} - {self.get_status_display()}'
+    # recipient_numberを通じてUserモデルからnameを取得
+        if self.recipient_number:
+            user_name = self.name
+        else:
+            user_name = "Unknown User"
+        return f'{user_name} - {self.calendar_date} - {self.status}'
 
 
-# (職員閲覧用)欠席加算の有無に関するテーブル
 class AbsenceAccrual(models.Model):
     attendance = models.OneToOneField(
         'Attendance_info',
@@ -101,78 +99,12 @@ class AbsenceAccrual(models.Model):
         verbose_name="出席記録",
         primary_key=True
     )
+    name = models.CharField(verbose_name="お名前",max_length=20)
+    calendar_date = models.DateField(verbose_name="日付")
     accrual_eligible = models.BooleanField(default=False, verbose_name="加算対象")
 
     def __str__(self):
-        return f'{self.attendance.user.name} - {self.attendance.date} - {"Eligible" if self.accrual_eligible else "Not Eligible"}'
-
-####
-    
-
-# 保護者用画面
-class Attendance(models.Model):
-    ATTENDANCE_CHOICES = [
-        (1, '出席'),
-        (2, '欠席'),
-    ]
-    choice = models.IntegerField('出欠予定',choices=ATTENDANCE_CHOICES, default=1 )
-    created_at = models.DateTimeField('最新更新日時', default=timezone.now)
-
-    def __str__(self):
-        # 出欠状況のラベルを取得するための辞書を作成
-        attendance_dict = dict(self.ATTENDANCE_CHOICES)
-        # 出席状況のラベルを取得し、name と組み合わせた文字列を返します。
-        return f"({attendance_dict.get(self.choice)})"
-    
-
-class Kid_Information(models.Model):
-    slug = models.SlugField('登録番号', max_length=6, unique=True)
-    first_name = models.CharField('名', max_length=20)
-    family_name = models.CharField('姓', max_length=20)
-    email = models.EmailField('メールアドレス', blank=True)
-    attendance = models.ForeignKey(
-            Attendance, verbose_name='本日の出欠予定', on_delete=models.PROTECT
-        )
-    created_at = models.DateTimeField('作成日時', default=timezone.now)
-    updated_at = models.DateTimeField('更新日時', auto_now=True)
-
-    # この関数でデータのIDから登録番号(6桁)に表示し直す
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            # ここで最後の登録番号を取得して1増やすなどのロジックを実装
-            # 例として、モデルのインスタンス数を基にしていますが、
-            # 実際にはより複雑なロジックが必要になるかもしれません。
-            last_number = Kid_Information.objects.count()
-            next_number = last_number + 1
-            # ゼロ埋めされた形式でslugを設定
-            self.slug = slugify(f'{next_number:06d}')
-        super(Kid_Information, self).save(*args, **kwargs)
-
-    def __str__(self):
-        return '{0} {1} {2} {3} {4} {5}'.format(self.slug, self.family_name, self.first_name, self.email, self.attendance, self.updated_at )
-    
-
-class Event(models.Model):
-    GENDER_CHOICES = (
-        ('M', '男'),
-        ('F', '女'),
-    )
-    start_time = models.DateTimeField()  # イベントの開始時間
-    end_time = models.DateTimeField()    # イベントの終了時間
-    full_name = models.CharField(max_length=100)  # 参加者のフルネーム
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-    calendar_date = models.DateField(null=True)  # カレンダーの日付、nullを許容
-
-    def __str__(self):
-        # 性別に基づいて接尾語を決定
-        suffix = 'くん' if self.gender == 'M' else 'ちゃん'
-
-        # start_timeとend_timeから時間部分のみをフォーマット
-        start_time_str = self.start_time.strftime('%H:%M')if self.start_time else "未定"
-        end_time_str = self.end_time.strftime('%H:%M')if self.end_time else "未定"
-
-        # calendar_dateがNoneでない場合のみフォーマットを適用
-        calendar_date_str = date_format(self.calendar_date, "SHORT_DATE_FORMAT") if self.calendar_date else "日付未定"
-
-        # フォーマットされた文字列を返す
-        return f"{calendar_date_str} {start_time_str}〜{end_time_str} {self.full_name}{suffix}"
+        # Attendance_info の recipient_number を使用して User の name にアクセス
+        user_name = self.name  # User の名前(セッションで取得？）)
+        eligible_status = "Eligible" if self.accrual_eligible else "Not Eligible"
+        return f'{user_name} - {self.calendar_date} - {eligible_status}'

@@ -1,34 +1,23 @@
-import re
 import json
 import logging
 from datetime import datetime
-from django import forms
 from .forms import AttendanceInfoForm
 from django.views.generic.edit import FormView
-from django.http import JsonResponse, HttpResponse
-from django.template import loader
-from django.views.generic import ListView
+from django.http import JsonResponse
 from django.views.generic.edit import FormView
 from django.urls import reverse, reverse_lazy
 from django.utils.dateparse import parse_datetime
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
-from django.core.serializers import serialize
-from django.shortcuts import render, redirect, get_object_or_404
-from django.middleware.csrf import get_token
-from .models import Kid_Information, Event
+from django.shortcuts import redirect
 from django.utils import timezone
 
 from .forms import UserForm, CheckUserForm
-
-from django.urls import path, include
 
 from django.views.generic.edit import CreateView
 from .models import User, Attendance_info
 from django.views.generic import TemplateView
 from django.contrib import messages 
-from django.contrib.auth import get_user_model  # この行を追加
-from django.contrib.auth import login, authenticate
 from datetime import datetime
 
 logger = logging.getLogger(__name__)
@@ -95,8 +84,6 @@ class Home1View(TemplateView):
     #         attendance_infos = Attendance_info.objects.filter(user__recipient_number=recipient_number).order_by('-calendar_date')
     #         context['attendance_infos'] = attendance_infos
     #     return context
-
-
 
 class Attendance_TodayView(TemplateView):
     model = Attendance_info
