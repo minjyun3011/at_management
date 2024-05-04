@@ -49,7 +49,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.log('Events fetched successfully', response.data);
                     response.data.forEach(event => {
                         calendar.addEvent({
-                            id: event.id,
                             title: event.title || `${event.status} - ${event.calendar_date}`, // タイトルがない場合はステータスと日付を表示
                             start: event.start_time,
                             end: event.end_time,
@@ -99,8 +98,8 @@ function submitEvent() {
 
     axios.post('/api/add_event/', {
         calendar_date: dateInput,
-        start_time: startTimeInput,
-        end_time: endTimeInput,
+        start_time: startDateTime,
+        end_time: endDateTime,
         status: statusInput,
         transportation_to: transportationToInput,
         transportation_from: transportationFromInput,

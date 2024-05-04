@@ -35,7 +35,6 @@ class CheckUserView(FormView):
         user = User.objects.filter(recipient_number=recipient_number).first()
 
         if user:
-            self.request.session['user_id'] = user.pk
             self.request.session['recipient_number'] = recipient_number
             self.request.session['user_name'] = user.name
             self.request.session['user_gender'] = user.gender
@@ -166,9 +165,9 @@ def get_events(request):
         end_date = parse_datetime(end_date_str).date()
 
         events = Attendance_info.objects.filter(
-            user=user,
+            recipient_number=recipient_number,
             calendar_date__range=[start_date, end_date]
-        ).values('id', 'calendar_date', 'start_time', 'end_time', 'status', 'transportation_to', 'transportation_from', 'absence_reason')
+        ).values( 'calendar_date', 'start_time', 'end_time', 'status', 'transportation_to', 'transportation_from', 'absence_reason')
 
         events_data = list(events)  # QuerySetをリストに変換してJSON可能な形式にする
 

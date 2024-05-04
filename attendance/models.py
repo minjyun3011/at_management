@@ -81,13 +81,10 @@ class Attendance_info(models.Model):
     class Meta:
         unique_together = ('recipient_number', 'calendar_date')  # recipient_numberと日付の組み合わせはユニーク
 
-    # def __str__(self):
-    # # recipient_numberを通じてUserモデルからnameを取得
-    #     if self.recipient_number:
-    #         user_name = self.name
-    #     else:
-    #         user_name = "Unknown User"
-    #     return f'{user_name} - {self.calendar_date} - {self.status}'
+    def __str__(self):
+        # recipient_numberを通じてUserモデルからnameを取得
+        user_name = self.recipient_number.name if self.recipient_number else "Unknown User"
+        return f'{user_name} - {self.calendar_date} - {self.status}'
 
 
 class AbsenceAccrual(models.Model):
@@ -99,8 +96,11 @@ class AbsenceAccrual(models.Model):
     )
     accrual_eligible = models.BooleanField(default=False, verbose_name="加算対象")
 
-    # def __str__(self):
-    #     # Attendance_info の recipient_number を使用して User の name にアクセス
-    #     user_name = self.name  # User の名前(セッションで取得？）)
-    #     eligible_status = "Eligible" if self.accrual_eligible else "Not Eligible"
-    #     return f'{user_name} - {self.calendar_date} - {eligible_status}'
+    def __str__(self):
+        # Attendance_info から関連する User の名前を取得
+        user_name = self.attendance.recipient_number.name if self.attendance and self.attendance.recipient_number else "Unknown User"
+        # Attendance_info の日付を取得
+        calendar_date = self.attendance.calendar_date if self.attendance else "No Date"
+        eligible_status = "Eligible" if self.accrual_eligible else "Not Eligible"
+        return f'{user_name} - {calendar_date} - {eligible_status}'
+
