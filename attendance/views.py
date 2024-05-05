@@ -19,6 +19,8 @@ from .models import User, Attendance_info
 from django.views.generic import TemplateView
 from django.contrib import messages 
 from datetime import datetime
+from django.shortcuts import get_object_or_404
+
 
 logger = logging.getLogger(__name__)
 
@@ -109,14 +111,14 @@ def add_event(request):
         form = AttendanceInfoForm(data)
         if form.is_valid():
             event = form.save(commit=False)
-            event.user = user  # Userオブジェクトを設定
+            user = get_object_or_404(User, pk=request.session.get('recipient_number'))
+            event.recipient_number = user  # Userオブジェクトを設定
             event.save()  # イベントを保存
 
             # イベント追加成功のレスポンスデータ
             response_data = {
                 'message': 'Event successfully added',
                 'eventData': {
-                    'id': event.id,
                     'title': f"{event.status} - {event.calendar_date}",
                     'start': datetime.combine(event.calendar_date, event.start_time).isoformat(),
                     'end': datetime.combine(event.calendar_date, event.end_time).isoformat(),
