@@ -94,11 +94,7 @@ class Home1View(TemplateView):
 #         context['now'] = timezone.now()  # 現在の時刻データを追加
 #         return context
     
-# # ロガーの設定
-# logger = logging.getLogger(__name__)
-# logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
-@csrf_exempt
 @require_http_methods(["POST"])
 def add_event(request):
     try:
@@ -147,7 +143,6 @@ def add_event(request):
 
 
 #カレンダー選択後にその日付の中に入っているイベントデータを取得して入力欄に表示しておくために必要な関数
-@csrf_exempt
 @require_http_methods(["POST"])
 def get_events(request):
     try:

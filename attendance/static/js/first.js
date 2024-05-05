@@ -92,14 +92,10 @@ function submitEvent() {
     var transportationFromInput = document.getElementById('transportation_from').value; // 復路の送迎サービス
     var absenceReasonInput = document.getElementById('absence_reason').value; // 欠席理由
 
-    // 日付と時間を組み合わせる
-    var startDateTime = new Date(dateInput + 'T' + startTimeInput).toISOString();
-    var endDateTime = new Date(dateInput + 'T' + endTimeInput).toISOString();
-
     axios.post('/api/add_event/', {
         calendar_date: dateInput,
-        start_time: startDateTime,
-        end_time: endDateTime,
+        start_time: startTimeInput,
+        end_time: endTimeInput,
         status: statusInput,
         transportation_to: transportationToInput,
         transportation_from: transportationFromInput,
@@ -107,6 +103,8 @@ function submitEvent() {
     }, {
         headers: {
             'X-CSRFToken': getCsrfToken(),
+            'Content-Type': 'application/json',
+
         }
     })
     .then(function(response) {

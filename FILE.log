@@ -2508,3 +2508,34 @@ Not Found: /favicon.ico
 Request data: {'calendar_date': '2024-05-01', 'start_time': '21:26', 'end_time': '23:26', 'status': 'PR', 'transportation_to': 'NU', 'transportation_from': 'US', 'absence_reason': ''}
 Failed to add event: NOT NULL constraint failed: attendance_attendance_info.recipient_number_id
 Internal Server Error: /api/add_event/
+Watching for file changes with StatReloader
+Request data: {'calendar_date': '2024-05-08', 'start_time': '2024-05-08T06:02:00.000Z', 'end_time': '2024-05-08T07:02:00.000Z', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': ''}
+Form errors: <ul class="errorlist"><li>start_time<ul class="errorlist"><li>時間を正しく入力してください。</li></ul></li><li>end_time<ul class="errorlist"><li>時間を正しく入力してください。</li></ul></li></ul>
+Bad Request: /api/add_event/
+Watching for file changes with StatReloader
+Request data: {'calendar_date': '2024-05-07', 'start_time': '2024-05-07T06:28:00.000Z', 'end_time': '2024-05-07T08:28:00.000Z', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': ''}
+Form errors: <ul class="errorlist"><li>start_time<ul class="errorlist"><li>時間を正しく入力してください。</li></ul></li><li>end_time<ul class="errorlist"><li>時間を正しく入力してください。</li></ul></li></ul>
+Bad Request: /api/add_event/
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Request data: {'calendar_date': '2024-05-03', 'start_time': '2024-05-03T06:43:00.000Z', 'end_time': '2024-05-03T07:43:00.000Z', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': ''}
+Form errors: <ul class="errorlist"><li>start_time<ul class="errorlist"><li>時間を正しく入力してください。</li></ul></li><li>end_time<ul class="errorlist"><li>時間を正しく入力してください。</li></ul></li></ul>
+Bad Request: /api/add_event/
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Request data: {'calendar_date': '2024-05-08', 'start_time': '2024-05-08T06:50:00.000Z', 'end_time': '2024-05-08T07:50:00.000Z', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': ''}
+Form errors: <ul class="errorlist"><li>start_time<ul class="errorlist"><li>時間を正しく入力してください。</li></ul></li><li>end_time<ul class="errorlist"><li>時間を正しく入力してください。</li></ul></li></ul>
+Bad Request: /api/add_event/
+Internal Server Error: /api/get_events/
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Request data: {'calendar_date': '2024-05-01', 'start_time': '16:07', 'end_time': '17:07', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': ''}
+Failed to add event: NOT NULL constraint failed: attendance_attendance_info.recipient_number_id
+Internal Server Error: /api/add_event/
