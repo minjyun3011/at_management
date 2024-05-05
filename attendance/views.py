@@ -8,9 +8,7 @@ from django.views.generic.edit import FormView
 from django.urls import reverse, reverse_lazy
 from django.utils.dateparse import parse_datetime
 from django.views.decorators.http import require_http_methods
-from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import redirect
-from django.utils import timezone
 
 from .forms import UserForm, CheckUserForm
 
@@ -20,6 +18,9 @@ from django.views.generic import TemplateView
 from django.contrib import messages 
 from datetime import datetime
 from django.shortcuts import get_object_or_404
+from django.core.exceptions import ValidationError
+
+
 
 
 logger = logging.getLogger(__name__)
@@ -97,52 +98,40 @@ class Home1View(TemplateView):
 #         return context
     
 
+
 @require_http_methods(["POST"])
 def add_event(request):
     try:
         data = json.loads(request.body)
-        logger.debug("Request data: %s", data)
-
-        # セッションから受給者番号を取得して、対応するUserオブジェクトを取得
         recipient_number = request.session.get('recipient_number')
-        user = User.objects.get(recipient_number=recipient_number)
+        user = get_object_or_404(User, recipient_number=recipient_number)
 
-        # フォームを初期化し、データをバリデーション
         form = AttendanceInfoForm(data)
         if form.is_valid():
             event = form.save(commit=False)
-            user = get_object_or_404(User, pk=request.session.get('recipient_number'))
-            event.recipient_number = user  # Userオブジェクトを設定
-            event.save()  # イベントを保存
+            event.recipient_number = user
+            event.save()
 
-            # イベント追加成功のレスポンスデータ
             response_data = {
                 'message': 'Event successfully added',
                 'eventData': {
-                    'title': f"{event.status} - {event.calendar_date}",
-                    'start': datetime.combine(event.calendar_date, event.start_time).isoformat(),
-                    'end': datetime.combine(event.calendar_date, event.end_time).isoformat(),
+                    'id': event.id,
+                    'title': f"{event.get_status_display()} - {event.calendar_date.strftime('%Y-%m-%d')}",
+                    'start': event.start_time.strftime('%Y-%m-%dT%H:%M:%S'),
+                    'end': event.end_time.strftime('%Y-%m-%dT%H:%M:%S'),
                     'status': event.get_status_display(),
                     'transportation_to': event.get_transportation_to_display(),
                     'transportation_from': event.get_transportation_from_display(),
                     'absence_reason': event.absence_reason or "N/A",
                 }
             }
-            logger.debug("Event added: %s", response_data)
             return JsonResponse(response_data, status=200)
         else:
-            # フォームが無効であればエラーを返す
-            logger.debug("Form errors: %s", form.errors)
-            return JsonResponse({'errors': form.errors}, status=400)
-
-    except User.DoesNotExist:
-        # Userが見つからない場合
-        logger.error("User not found with recipient_number: %s", recipient_number)
-        return JsonResponse({'error': 'User not found'}, status=404)
+            return JsonResponse({'errors': form.errors.get_json_data()}, status=400)
+    except ValidationError as e:
+        return JsonResponse({'error': str(e)}, status=400)
     except Exception as e:
-        logger.error("Failed to add event: %s", str(e))
         return JsonResponse({'error': 'Internal Server Error', 'message': str(e)}, status=500)
-
 
 #カレンダー選択後にその日付の中に入っているイベントデータを取得して入力欄に表示しておくために必要な関数
 @require_http_methods(["POST"])

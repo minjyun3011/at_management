@@ -110,27 +110,35 @@ function submitEvent() {
     .then(function(response) {
     console.log(response.data);
     saveEventToLocalstorage(response.data);  // ローカルストレージに保存
-    const startTime = new Date(response.data.eventData.start).toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' });
-    const endTime = new Date(response.data.eventData.end).toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' });
-    const eventTitle = `${startTime} ~ ${endTime}`;
+    const eventData = response.data.eventData;
 
+    // 時刻データを 'HH:MM' 形式で取得
+    const startTime = new Date(eventData.start).toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' });
+    const endTime = new Date(eventData.end).toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' });
+
+    // タイトルを `16:00 ~ 18:00` 形式で設定
+    const eventTitle = `${startTime} ~ ${endTime} ${eventData.status}`;
+
+    // カレンダーイベントオブジェクトを設定
     calendar.addEvent({
-        id: response.data.event_id, // イベントIDを追加
-        title: eventTitle,  // タイムレンジをタイトルとして使用
-        start: response.data.eventData.start, // イベントの開始日時
-        end: response.data.eventData.end, // イベントの終了日時
-        status: response.data.eventData.status, // 出席状態
-        transportation_to: response.data.eventData.transportation_to, // 往路の送迎サービス
-        transportation_from: response.data.eventData.transportation_from, // 復路の送迎サービス
-        absence_reason: response.data.eventData.absence_reason, // 欠席理由
+        id: eventData.id, // イベントID
+        title: eventTitle, // タイムレンジをタイトルとして使用
+        start: eventData.start, // イベントの開始日時
+        end: eventData.end, // イベントの終了日時
+        status: eventData.status, // 出席状態
+        transportation_to: eventData.transportation_to, // 往路の送迎サービス
+        transportation_from: eventData.transportation_from, // 復路の送迎サービス
+        absence_reason: eventData.absence_reason, // 欠席理由
+        color: eventData.status === '出席' ? '#57e32c' : '#f53b57', // イベントの色を出席状態に基づいて設定
+        textColor: '#000000' // テキスト色を設定
     });
+
     calendar.render(); // カレンダーの再描画を強制
     // 処理成功後にhome1.htmlへ画面遷移
     window.location.href = '/home1/';
 })
 .catch(function(error) {
-    console.error('Error:', error);
-    alert("イベントの追加に失敗しました");
+    console.error('Error adding event:', error);
+    alert('イベントの追加に失敗しました。');
 });
-
 }
