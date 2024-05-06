@@ -26,10 +26,11 @@ function saveEventToLocalstorage(eventData) {
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM fully loaded and parsed');
     var calendarEl = document.getElementById('calendar');
+
     if (calendarEl) {
         console.log('Found calendar element, initializing calendar...');
-        // カレンダーを初期化
-        calendar = new FullCalendar.Calendar(calendarEl, {
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
             selectable: true,
             select: function(info) {
@@ -47,27 +48,38 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .then(function(response) {
                     console.log('Events fetched successfully', response.data);
-                    response.data.forEach(event => {
-                        calendar.addEvent({
-                            title: event.title || `${event.status} - ${event.calendar_date}`, // タイトルがない場合はステータスと日付を表示
-                            start: event.start_time,
-                            end: event.end_time,
+                    const formattedEvents = response.data.map(event => {
+                        // Ensure the date formats are correct for FullCalendar
+                        const startTime = new Date(event.start_time).toISOString();
+                        const endTime = new Date(event.end_time).toISOString();
+
+                        console.log('Formatted event:', {
+                            startTime: startTime,
+                            endTime: endTime,
+                            title: event.title
+                        });
+
+                        return {
+                            id: event.id,
+                            title: `${new Date(startTime).toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', hour12: false })} ~ ${new Date(endTime).toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', hour12: false })}`,
+                            start: startTime,
+                            end: endTime,
                             status: event.status,
                             transportation_to: event.transportation_to,
                             transportation_from: event.transportation_from,
-                            absence_reason: event.absence_reason
-                        });
+                            absence_reason: event.absence_reason,
+                            allDay: false
+                        };
                     });
+                    successCallback(formattedEvents);
                 })
                 .catch(function(error) {
                     console.error("Event fetching failed:", error);
                     failureCallback(error);
-                    alert("イベントの取得に失敗しました");
                 });
             }
         });
 
-        // カレンダーを描画
         console.log('Rendering calendar...');
         calendar.render();
         console.log('Rendered calendar.');
@@ -75,6 +87,8 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Calendar element not found.');
     }
 });
+
+
 
 
 function clearAllEventsFromLocalStorage() {

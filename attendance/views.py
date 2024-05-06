@@ -1,6 +1,5 @@
 import json
 import logging
-from datetime import datetime
 from .forms import AttendanceInfoForm
 from django.views.generic.edit import FormView
 from django.http import JsonResponse
@@ -19,6 +18,7 @@ from django.contrib import messages
 from datetime import datetime
 from django.shortcuts import get_object_or_404
 from django.core.exceptions import ValidationError
+from django.utils.dateformat import DateFormat
 
 
 
@@ -135,28 +135,36 @@ def add_event(request):
 
 #カレンダー選択後にその日付の中に入っているイベントデータを取得して入力欄に表示しておくために必要な関数
 @require_http_methods(["POST"])
+
 def get_events(request):
     try:
         calendar_data = json.loads(request.body)
         recipient_number = request.session.get('recipient_number')
-        #セッションに保存されているrecipient_numberが本当にUserモデルのものなのか照合
         user = User.objects.get(recipient_number=recipient_number)
 
         # 入力された開始日と終了日を取得
-        start_date_str = calendar_data.get('start_time')
-        end_date_str = calendar_data.get('end_time')
-
-        # 文字列からdatetimeオブジェクトに変換し、日付の部分だけを抽出
-        start_date = parse_datetime(start_date_str).date()
-        end_date = parse_datetime(end_date_str).date()
+        start_date = parse_datetime(calendar_data.get('start_time')).date()
+        end_date = parse_datetime(calendar_data.get('end_time')).date()
 
         events = Attendance_info.objects.filter(
-            recipient_number=recipient_number,
+            recipient_number=user,
             calendar_date__range=[start_date, end_date]
-        ).values( 'calendar_date', 'start_time', 'end_time', 'status', 'transportation_to', 'transportation_from', 'absence_reason')
+        )
 
-        events_data = list(events)  # QuerySetをリストに変換してJSON可能な形式にする
+        # イベントデータをISO 8601形式に整形
+        events_data = [{
+            'id': event.id,
+            'calendar_date': event.calendar_date.strftime('%Y-%m-%d'),
+            'start_time': DateFormat(event.start_time).format('c'),  # ISO 8601 format
+            'end_time': DateFormat(event.end_time).format('c'),
+            'status': event.status,
+            'transportation_to': event.transportation_to,
+            'transportation_from': event.transportation_from,
+            'absence_reason': event.absence_reason
+        } for event in events]
 
-        return JsonResponse(events_data, safe=False)  # リスト形式のレスポンスを許可
+        return JsonResponse(events_data, safe=False)
+    except User.DoesNotExist:
+        return JsonResponse({'error': 'User not found'}, status=404)
     except Exception as e:
         return JsonResponse({'error': 'Internal Server Error', 'message': str(e)}, status=500)
