@@ -135,7 +135,6 @@ def add_event(request):
 
 #カレンダー選択後にその日付の中に入っているイベントデータを取得して入力欄に表示しておくために必要な関数
 @require_http_methods(["POST"])
-
 def get_events(request):
     try:
         calendar_data = json.loads(request.body)
