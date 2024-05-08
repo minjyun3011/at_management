@@ -1,5 +1,5 @@
 
-{%  block content %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,10 +7,13 @@
     <title>本日の利用予定</title>
 </head>
 <body>
-    <h1>12月15日(水) 10:00〜14:00 送迎あり(行き)</h1>
-    <p>{{ attendance.date }}</p>
-    <p>{{ attendance.start_time }}{{ attendance.end_time }}</p>
-    <p>{{ attendance.status }}</p>
+    {% if attendance %}
+        <h1>{{ attendance.date }} ({{ attendance.date|date:"l" }}) {{ attendance.start_time|time:"H:i" }}〜{{ attendance.end_time|time:"H:i" }} {{ attendance.transportation_to|yesno:"送迎あり(行き),送迎なし" }}</h1>
+        <p>ステータス: {{ attendance.status }}</p>
+    {% else %}
+        <h1>{{ today|date:"Y年m月d日 (l)" }}</h1>
+        <p>今日はお休みです。</p>
+    {% endif %}
 </body>
 </html>
-{%  endblock %}
+{% endblock %}
