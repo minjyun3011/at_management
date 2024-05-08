@@ -98,7 +98,6 @@ class Home1View(TemplateView):
 #         return context
     
 
-
 @require_http_methods(["POST"])
 def add_event(request):
     try:
@@ -112,21 +111,23 @@ def add_event(request):
             event.recipient_number = user
             event.save()
 
+            # イベントデータをISO 8601形式に整形して返す
             response_data = {
                 'message': 'Event successfully added',
                 'eventData': {
                     'id': event.id,
-                    'title': f"{event.get_status_display()} - {event.calendar_date.strftime('%Y-%m-%d')}",
-                    'start': event.start_time.strftime('%Y-%m-%dT%H:%M:%S'),
-                    'end': event.end_time.strftime('%Y-%m-%dT%H:%M:%S'),
-                    'status': event.get_status_display(),
-                    'transportation_to': event.get_transportation_to_display(),
-                    'transportation_from': event.get_transportation_from_display(),
+                    'calendar_date': event.calendar_date.strftime('%Y-%m-%d'),
+                    'start_time': DateFormat(event.start_time).format('c'),  # ISO 8601 format
+                    'end_time': DateFormat(event.end_time).format('c'),
+                    'status': event.get_status_display(),  # get_status_display() で選択肢の表示用文字列を取得
+                    'transportation_to': event.get_transportation_to_display(),  # 同様に表示用文字列を取得
+                    'transportation_from': event.get_transportation_from_display(),  # 同様に表示用文字列を取得
                     'absence_reason': event.absence_reason or "N/A",
                 }
             }
             return JsonResponse(response_data, status=200)
         else:
+            # フォームエラーがあればJSON形式で返す
             return JsonResponse({'errors': form.errors.get_json_data()}, status=400)
     except ValidationError as e:
         return JsonResponse({'error': str(e)}, status=400)
