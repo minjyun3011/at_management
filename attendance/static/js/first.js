@@ -72,7 +72,6 @@ function formatEvents(eventsData) {
         };
     });
 }
-
 function submitEvent() {
     const eventData = {
         calendar_date: document.getElementById('calendar_date').value,
@@ -90,16 +89,31 @@ function submitEvent() {
             'Content-Type': 'application/json'
         }
     }).then(function(response) {
-        const newEvent = formatEvents([response.data.eventData])[0];
-        calendar.addEvent(newEvent);
-        alert('イベントが正常に追加されました。');
-        window.location.href = '/home1/'; // リダイレクトはイベントの追加後に実行
-    }).catch(function(error) {
-        console.error('Error adding event:', error);
-        alert('イベントの追加に失敗しました。');
-    });
-}
+    const newEvent = formatEvents([response.data.eventData])[0];
+    var eventModal = bootstrap.Modal.getInstance(document.getElementById('eventModal'));
 
+    // モーダルが完全に閉じられた後に実行されるイベントハンドラを設定
+    document.getElementById('eventModal').addEventListener('hidden.bs.modal', function (e) {
+        // イベントをカレンダーに追加
+        calendar.addEvent(newEvent);
+        // カレンダーを再描画
+        calendar.render();
+
+        // モーダルが閉じたことを確認した後にアラートを表示
+        alert('イベントが正常に追加されました。');
+
+        // リダイレクトはアラート後に実行
+        window.location.href = '/home1/';
+    }, { once: true }); // イベントリスナーは一度だけ実行されるように設定
+
+    // モーダルを非表示にする
+    eventModal.hide();
+})
+.catch(function(error) {
+    console.error('Error adding event:', error);
+    alert('イベントの追加に失敗しました。');
+});
+}
 
 
 function clearAllEventsFromLocalStorage() {
