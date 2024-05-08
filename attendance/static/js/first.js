@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(function(response) {
     console.log('Received event data:', response.data); // 受け取ったデータのログ出力
 
-    const formattedEvents = response.datta.map(event => {
+    const formattedEvents = response.data.map(event => {
         console.log('Processing event:', event); // 処理中のイベントログ
 
         const startDateTimeString = `${event.calendar_date}T${event.start_time}`;
