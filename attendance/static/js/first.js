@@ -23,8 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
             initialView: 'dayGridMonth',
             locale: 'ja',
             headerToolbar: {
-            left: 'title',
-            center: 'prev,next today',
+            left: 'title prev next',
             right: 'dayGridMonth,timeGridWeek,timeGridDay'
         },
             titleFormat: { // タイトルのフォーマットをカスタマイズ
