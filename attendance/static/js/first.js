@@ -21,6 +21,16 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Found calendar element, initializing calendar...');
         calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
+            locale: 'ja',
+            headerToolbar: {
+            left: 'title',
+            center: 'prev,next today',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+            titleFormat: { // タイトルのフォーマットをカスタマイズ
+            year: 'numeric',  // 年は数字で
+            month: 'long',    // 月は長い名前で
+        },
             selectable: true,
             select: function(info) {
                 var eventModal = new bootstrap.Modal(document.getElementById('eventDetailsModal'));
