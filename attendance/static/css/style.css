@@ -187,3 +187,10 @@ nav {
 .custom-row-flex > div {
     flex: 1; /* 子要素に等しい幅を割り当て */
 }
+
+.event-details {
+    font-size: 20px; /* フォントサイズを大きく設定 */
+    font-weight: bold; /* フォントを太くする */
+    margin-bottom: 20px; /* 下にマージンを設定 */
+    color: #333; /* 文字色を濃いグレーに設定 */
+}

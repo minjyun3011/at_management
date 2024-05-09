@@ -12,5 +12,7 @@ urlpatterns = [
     path('home1/', Home1View.as_view(), name='home1'),  # General access without user ID
     path('api/get_events/', views.get_events, name='get_events'),
     path('api/add_event/',views.add_event, name='add_event' ),
+    path('api/get_event_details/', views.get_event_details, name='get_event_details'),
+
 ]
 

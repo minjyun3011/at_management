@@ -2662,3 +2662,55 @@ Watching for file changes with StatReloader
 Not Found: /favicon.ico
 Watching for file changes with StatReloader
 Not Found: /favicon.ico
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+No existing user, creating new user
+New user 斉藤俊介 created and saved.
+Internal Server Error: /api/add_event/
+No existing user, creating new user
+New user 池本圭人 created and saved.
+No existing user, creating new user
+New user 山口　永遠 created and saved.
+Form invalid, errors: <ul class="errorlist"><li>recipient_number<ul class="errorlist"><li>この 受給者番号 を持った User が既に存在します。</li></ul></li></ul>
+No existing user, creating new user
+New user 佐藤ひな created and saved.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /api/get_events/
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/urls.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/urls.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Method Not Allowed (GET): /api/get_event_details/
+Method Not Allowed (GET): /api/get_event_details/
+Method Not Allowed (GET): /api/get_event_details/
+Method Not Allowed (GET): /api/get_event_details/
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Internal Server Error: /api/get_event_details/
+Internal Server Error: /api/get_event_details/
+Internal Server Error: /api/get_event_details/
+Internal Server Error: /api/get_event_details/
+Internal Server Error: /api/get_event_details/
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader

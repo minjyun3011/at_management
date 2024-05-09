@@ -20,6 +20,8 @@ from django.shortcuts import get_object_or_404
 from django.core.exceptions import ValidationError
 from django.utils.dateformat import DateFormat
 
+from django.core.exceptions import ObjectDoesNotExist
+
 
 
 
@@ -168,3 +170,34 @@ def get_events(request):
         return JsonResponse({'error': 'User not found'}, status=404)
     except Exception as e:
         return JsonResponse({'error': 'Internal Server Error', 'message': str(e)}, status=500)
+
+
+@require_http_methods(["GET"])
+def get_event_details(request):
+    date = request.GET.get('date')
+    recipient_number = request.session.get('recipient_number')
+    
+    if not recipient_number:
+        return JsonResponse({'error': 'Session does not contain recipient_number'}, status=400)
+
+    try:
+        user = User.objects.get(recipient_number=recipient_number)
+        events = Attendance_info.objects.filter(recipient_number=user, calendar_date=date)
+
+        events_data = [{
+            'id': event.id,
+            'calendar_date': event.calendar_date.strftime('%Y-%m-%d'),
+            'start_time': DateFormat(event.start_time).format('c'),
+            'end_time': DateFormat(event.end_time).format('c'),
+            'status': event.get_status_display(),
+            'transportation_to': event.get_transportation_to_display(),
+            'transportation_from': event.get_transportation_from_display(),
+            'absence_reason': event.absence_reason or "N/A",
+        } for event in events]
+
+        return JsonResponse(events_data, safe=False)
+
+    except ObjectDoesNotExist:
+        return JsonResponse({'error': 'No events found for this user on the specified date'}, status=404)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)

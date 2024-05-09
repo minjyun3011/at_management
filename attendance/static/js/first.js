@@ -2,26 +2,19 @@
 function getCsrfToken() {
     return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 }
-
-// FullCalendarインスタンスを格納するための変数をグローバルスコープで宣言
+//カレンダー環境本体のセット
 var calendar;
 
+// ローカルストレージからイベントデータを保存する関数
 function saveEventToLocalstorage(eventData) {
-    // ローカルストレージから現在のイベントリストを取得する
     const eventsJson = localStorage.getItem('events');
-    console.log("Retrieved events from localStorage:", eventsJson); // 取得したデータの生のJSONを表示
-
     const existingEvents = eventsJson ? JSON.parse(eventsJson) : [];
-    console.log("Parsed existing events:", existingEvents); // 解析後のイベントリストを表示
-
-    // 新しいイベントデータをリストに追加する
     existingEvents.push(eventData);
-    console.log("Updated events list with new event:", existingEvents); // 更新後のイベントリストを表示
-
-    // 更新されたリストをローカルストレージに保存する
     localStorage.setItem('events', JSON.stringify(existingEvents));
-    console.log("Saved updated events list to localStorage."); // 保存処理が完了したことを表示
+    console.log("Saved updated events list to localStorage.");
 }
+
+//JS起動時の自動処理（カレンダー初期化）
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     if (calendarEl) {
@@ -30,10 +23,10 @@ document.addEventListener('DOMContentLoaded', function() {
             initialView: 'dayGridMonth',
             selectable: true,
             select: function(info) {
-                // イベントモーダルを表示するコード
-                var eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
-                eventModal.show();
-                document.getElementById('calendar_date').value = info.startStr.split('T')[0]; // 選択された日付をモーダルの入力欄に設定
+                var eventModal = new bootstrap.Modal(document.getElementById('eventDetailsModal'));
+                    eventModal.show();
+                // 選択された日付のイベント詳細を取得する
+                fetchEventDetails(info.startStr.split('T')[0]);
             },
             events: fetchAndFormatEvents // 別の関数としてイベントの取得とフォーマットを行う
         });
@@ -43,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// JS起動時に、既存の出欠情報をカレンダーに描画するための関数(events)
 function fetchAndFormatEvents(fetchInfo, successCallback, failureCallback) {
     axios.post("/api/get_events/", {
         start_time: fetchInfo.startStr,
@@ -58,6 +52,7 @@ function fetchAndFormatEvents(fetchInfo, successCallback, failureCallback) {
     });
 }
 
+//submitEvent()関数にてカレンダーに追加するイベントデータの形を決める関数
 function formatEvents(eventsData) {
     return eventsData.map(event => {
         const startDateTime = new Date(`${event.calendar_date}T${event.start_time}`);
@@ -72,6 +67,56 @@ function formatEvents(eventsData) {
         };
     });
 }
+
+//カレンダーの日付を選択した時に始まる処理関数（select)
+function fetchEventDetails(date) {
+    axios.get(`/api/get_event_details/`, {
+        params: { date: date },
+        headers: { 'X-CSRFToken': getCsrfToken() }
+    })
+    .then(function(response) {
+        // 取得したデータを表示する
+        displayEventDetails(response.data);
+    })
+    .catch(function(error) {
+        console.error("Error fetching event details:", error);
+    });
+}
+
+// 取得したイベントデータをHTML仕様で表示するための関数
+function displayEventDetails(data) {
+    if (!data || data.length === 0) {
+        console.error('No data available to display.');
+        return;
+    }
+
+    // 期待するデータ構造に基づいて変数を設定
+    const event = data[0]; // 複数イベントがある場合は、適切なイベントデータを選択
+    const startDate = parseISODateTime(`${event.calendar_date}T${event.start_time}`);
+    const endDate = parseISODateTime(`${event.calendar_date}T${event.end_time}`);
+
+    // DOMにデータを設定
+    document.getElementById('eventDate').textContent = event.calendar_date || 'No date provided';
+    document.getElementById('eventTime').textContent = `${formatTime(startDate)} - ${formatTime(endDate)}`;
+    document.getElementById('eventStatus').textContent = event.status || 'No status provided';
+}
+
+function parseISODateTime(dateTimeStr) {
+    const dateTime = new Date(dateTimeStr);
+    if (isNaN(dateTime.getTime())) {
+        console.error('Invalid date/time string:', dateTimeStr);
+        return new Date();  // デフォルトの日付オブジェクトを返す（エラーハンドリングの一環）
+    }
+    return dateTime;
+}
+
+function formatTime(date) {
+    return date.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', hour12: false });
+}
+
+
+
+//追加の出欠情報をモデルに保存＆カレンダー再描画するメインの関数
 function submitEvent() {
     const eventData = {
         calendar_date: document.getElementById('calendar_date').value,
