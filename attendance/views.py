@@ -21,6 +21,7 @@ from django.core.exceptions import ValidationError
 from django.utils.dateformat import DateFormat
 
 from django.core.exceptions import ObjectDoesNotExist
+from datetime import date
 
 
 
@@ -79,6 +80,18 @@ class UserRegistrationView(CreateView):
 #home0.htmlからのリダイレクト直後の処理内容
 class Home1View(TemplateView):
     template_name = 'attendance/home1.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        recipient_number = self.request.session.get('recipient_number')
+        today = date.today()
+
+        if recipient_number:
+            user = get_object_or_404(User, recipient_number=recipient_number)
+            attendance = Attendance_info.objects.filter(recipient_number=user, calendar_date=today).first()
+            context['attendance'] = attendance
+            context['today'] = today
+        return context
 
     #セッションを使用しない場合にのみ有効な処理
     # def get_context_data(self, **kwargs):

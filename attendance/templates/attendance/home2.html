@@ -8,12 +8,24 @@
 </head>
 <body>
     {% if attendance %}
-        <h1>{{ attendance.date }} ({{ attendance.date|date:"l" }}) {{ attendance.start_time|time:"H:i" }}〜{{ attendance.end_time|time:"H:i" }} {{ attendance.transportation_to|yesno:"送迎あり(行き),送迎なし" }}</h1>
-        <p>ステータス: {{ attendance.status }}</p>
+        <h1>{{ attendance.calendar_date|date:"Y年m月d日 (l)" }} {{ attendance.start_time|time:"H:i" }}〜{{ attendance.end_time|time:"H:i" }}</h1>
+        <h2>送迎情報: 
+        {% if attendance.transportation_to and attendance.transportation_from %}
+            行きと帰りの送迎あり
+        {% elif attendance.transportation_to %}
+            行きのみ送迎あり
+        {% elif attendance.transportation_from %}
+            帰りのみ送迎あり
+        {% else %}
+            送迎なし
+        {% endif %}
+        </h2>
+        <h2>{{ attendance.get_status_display }}</h2>
     {% else %}
         <h1>{{ today|date:"Y年m月d日 (l)" }}</h1>
-        <p>今日はお休みです。</p>
+        <h2>今日はお休みです。</h2>
     {% endif %}
 </body>
 </html>
 {% endblock %}
+

@@ -22,7 +22,6 @@
     <!-- 一番上のメニューバー -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">
-        本日の利用予定 
         {{ request.session.user_name }}
         {% if request.session.user_gender == 'M' %}
             くん
