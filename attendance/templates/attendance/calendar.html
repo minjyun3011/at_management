@@ -1,5 +1,7 @@
 {% load static %}
 <div id='calendar'></div>
+
+<!-- Event Details Modal -->
 <div class="modal fade" id="eventDetailsModal" tabindex="-1" aria-labelledby="eventDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -14,7 +16,71 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#eventModal" onclick="submitEditEvent()">編集</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editEventModal">編集</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Event Modal -->
+<div class="modal fade" id="editEventModal" tabindex="-1" aria-labelledby="editEventModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editEventModalLabel">イベント情報の編集</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editEventForm">
+                    <!-- 日付 -->
+                    <div class="form-group">
+                        <label for="edit_calendar_date" class="form-label">日付</label>
+                        <input type="date" class="form-control" id="edit_calendar_date" name="calendar_date">
+                    </div>
+                    <!-- 開始時間 -->
+                    <div class="form-group">
+                        <label for="edit_start_time" class="form-label">開始時間</label>
+                        <input type="time" class="form-control" id="edit_start_time" name="start_time">
+                    </div>
+                    <!-- 終了時間 -->
+                    <div class="form-group">
+                        <label for="edit_end_time" class="form-label">終了時間</label>
+                        <input type="time" class="form-control" id="edit_end_time" name="end_time">
+                    </div>
+                    <!-- 出席状態の選択 -->
+                    <div class="form-group">
+                        <label for="edit_status" class="form-label">出席状態:</label>
+                        <select id="edit_status" name="status" class="form-control">
+                            <option value="PR">出席</option>
+                            <option value="AB">欠席</option>
+                        </select>
+                    </div>
+                    <!-- 送迎サービス（往路）の選択 -->
+                    <div class="form-group">
+                        <label for="edit_transportation_to" class="form-label">送迎サービス（往路）:</label>
+                        <select id="edit_transportation_to" name="transportation_to" class="form-control">
+                            <option value="US">利用</option>
+                            <option value="NU">未利用</option>
+                        </select>
+                    </div>
+                    <!-- 送迎サービス（復路）の選択 -->
+                    <div class="form-group">
+                        <label for="edit_transportation_from" class="form-label">送迎サービス（復路）:</label>
+                        <select id="edit_transportation_from" name="transportation_from" class="form-control">
+                            <option value="US">利用</option>
+                            <option value="NU">未利用</option>
+                        </select>
+                    </div>
+                    <!-- 欠席理由 -->
+                    <div class="form-group">
+                        <label for="edit_absence_reason" class="form-label">欠席理由</label>
+                        <textarea class="form-control" id="edit_absence_reason" name="absence_reason" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="submitEditEvent()">更新</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
             </div>
         </div>
     </div>
@@ -81,6 +147,7 @@
                 </form>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
                 <button type="button" class="btn btn-primary" onclick="submitEvent()">保存</button>
             </div>
         </div>
