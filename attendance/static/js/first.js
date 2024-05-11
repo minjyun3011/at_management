@@ -14,7 +14,7 @@ function saveEventToLocalstorage(eventData) {
     console.log("Saved updated events list to localStorage.");
 }
 
-//JS起動時の自動処理（カレンダー初期化）
+//①カレンダー初期化
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     if (calendarEl) {
@@ -32,9 +32,6 @@ document.addEventListener('DOMContentLoaded', function() {
         },
             selectable: true,
             select: function(info) {
-                var eventModal = new bootstrap.Modal(document.getElementById('eventDetailsModal'));
-                    eventModal.show();
-                resetModals();
                 // 選択された日付のイベント詳細を取得する
                 fetchEventDetails(info.startStr.split('T')[0]);
             },
@@ -46,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// JS起動時に、既存の出欠情報をカレンダーに描画するための関数(events)
+//①カレンダー初期化の続き（データ反映用）
 function fetchAndFormatEvents(fetchInfo, successCallback, failureCallback) {
     axios.post("/api/get_events/", {
         start_time: fetchInfo.startStr,
@@ -62,7 +59,7 @@ function fetchAndFormatEvents(fetchInfo, successCallback, failureCallback) {
     });
 }
 
-//submitEvent()関数にてカレンダーに追加するイベントデータの形を決める関数
+//カレンダー描画時の処理（共通）
 function formatEvents(eventsData) {
     return eventsData.map(event => {
         const startDateTime = new Date(`${event.calendar_date}T${event.start_time}`);
@@ -78,7 +75,7 @@ function formatEvents(eventsData) {
     });
 }
 
-//カレンダーの日付を選択した時に始まる処理関数（select)
+//②カレンダーの日付選択に関する処理（イベントモーダル表示）
 function fetchEventDetails(date) {
     axios.get(`/api/get_event_details/`, {
         params: { date: date },
@@ -86,41 +83,20 @@ function fetchEventDetails(date) {
     })
     .then(function(response) {
         if (response.data.length > 0) {
+            // 取得したデータを表示する
             displayEventDetails(response.data);
-            new bootstrap.Modal(document.getElementById('eventDetailsModal')).show();
+            var detailsModal = new bootstrap.Modal(document.getElementById('eventDetailsModal'));
+            detailsModal.show();
         } else {
-            document.getElementById('calendar_date').value = date; // Set date for new event
-            new bootstrap.Modal(document.getElementById('eventModal')).show();
+            // データがなければ新規登録モーダルを表示
+            document.getElementById('calendar_date').value = date; // 日付フィールドに選択された日付を設定
+            var eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
+            eventModal.show();
         }
     })
     .catch(function(error) {
         console.error("Error fetching event details:", error);
     });
-}
-function resetModals() {
-    // Reset event modal form contents without destroying the modal instance
-    var eventForm = document.getElementById('eventForm');
-    eventForm.reset();  // Reset all form inputs to default
-
-    // Manually clear any specific states or selections
-    document.getElementById('calendar_date').value = '';
-    document.getElementById('start_time').value = '';
-    document.getElementById('end_time').value = '';
-    document.getElementById('status').value = '';
-    document.getElementById('transportation_to').value = '';
-    document.getElementById('transportation_from').value = '';
-    document.getElementById('absence_reason').value = '';
-
-    // Close the modals if they are open
-    var detailsModalInstance = bootstrap.Modal.getInstance(document.getElementById('eventDetailsModal'));
-    if (detailsModalInstance) {
-        detailsModalInstance.hide();
-    }
-
-    var eventModalInstance = bootstrap.Modal.getInstance(document.getElementById('eventModal'));
-    if (eventModalInstance) {
-        eventModalInstance.hide();
-    }
 }
 
 // 取得したイベントデータをHTML仕様で表示するための関数
