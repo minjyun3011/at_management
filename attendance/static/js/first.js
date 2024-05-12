@@ -178,19 +178,17 @@ function submitEvent() {
 
 //既存のデータを編集するために入力フォームに既存のデータ内容を表示するための関数
 function submitEditEvent() {
-    // 現在のイベントデータを取得
     const eventData = {
         id: document.getElementById('event_id').value, // イベントID
-        calendar_date: document.getElementById('calendar_date').value,
-        start_time: document.getElementById('start_time').value,
-        end_time: document.getElementById('end_time').value,
-        status: document.getElementById('status').value,
-        transportation_to: document.getElementById('transportation_to').value,
-        transportation_from: document.getElementById('transportation_from').value,
-        absence_reason: document.getElementById('absence_reason').value
+        calendar_date: document.getElementById('edit_calendar_date').value,
+        start_time: document.getElementById('edit_start_time').value,
+        end_time: document.getElementById('edit_end_time').value,
+        status: document.getElementById('edit_status').value,
+        transportation_to: document.getElementById('edit_transportation_to').value,
+        transportation_from: document.getElementById('edit_transportation_from').value,
+        absence_reason: document.getElementById('edit_absence_reason').value
     };
 
-    // APIに編集データを送信
     axios.post('/api/edit_event/', eventData, {
         headers: {
             'X-CSRFToken': getCsrfToken(),
@@ -198,6 +196,26 @@ function submitEditEvent() {
         }
     }).then(function(response) {
         if (response.status === 200) {
+            // 新しいイベントデータをフォーマット
+            const updatedEvent = formatEvents([response.data.eventData])[0];
+            // イベントをカレンダーに追加または更新
+            var eventInstance = calendar.getEventById(updatedEvent.id);
+            if (eventInstance) {
+                eventInstance.setProp('title', updatedEvent.title);
+                eventInstance.setStart(updatedEvent.start);
+                eventInstance.setEnd(updatedEvent.end);
+                eventInstance.setExtendedProps({
+                    status: updatedEvent.status,
+                    transportation_to: updatedEvent.transportation_to,
+                    transportation_from: updatedEvent.transportation_from,
+                    absence_reason: updatedEvent.absence_reason
+                });
+            } else {
+                calendar.addEvent(updatedEvent);
+            }
+            // カレンダーを再描画
+            calendar.render();
+
             alert('イベントが正常に更新されました。');
             window.location.reload(); // 画面をリロードして更新を反映
         }
@@ -206,6 +224,7 @@ function submitEditEvent() {
         alert('イベントの更新に失敗しました。');
     });
 }
+
 
 
 function clearAllEventsFromLocalStorage() {
