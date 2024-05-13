@@ -10,10 +10,11 @@ urlpatterns = [
     path('check_user/', CheckUserView.as_view(), name='check_user'),  # 受給者番号でのログインを処理
     path('register/', UserRegistrationView.as_view(), name='register'),  # 新規ユーザー登録処理
     path('home1/', Home1View.as_view(), name='home1'),  # General access without user ID
-    path('api/get_events/', views.get_events, name='get_events'),
-    path('api/add_event/',views.add_event, name='add_event' ),
+    path('api/get_events/', views.get_events, name='get_events'), #カレンダー初期化時の処理
+    path('api/add_event/',views.add_event, name='add_event' ), #出欠情報新規登録時の処理
     path('api/get_event_details/', views.get_event_details, name='get_event_details'),
     path('api/edit_event/', views.edit_event, name='edit_event'),
+
 
 
 ]

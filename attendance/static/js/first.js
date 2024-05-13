@@ -14,7 +14,7 @@ function saveEventToLocalstorage(eventData) {
     console.log("Saved updated events list to localStorage.");
 }
 
-//①カレンダー初期化
+//カレンダー初期化①
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     if (calendarEl) {
@@ -32,8 +32,8 @@ document.addEventListener('DOMContentLoaded', function() {
         },
             selectable: true,
             select: function(info) {
-                // 選択された日付のイベント詳細を取得する
-                fetchEventDetails(info.startStr.split('T')[0]);
+                var date = info.startStr.split('T')[0];
+                fetchEventDetails(date);
             },
             events: fetchAndFormatEvents // 別の関数としてイベントの取得とフォーマットを行う
         });
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-//①カレンダー初期化の続き（データ反映用）
+//カレンダー初期化① ＃モデルとの照合＆そのユーザーの全ての出欠情報をとってくる
 function fetchAndFormatEvents(fetchInfo, successCallback, failureCallback) {
     axios.post("/api/get_events/", {
         start_time: fetchInfo.startStr,
@@ -59,7 +59,7 @@ function fetchAndFormatEvents(fetchInfo, successCallback, failureCallback) {
     });
 }
 
-//カレンダー描画時の処理（共通）
+//カレンダー初期化① ＃カレンダー描画時の出力内容の設定
 function formatEvents(eventsData) {
     return eventsData.map(event => {
         const startDateTime = new Date(`${event.calendar_date}T${event.start_time}`);
@@ -75,16 +75,20 @@ function formatEvents(eventsData) {
     });
 }
 
-//②カレンダーの日付選択に関する処理（イベントモーダル表示）
-function fetchEventDetails(date) {
+//カレンダーの日付選択② ＃イベントモーダル表示
+var recipientNumber = sessionStorage.getItem('recipient_number'); // ログイン時にセッションストレージに保存した想定
+function fetchEventDetails(date, recipientNumber) {
     axios.get(`/api/get_event_details/`, {
-        params: { date: date },
+        params: {
+            date: date,
+            recipient_number: recipientNumber
+        },
         headers: { 'X-CSRFToken': getCsrfToken() }
     })
     .then(function(response) {
         if (response.data.length > 0) {
             // 取得したデータを表示する
-            displayEventDetails(response.data);
+            displayEditEventDetails(response.data);
             var detailsModal = new bootstrap.Modal(document.getElementById('eventDetailsModal'));
             detailsModal.show();
         } else {
@@ -115,7 +119,33 @@ function displayEventDetails(data) {
     document.getElementById('eventDate').textContent = event.calendar_date || 'No date provided';
     document.getElementById('eventTime').textContent = `${formatTime(startDate)} - ${formatTime(endDate)}`;
     document.getElementById('eventStatus').textContent = event.status || 'No status provided';
+
 }
+
+// 編集用のイベントデータを表示する関数
+function displayEditEventDetails(data) {
+    if (!data || data.length === 0) {
+        console.error('No data available for editing.');
+        return;
+    }
+
+    // 期待するデータ構造に基づいて変数を設定
+    const event = data[0];
+
+    // 編集フォームの各フィールドにデータを設定
+    document.getElementById('edit_calendar_date').value = event.calendar_date || '';
+    document.getElementById('edit_start_time').value = event.start_time || '';
+    document.getElementById('edit_end_time').value = event.end_time || '';
+    document.getElementById('edit_status').value = event.status || '';
+    document.getElementById('edit_transportation_to').value = event.transportation_to || '';
+    document.getElementById('edit_transportation_from').value = event.transportation_from || '';
+    document.getElementById('edit_absence_reason').value = event.absence_reason || '';
+
+    // 編集モーダルを表示
+    var editModal = new bootstrap.Modal(document.getElementById('editEventModal'));
+    editModal.show();
+}
+
 
 function parseISODateTime(dateTimeStr) {
     const dateTime = new Date(dateTimeStr);
@@ -176,7 +206,41 @@ function submitEvent() {
 });
 }
 
-//既存のデータを編集するために入力フォームに既存のデータ内容を表示するための関数
+// ドキュメントが読み込まれた後にイベントリスナーを設定
+document.addEventListener('DOMContentLoaded', function() {
+    // 編集ボタンにイベントリスナーを追加
+    document.querySelectorAll('.edit-button').forEach(button => {
+        button.addEventListener('click', function() {
+            var eventId = this.getAttribute('data-event-id');  // ボタンからイベントIDを取得
+            loadEventData(eventId);  // データロード関数を呼び出し
+        });
+    });
+});
+
+// イベントデータをロードしてフォームに反映する関数
+function loadEventData(eventId) {
+    axios.get(`/api/get_event_by_id/`, {
+        params: { id: eventId },
+        headers: { 'X-CSRFToken': getCsrfToken() }
+    })
+    .then(function(response) {
+        if (response.data) {
+            const event = response.data;
+            // フォームフィールドにデータを設定
+            document.getElementById('edit_calendar_date').value = event.calendar_date;
+            document.getElementById('edit_start_time').value = event.start_time.slice(11, 16);  // "HH:MM" 形式に変換
+            document.getElementById('edit_end_time').value = event.end_time.slice(11, 16);
+            document.getElementById('edit_status').value = event.status;
+            document.getElementById('edit_transportation_to').value = event.transportation_to;
+            document.getElementById('edit_transportation_from').value = event.transportation_from;
+            document.getElementById('edit_absence_reason').value = event.absence_reason;
+        }
+    })
+    .catch(function(error) {
+        console.error("Error fetching event data:", error);
+    });
+}
+
 function submitEditEvent() {
     const eventData = {
         id: document.getElementById('event_id').value, // イベントID

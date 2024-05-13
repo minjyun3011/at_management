@@ -184,34 +184,31 @@ def get_events(request):
     except Exception as e:
         return JsonResponse({'error': 'Internal Server Error', 'message': str(e)}, status=500)
 
-
 @require_http_methods(["GET"])
 def get_event_details(request):
-    date = request.GET.get('date')
-    recipient_number = request.session.get('recipient_number')
+    date = request.GET.get('calendar_date')
+    recipient_number = request.GET.get('recipient_number')  # 'recipient_number'パラメータをGETから取得
     
-    if not recipient_number:
-        return JsonResponse({'error': 'Session does not contain recipient_number'}, status=400)
+    if not date or not recipient_number:
+        return JsonResponse({'error': 'Missing required parameters'}, status=400)
 
     try:
         user = User.objects.get(recipient_number=recipient_number)
-        events = Attendance_info.objects.filter(recipient_number=user, calendar_date=date)
-
-        events_data = [{
-            'id': event.id,
+        event = Attendance_info.objects.get(recipient_number=user, calendar_date=date)
+        data = {
             'calendar_date': event.calendar_date.strftime('%Y-%m-%d'),
-            'start_time': DateFormat(event.start_time).format('c'),
-            'end_time': DateFormat(event.end_time).format('c'),
-            'status': event.get_status_display(),
-            'transportation_to': event.get_transportation_to_display(),
-            'transportation_from': event.get_transportation_from_display(),
-            'absence_reason': event.absence_reason or "N/A",
-        } for event in events]
-
-        return JsonResponse(events_data, safe=False)
-
-    except ObjectDoesNotExist:
-        return JsonResponse({'error': 'No events found for this user on the specified date'}, status=404)
+            'start_time': event.start_time.strftime('%H:%M'),
+            'end_time': event.end_time.strftime('%H:%M'),
+            'status': event.status,
+            'transportation_to': event.transportation_to,
+            'transportation_from': event.transportation_from,
+            'absence_reason': event.absence_reason or "",
+        }
+        return JsonResponse(data, status=200)
+    except User.DoesNotExist:
+        return JsonResponse({'error': 'User not found'}, status=404)
+    except Attendance_info.DoesNotExist:
+        return JsonResponse({'error': 'Event not found'}, status=404)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
 
@@ -231,3 +228,5 @@ def edit_event(request):
         return JsonResponse({'error': 'Event not found'}, status=404)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
+
+
