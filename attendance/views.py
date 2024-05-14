@@ -186,8 +186,8 @@ def get_events(request):
 
 @require_http_methods(["GET"])
 def get_event_details(request):
-    date = request.GET.get('calendar_date')
-    recipient_number = request.GET.get('recipient_number')  # 'recipient_number'パラメータをGETから取得
+    date = request.GET.get('date')
+    recipient_number = request.GET.get('recipient_number')
     
     if not date or not recipient_number:
         return JsonResponse({'error': 'Missing required parameters'}, status=400)
@@ -211,6 +211,7 @@ def get_event_details(request):
         return JsonResponse({'error': 'Event not found'}, status=404)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
+
 
 
 @require_http_methods(["POST"])

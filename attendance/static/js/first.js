@@ -32,9 +32,13 @@ document.addEventListener('DOMContentLoaded', function() {
         },
             selectable: true,
             select: function(info) {
-                var date = info.startStr.split('T')[0];
-                fetchEventDetails(date);
-            },
+    var date = info.startStr.split('T')[0];
+    var recipientNumber = sessionStorage.getItem('recipient_number');
+    console.log("Recipient Number: ", recipientNumber); // ここで取得したrecipientNumberを確認
+    fetchEventDetails(date, recipientNumber);
+},
+
+
             events: fetchAndFormatEvents // 別の関数としてイベントの取得とフォーマットを行う
         });
         calendar.render();
@@ -76,7 +80,6 @@ function formatEvents(eventsData) {
 }
 
 //カレンダーの日付選択② ＃イベントモーダル表示
-var recipientNumber = sessionStorage.getItem('recipient_number'); // ログイン時にセッションストレージに保存した想定
 function fetchEventDetails(date, recipientNumber) {
     axios.get(`/api/get_event_details/`, {
         params: {
@@ -86,10 +89,10 @@ function fetchEventDetails(date, recipientNumber) {
         headers: { 'X-CSRFToken': getCsrfToken() }
     })
     .then(function(response) {
-        if (response.data.length > 0) {
+        if (response.data) {
             // 取得したデータを表示する
             displayEditEventDetails(response.data);
-            var detailsModal = new bootstrap.Modal(document.getElementById('eventDetailsModal'));
+            var detailsModal = new bootstrap.Modal(document.getElementById('editEventModal'));
             detailsModal.show();
         } else {
             // データがなければ新規登録モーダルを表示
@@ -102,6 +105,7 @@ function fetchEventDetails(date, recipientNumber) {
         console.error("Error fetching event details:", error);
     });
 }
+
 
 // 取得したイベントデータをHTML仕様で表示するための関数
 function displayEventDetails(data) {
@@ -124,27 +128,27 @@ function displayEventDetails(data) {
 
 // 編集用のイベントデータを表示する関数
 function displayEditEventDetails(data) {
-    if (!data || data.length === 0) {
+    console.log("Event data received for editing:", data);
+
+    if (!data) {
         console.error('No data available for editing.');
         return;
     }
 
-    // 期待するデータ構造に基づいて変数を設定
-    const event = data[0];
-
     // 編集フォームの各フィールドにデータを設定
-    document.getElementById('edit_calendar_date').value = event.calendar_date || '';
-    document.getElementById('edit_start_time').value = event.start_time || '';
-    document.getElementById('edit_end_time').value = event.end_time || '';
-    document.getElementById('edit_status').value = event.status || '';
-    document.getElementById('edit_transportation_to').value = event.transportation_to || '';
-    document.getElementById('edit_transportation_from').value = event.transportation_from || '';
-    document.getElementById('edit_absence_reason').value = event.absence_reason || '';
+    document.getElementById('edit_calendar_date').value = data.calendar_date || '';
+    document.getElementById('edit_start_time').value = data.start_time || '';
+    document.getElementById('edit_end_time').value = data.end_time || '';
+    document.getElementById('edit_status').value = data.status || '';
+    document.getElementById('edit_transportation_to').value = data.transportation_to || '';
+    document.getElementById('edit_transportation_from').value = data.transportation_from || '';
+    document.getElementById('edit_absence_reason').value = data.absence_reason || '';
 
     // 編集モーダルを表示
     var editModal = new bootstrap.Modal(document.getElementById('editEventModal'));
     editModal.show();
 }
+
 
 
 function parseISODateTime(dateTimeStr) {

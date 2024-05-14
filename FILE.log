@@ -2926,3 +2926,18 @@ Watching for file changes with StatReloader
 Bad Request: /api/get_event_details/
 Bad Request: /api/get_event_details/
 Bad Request: /api/get_event_details/
+Watching for file changes with StatReloader
+Bad Request: /api/get_event_details/
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Bad Request: /api/get_event_details/
+Watching for file changes with StatReloader
+Bad Request: /api/get_event_details/
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Watching for file changes with StatReloader
+Not Found: /favicon.ico

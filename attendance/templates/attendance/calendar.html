@@ -16,7 +16,9 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
-                <button type="button" class="btn btn-primary edit-button" data-bs-toggle="modal" data-bs-target="#editEventModal" data-event-id="{{ event.id }}">編集</button>
+                <button type="button" class="btn btn-primary edit-button" data-bs-toggle="modal" data-bs-target="#editEventModal" data-recipient-number="{{ event.recipient_number.id }}" data-calendar-date="{{ event.calendar_date|date:" Y-m-d" }}">
+                    編集
+                </button>
             </div>
         </div>
     </div>

@@ -39,6 +39,9 @@
         </ul>
     </div>
     </nav>
+    <script>
+        sessionStorage.setItem('recipient_number', '{{ request.session.recipient_number }}');
+    </script>
     <!-- 本日の予定の表示 -->
     {% include "attendance/home2.html" %}
     <!-- カレンダー表示 -->
