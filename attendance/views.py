@@ -213,21 +213,25 @@ def get_event_details(request):
         return JsonResponse({'error': str(e)}, status=500)
 
 
-
 @require_http_methods(["POST"])
 def edit_event(request):
-    data = json.loads(request.body)
     try:
-        event = Attendance_info.objects.get(id=data.get('id'))
+        data = json.loads(request.body)
+        recipient_number = request.session.get('recipient_number')
+        user = get_object_or_404(User, recipient_number=recipient_number)
+        
+        event = Attendance_info.objects.get(recipient_number=user, calendar_date=data.get('calendar_date'))
+
         form = AttendanceInfoForm(data, instance=event)
         if form.is_valid():
             form.save()
             return JsonResponse({'message': 'Event updated successfully'}, status=200)
         else:
-            return JsonResponse({'errors': form.errors}, status=400)
+            return JsonResponse({'errors': form.errors.get_json_data()}, status=400)
+    except User.DoesNotExist:
+        return JsonResponse({'error': 'User not found'}, status=404)
     except Attendance_info.DoesNotExist:
         return JsonResponse({'error': 'Event not found'}, status=404)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
-
 

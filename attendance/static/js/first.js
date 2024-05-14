@@ -210,44 +210,18 @@ function submitEvent() {
 });
 }
 
-// ドキュメントが読み込まれた後にイベントリスナーを設定
-document.addEventListener('DOMContentLoaded', function() {
-    // 編集ボタンにイベントリスナーを追加
-    document.querySelectorAll('.edit-button').forEach(button => {
-        button.addEventListener('click', function() {
-            var eventId = this.getAttribute('data-event-id');  // ボタンからイベントIDを取得
-            loadEventData(eventId);  // データロード関数を呼び出し
-        });
-    });
-});
-
-// イベントデータをロードしてフォームに反映する関数
-function loadEventData(eventId) {
-    axios.get(`/api/get_event_by_id/`, {
-        params: { id: eventId },
-        headers: { 'X-CSRFToken': getCsrfToken() }
-    })
-    .then(function(response) {
-        if (response.data) {
-            const event = response.data;
-            // フォームフィールドにデータを設定
-            document.getElementById('edit_calendar_date').value = event.calendar_date;
-            document.getElementById('edit_start_time').value = event.start_time.slice(11, 16);  // "HH:MM" 形式に変換
-            document.getElementById('edit_end_time').value = event.end_time.slice(11, 16);
-            document.getElementById('edit_status').value = event.status;
-            document.getElementById('edit_transportation_to').value = event.transportation_to;
-            document.getElementById('edit_transportation_from').value = event.transportation_from;
-            document.getElementById('edit_absence_reason').value = event.absence_reason;
-        }
-    })
-    .catch(function(error) {
-        console.error("Error fetching event data:", error);
-    });
+function closeModal(modalId) {
+    var modalElement = document.getElementById(modalId);
+    var modalInstance = bootstrap.Modal.getInstance(modalElement);
+    if (modalInstance) {
+        modalInstance.hide();
+    }
 }
 
 function submitEditEvent() {
+    const recipientNumber = sessionStorage.getItem('recipient_number'); // セッションストレージから取得
     const eventData = {
-        id: document.getElementById('event_id').value, // イベントID
+        recipient_number: recipientNumber,
         calendar_date: document.getElementById('edit_calendar_date').value,
         start_time: document.getElementById('edit_start_time').value,
         end_time: document.getElementById('edit_end_time').value,
