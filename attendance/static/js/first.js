@@ -6,13 +6,13 @@ function getCsrfToken() {
 var calendar;
 
 // ローカルストレージからイベントデータを保存する関数
-function saveEventToLocalstorage(eventData) {
-    const eventsJson = localStorage.getItem('events');
-    const existingEvents = eventsJson ? JSON.parse(eventsJson) : [];
-    existingEvents.push(eventData);
-    localStorage.setItem('events', JSON.stringify(existingEvents));
-    console.log("Saved updated events list to localStorage.");
-}
+// function saveEventToLocalstorage(eventData) {
+//     const eventsJson = localStorage.getItem('events');
+//     const existingEvents = eventsJson ? JSON.parse(eventsJson) : [];
+//     existingEvents.push(eventData);
+//     localStorage.setItem('events', JSON.stringify(existingEvents));
+//     console.log("Saved updated events list to localStorage.");
+// }
 
 //カレンダー初期化①
 document.addEventListener('DOMContentLoaded', function() {
@@ -37,8 +37,6 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log("Recipient Number: ", recipientNumber); // ここで取得したrecipientNumberを確認
     fetchEventDetails(date, recipientNumber);
 },
-
-
             events: fetchAndFormatEvents // 別の関数としてイベントの取得とフォーマットを行う
         });
         calendar.render();
@@ -69,7 +67,7 @@ function formatEvents(eventsData) {
         const startDateTime = new Date(`${event.calendar_date}T${event.start_time}`);
         const endDateTime = new Date(`${event.calendar_date}T${event.end_time}`);
         return {
-            id: event.id,
+            id: event.recipient_number + event.calendar_date, // Unique IDの生成
             title: `${startDateTime.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', hour12: false })} ~ ${endDateTime.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', hour12: false })}`,
             start: startDateTime.toISOString(),
             end: endDateTime.toISOString(),
@@ -78,7 +76,6 @@ function formatEvents(eventsData) {
         };
     });
 }
-
 //カレンダーの日付選択② ＃イベントモーダル表示
 function fetchEventDetails(date, recipientNumber) {
     axios.get(`/api/get_event_details/`, {
@@ -89,12 +86,13 @@ function fetchEventDetails(date, recipientNumber) {
         headers: { 'X-CSRFToken': getCsrfToken() }
     })
     .then(function(response) {
-        if (response.data) {
+        console.log("API Response:", response.data);
+        if (response.status === 200 && response.data) {
             // 取得したデータを表示する
-            displayEditEventDetails(response.data);
-            var detailsModal = new bootstrap.Modal(document.getElementById('editEventModal'));
+            displayEventDetails(response.data);
+            var detailsModal = new bootstrap.Modal(document.getElementById('eventDetailsModal'));
             detailsModal.show();
-        } else {
+        } else if (response.status === 204) {
             // データがなければ新規登録モーダルを表示
             document.getElementById('calendar_date').value = date; // 日付フィールドに選択された日付を設定
             var eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
@@ -106,16 +104,15 @@ function fetchEventDetails(date, recipientNumber) {
     });
 }
 
-
 // 取得したイベントデータをHTML仕様で表示するための関数
 function displayEventDetails(data) {
-    if (!data || data.length === 0) {
+    if (!data) {
         console.error('No data available to display.');
         return;
     }
 
     // 期待するデータ構造に基づいて変数を設定
-    const event = data[0]; // 複数イベントがある場合は、適切なイベントデータを選択
+    const event = data;
     const startDate = parseISODateTime(`${event.calendar_date}T${event.start_time}`);
     const endDate = parseISODateTime(`${event.calendar_date}T${event.end_time}`);
 
@@ -124,7 +121,12 @@ function displayEventDetails(data) {
     document.getElementById('eventTime').textContent = `${formatTime(startDate)} - ${formatTime(endDate)}`;
     document.getElementById('eventStatus').textContent = event.status || 'No status provided';
 
+    // 編集ボタンにイベントリスナーを追加
+    document.querySelector('.edit-button').addEventListener('click', function() {
+        displayEditEventDetails(data);
+        });
 }
+
 
 // 編集用のイベントデータを表示する関数
 function displayEditEventDetails(data) {

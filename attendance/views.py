@@ -194,23 +194,25 @@ def get_event_details(request):
 
     try:
         user = User.objects.get(recipient_number=recipient_number)
-        event = Attendance_info.objects.get(recipient_number=user, calendar_date=date)
-        data = {
-            'calendar_date': event.calendar_date.strftime('%Y-%m-%d'),
-            'start_time': event.start_time.strftime('%H:%M'),
-            'end_time': event.end_time.strftime('%H:%M'),
-            'status': event.status,
-            'transportation_to': event.transportation_to,
-            'transportation_from': event.transportation_from,
-            'absence_reason': event.absence_reason or "",
-        }
-        return JsonResponse(data, status=200)
+        try:
+            event = Attendance_info.objects.get(recipient_number=user, calendar_date=date)
+            data = {
+                'calendar_date': event.calendar_date.strftime('%Y-%m-%d'),
+                'start_time': event.start_time.strftime('%H:%M'),
+                'end_time': event.end_time.strftime('%H:%M'),
+                'status': event.status,
+                'transportation_to': event.transportation_to,
+                'transportation_from': event.transportation_from,
+                'absence_reason': event.absence_reason or "",
+            }
+            return JsonResponse(data, status=200)
+        except Attendance_info.DoesNotExist:
+            return JsonResponse({'message': 'Event not found'}, status=204)  # 204 No Content を返す
     except User.DoesNotExist:
         return JsonResponse({'error': 'User not found'}, status=404)
-    except Attendance_info.DoesNotExist:
-        return JsonResponse({'error': 'Event not found'}, status=404)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
+
 
 @require_http_methods(["POST"])
 def edit_event(request):
