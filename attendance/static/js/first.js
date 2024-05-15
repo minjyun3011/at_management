@@ -218,6 +218,7 @@ function closeModal(modalId) {
     }
 }
 
+// 更新ボタンを押した際の処理
 function submitEditEvent() {
     const recipientNumber = sessionStorage.getItem('recipient_number'); // セッションストレージから取得
     const eventData = {
@@ -238,34 +239,32 @@ function submitEditEvent() {
         }
     }).then(function(response) {
         if (response.status === 200) {
-            // 新しいイベントデータをフォーマット
             const updatedEvent = formatEvents([response.data.eventData])[0];
-            // イベントをカレンダーに追加または更新
-            var eventInstance = calendar.getEventById(updatedEvent.id);
-            if (eventInstance) {
-                eventInstance.setProp('title', updatedEvent.title);
-                eventInstance.setStart(updatedEvent.start);
-                eventInstance.setEnd(updatedEvent.end);
-                eventInstance.setExtendedProps({
-                    status: updatedEvent.status,
-                    transportation_to: updatedEvent.transportation_to,
-                    transportation_from: updatedEvent.transportation_from,
-                    absence_reason: updatedEvent.absence_reason
-                });
-            } else {
-                calendar.addEvent(updatedEvent);
-            }
-            // カレンダーを再描画
-            calendar.render();
+            var eventModal = bootstrap.Modal.getInstance(document.getElementById('editEventModal'));
 
-            alert('イベントが正常に更新されました。');
-            window.location.reload(); // 画面をリロードして更新を反映
+            // モーダルが完全に閉じられた後に実行されるイベントハンドラを設定
+            document.getElementById('editEventModal').addEventListener('hidden.bs.modal', function (e) {
+                // イベントをカレンダーに追加
+                calendar.addEvent(updatedEvent);
+                // カレンダーを再描画
+                calendar.render();
+
+                // モーダルが閉じたことを確認した後にアラートを表示
+                alert('イベントが正常に更新されました。');
+
+                // リダイレクトはアラート後に実行
+                window.location.href = '/home1/';
+            }, { once: true }); // イベントリスナーは一度だけ実行されるように設定
+
+            // モーダルを非表示にする
+            eventModal.hide();
         }
     }).catch(function(error) {
         console.error('Error editing event:', error);
         alert('イベントの更新に失敗しました。');
     });
 }
+
 
 
 
