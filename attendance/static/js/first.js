@@ -186,31 +186,30 @@ function submitEvent() {
             'Content-Type': 'application/json'
         }
     }).then(function(response) {
-    const newEvent = formatEvents([response.data.eventData])[0];
-    var eventModal = bootstrap.Modal.getInstance(document.getElementById('eventModal'));
+        const newEvent = formatEvents([response.data.eventData])[0];
+        var eventModalElement = document.getElementById('eventModal');
+        var eventModal = bootstrap.Modal.getInstance(eventModalElement);
 
-    // モーダルが完全に閉じられた後に実行されるイベントハンドラを設定
-    document.getElementById('eventModal').addEventListener('hidden.bs.modal', function (e) {
-        // イベントをカレンダーに追加
-        calendar.addEvent(newEvent);
-        // カレンダーを再描画
-        calendar.render();
+        // イベントリスナーを削除してから再設定
+        eventModalElement.removeEventListener('hidden.bs.modal', onEventModalHidden);
+        eventModalElement.addEventListener('hidden.bs.modal', onEventModalHidden);
 
-        // モーダルが閉じたことを確認した後にアラートを表示
-        alert('イベントが正常に追加されました。');
+        function onEventModalHidden(e) {
+            calendar.addEvent(newEvent);
+            calendar.render();
+            alert('イベントが正常に追加されました。');
+            window.location.href = '/home1/';
+            eventModalElement.removeEventListener('hidden.bs.modal', onEventModalHidden);
+        }
 
-        // リダイレクトはアラート後に実行
-        window.location.href = '/home1/';
-    }, { once: true }); // イベントリスナーは一度だけ実行されるように設定
-
-    // モーダルを非表示にする
-    eventModal.hide();
-})
-.catch(function(error) {
-    console.error('Error adding event:', error);
-    alert('イベントの追加に失敗しました。');
-});
+        eventModal.hide();
+    })
+    .catch(function(error) {
+        console.error('Error adding event:', error);
+        alert('イベントの追加に失敗しました。');
+    });
 }
+
 
 function closeModal(modalId) {
     var modalElement = document.getElementById(modalId);

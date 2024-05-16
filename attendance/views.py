@@ -70,12 +70,19 @@ class UserRegistrationView(CreateView):
             logger.debug("No existing user, creating new user")
             self.object = form.save()
             logger.debug(f"New user {self.object.name} created and saved.")
+            
+            # 新規ユーザー登録後にセッションを設定
+            self.request.session['recipient_number'] = recipient_number
+            self.request.session['user_name'] = self.object.name
+            self.request.session['user_gender'] = self.object.gender
+            
             return redirect(self.get_success_url())
 
     def form_invalid(self, form):
         # Form invalidのログを記録
         logger.debug(f"Form invalid, errors: {form.errors}")
         return super().form_invalid(form)
+
 
 #home0.htmlからのリダイレクト直後の処理内容
 class Home1View(TemplateView):
@@ -183,6 +190,7 @@ def get_events(request):
         return JsonResponse({'error': 'User not found'}, status=404)
     except Exception as e:
         return JsonResponse({'error': 'Internal Server Error', 'message': str(e)}, status=500)
+
 
 @require_http_methods(["GET"])
 def get_event_details(request):
