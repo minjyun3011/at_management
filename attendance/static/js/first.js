@@ -122,9 +122,18 @@ function displayEventDetails(data) {
     document.getElementById('eventStatus').textContent = event.status || 'No status provided';
 
     // 編集ボタンにイベントリスナーを追加
-    document.querySelector('.edit-button').addEventListener('click', function() {
+document.querySelector('.edit-button').addEventListener('click', function() {
+    // 詳細モーダルを閉じる
+    var detailsModal = bootstrap.Modal.getInstance(document.getElementById('eventDetailsModal'));
+    detailsModal.hide();
+
+    // 詳細モーダルが閉じた後に編集モーダルを開く
+    detailsModal.addEventListener('hidden.bs.modal', function onModalHidden() {
         displayEditEventDetails(data);
-        });
+        detailsModal.removeEventListener('hidden.bs.modal', onModalHidden); // リスナーを削除
+    });
+});
+
 }
 
 
