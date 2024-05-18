@@ -3006,3 +3006,12 @@ Watching for file changes with StatReloader
 Watching for file changes with StatReloader
 Not Found: /favicon.ico
 Not Found: /favicon.ico
+Watching for file changes with StatReloader
+No existing user, creating new user
+New user 馬出　たかし created and saved.
+Internal Server Error: /api/edit_event/
+Internal Server Error: /api/edit_event/
+Internal Server Error: /api/edit_event/
+Internal Server Error: /api/edit_event/
+Watching for file changes with StatReloader
+Internal Server Error: /api/edit_event/

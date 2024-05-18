@@ -162,18 +162,18 @@ function displayEditEventDetails(data) {
 
 
 
-function parseISODateTime(dateTimeStr) {
-    const dateTime = new Date(dateTimeStr);
-    if (isNaN(dateTime.getTime())) {
-        console.error('Invalid date/time string:', dateTimeStr);
-        return new Date();  // デフォルトの日付オブジェクトを返す（エラーハンドリングの一環）
-    }
-    return dateTime;
-}
+// function parseISODateTime(dateTimeStr) {
+//     const dateTime = new Date(dateTimeStr);
+//     if (isNaN(dateTime.getTime())) {
+//         console.error('Invalid date/time string:', dateTimeStr);
+//         return new Date();  // デフォルトの日付オブジェクトを返す（エラーハンドリングの一環）
+//     }
+//     return dateTime;
+// }
 
-function formatTime(date) {
-    return date.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', hour12: false });
-}
+// function formatTime(date) {
+//     return date.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', hour12: false });
+// }
 
 
 
@@ -219,14 +219,6 @@ function submitEvent() {
     });
 }
 
-
-function closeModal(modalId) {
-    var modalElement = document.getElementById(modalId);
-    var modalInstance = bootstrap.Modal.getInstance(modalElement);
-    if (modalInstance) {
-        modalInstance.hide();
-    }
-}
 
 // 更新ボタンを押した際の処理
 function submitEditEvent() {
@@ -278,7 +270,7 @@ function submitEditEvent() {
 
 
 
-function clearAllEventsFromLocalStorage() {
-    localStorage.removeItem('events');  // 'events' キーに関連するデータを削除
-    console.log("All events data removed from localStorage.");
-}
+// function clearAllEventsFromLocalStorage() {
+//     localStorage.removeItem('events');  // 'events' キーに関連するデータを削除
+//     console.log("All events data removed from localStorage.");
+// }
