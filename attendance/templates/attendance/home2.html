@@ -1,4 +1,3 @@
-
 {% block content %}
 <!DOCTYPE html>
 <html lang="en">
@@ -10,19 +9,25 @@
     <div class="info-box">
     <h3>本日の予定</h3>
     {% if attendance %}
-        <h1>{{ attendance.calendar_date|date:"Y年m月d日 (l)" }} {{ attendance.start_time|time:"H:i" }}〜{{ attendance.end_time|time:"H:i" }}</h1>
-        <h2>{{ attendance.get_status_display }}</h2>
-        <h2>
-        {% if attendance.transportation_to and attendance.transportation_from %}
-            送迎（行き・帰り）あり
-        {% elif attendance.transportation_to %}
-            送迎あり（行きのみ）
-        {% elif attendance.transportation_from %}
-            送迎あり（帰りのみ）
-        {% else %}
-            送迎なし
+        <h1>{{ attendance.calendar_date|date:"Y年m月d日 (l)" }}
+        {% if attendance.get_status_display != "欠席" %}
+            {{ attendance.start_time|time:"H:i" }}〜{{ attendance.end_time|time:"H:i" }}
         {% endif %}
+        </h1>
+        <h2>{{ attendance.get_status_display }}</h2>
+        {% if attendance.get_status_display != "欠席" %}
+        <h2>
+            {% if attendance.transportation_to == 'US' and attendance.transportation_from == 'US' %}
+                送迎（行き・帰り）あり
+            {% elif attendance.transportation_to == 'US' and attendance.transportation_from == 'NU' %}
+                送迎あり（行きのみ）
+            {% elif attendance.transportation_to == 'NU' and attendance.transportation_from == 'US' %}
+                送迎あり（帰りのみ）
+            {% else %}
+                送迎なし
+            {% endif %}
         </h2>
+        {% endif %}
     {% else %}
         <h1>{{ today|date:"Y年m月d日 (l)" }}</h1>
         <h2>今日はお休みです。</h2>
@@ -31,4 +36,3 @@
 </body>
 </html>
 {% endblock %}
-
