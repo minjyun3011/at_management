@@ -95,7 +95,6 @@ function fetchEventDetails(date, recipientNumber) {
         console.error("Error fetching event details:", error);
     });
 }
-
 function displayEventDetails(data) {
     if (!data) {
         console.error('No data available to display.');
@@ -110,14 +109,20 @@ function displayEventDetails(data) {
     document.getElementById('eventTime').textContent = `${formatTime(startDate)} - ${formatTime(endDate)}`;
     document.getElementById('eventStatus').textContent = event.status || 'No status provided';
 
-    document.querySelector('.edit-button').addEventListener('click', function() {
-        var detailsModal = bootstrap.Modal.getInstance(document.getElementById('eventDetailsModal'));
-        detailsModal.hide();
+    const editButton = document.querySelector('.edit-button');
+    const detailsModalElement = document.getElementById('eventDetailsModal');
+    const detailsModal = bootstrap.Modal.getOrCreateInstance(detailsModalElement);
 
-        document.getElementById('eventDetailsModal').addEventListener('hidden.bs.modal', function onModalHidden() {
+    // 既存のイベントリスナーを削除してから新しいリスナーを追加
+    editButton.removeEventListener('click', handleEditButtonClick); // 必要であれば事前に宣言
+    editButton.addEventListener('click', handleEditButtonClick);
+
+    function handleEditButtonClick() {
+        detailsModal.hide();
+        detailsModalElement.addEventListener('hidden.bs.modal', function onModalHidden() {
             displayEditEventDetails(data);
         }, { once: true });
-    });
+    }
 }
 
 function displayEditEventDetails(data) {
@@ -126,6 +131,7 @@ function displayEditEventDetails(data) {
         return;
     }
 
+    document.getElementById('edit_calendar_date_display').textContent = data.calendar_date || '';
     document.getElementById('edit_calendar_date').value = data.calendar_date || '';
     document.getElementById('edit_start_time').value = data.start_time || '';
     document.getElementById('edit_end_time').value = data.end_time || '';
@@ -134,22 +140,18 @@ function displayEditEventDetails(data) {
     document.getElementById('edit_transportation_from').value = data.transportation_from || '';
     document.getElementById('edit_absence_reason').value = data.absence_reason || '';
 
-    var editModal = new bootstrap.Modal(document.getElementById('editEventModal'));
+    var editModal = bootstrap.Modal.getOrCreateInstance(document.getElementById('editEventModal'));
     editModal.show();
 }
 
-function parseISODateTime(dateTimeStr) {
-    const dateTime = new Date(dateTimeStr);
-    if (isNaN(dateTime.getTime())) {
-        console.error('Invalid date/time string:', dateTimeStr);
-        return new Date();  // デフォルトの日付オブジェクトを返す（エラーハンドリングの一環）
-    }
-    return dateTime;
+function parseISODateTime(dateTimeString) {
+    return new Date(dateTimeString);
 }
 
 function formatTime(date) {
     return date.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', hour12: false });
 }
+
 
 
 //追加の出欠情報をモデルに保存＆カレンダー再描画するメインの関数
