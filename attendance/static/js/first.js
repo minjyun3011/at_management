@@ -254,6 +254,37 @@ function submitEditEvent() {
     });
 }
 
+function toggleFields(status) {
+    const transportationFields = document.querySelectorAll('.transportation-group');
+    const absenceFields = document.querySelectorAll('.absence-group');
+    const timeFields = document.querySelectorAll('.time-group');
+
+    if (status === 'PR') { // 出席
+        transportationFields.forEach(field => field.classList.remove('hidden'));
+        absenceFields.forEach(field => field.classList.add('hidden'));
+        timeFields.forEach(field => field.classList.remove('hidden'));
+    } else if (status === 'AB') { // 欠席
+        transportationFields.forEach(field => field.classList.add('hidden'));
+        absenceFields.forEach(field => field.classList.remove('hidden'));
+        timeFields.forEach(field => field.classList.add('hidden'));
+    }
+}
+
+// モーダルが表示されたときに現在のステータスに基づいてフィールドを設定
+document.addEventListener('DOMContentLoaded', function() {
+    const editEventModal = document.getElementById('editEventModal');
+    const eventModal = document.getElementById('eventModal');
+
+    editEventModal.addEventListener('shown.bs.modal', function() {
+        const status = document.getElementById('edit_status').value;
+        toggleFields(status);
+    });
+
+    eventModal.addEventListener('shown.bs.modal', function() {
+        const status = document.getElementById('status').value;
+        toggleFields(status);
+    });
+});
 
 
 

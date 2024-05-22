@@ -246,3 +246,6 @@ nav {
     font-size: 1.5em; /* タイトルのフォントサイズ */
     color: #000; /* タイトルの色を黒に */
 }
+.hidden {
+    display: none;
+}
