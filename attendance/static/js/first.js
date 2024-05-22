@@ -87,6 +87,7 @@ function fetchEventDetails(date, recipientNumber) {
             detailsModal.show();
         } else if (response.status === 204) {
             document.getElementById('calendar_date').value = date;
+            document.getElementById('calendar_date_display').textContent = date; // 日付のテキスト表示を設定
             var eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
             eventModal.show();
         }
@@ -95,6 +96,7 @@ function fetchEventDetails(date, recipientNumber) {
         console.error("Error fetching event details:", error);
     });
 }
+
 function displayEventDetails(data) {
     if (!data) {
         console.error('No data available to display.');

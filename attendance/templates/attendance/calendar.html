@@ -23,6 +23,7 @@
         </div>
     </div>
 </div>
+
 <!-- Edit Event Modal -->
 <div class="modal fade" id="editEventModal" tabindex="-1" aria-labelledby="editEventModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -103,8 +104,9 @@
                 <form id="eventForm">
                     <!-- 日付 -->
                     <div class="form-group">
-                        <label for="calendar_date" class="form-label">日付</label>
-                        <input type="date" class="form-control" id="calendar_date" name="calendar_date">
+                        <label for="calendar_date_display" class="form-label">日付</label>
+                        <p id="calendar_date_display" class="form-control-plaintext"></p>
+                        <input type="hidden" id="calendar_date" name="calendar_date">
                     </div>
                     <!-- 開始時間 -->
                     <div class="form-group">
