@@ -53,10 +53,11 @@ class Attendance_info(models.Model):
     class TransportationService(models.TextChoices):
         USED = 'US', '利用'
         NOT_USED = 'NU', '未利用'
+
     recipient_number = models.ForeignKey('User', on_delete=models.CASCADE, verbose_name="受給者番号", to_field='recipient_number')
     calendar_date = models.DateField(verbose_name="日付")
-    start_time = models.TimeField(verbose_name="開始時間")
-    end_time = models.TimeField(verbose_name="終了時間")
+    start_time = models.TimeField(verbose_name="開始時間", null=True, blank=True)  # オプションに変更
+    end_time = models.TimeField(verbose_name="終了時間", null=True, blank=True)    # オプションに変更
     status = models.CharField(
         max_length=2,
         choices=AttendanceStatus.choices,
@@ -82,10 +83,8 @@ class Attendance_info(models.Model):
         unique_together = ('recipient_number', 'calendar_date')  # recipient_numberと日付の組み合わせはユニーク
 
     def __str__(self):
-        # recipient_numberを通じてUserモデルからnameを取得
         user_name = self.recipient_number.name if self.recipient_number else "Unknown User"
         return f'{user_name} - {self.calendar_date} - {self.status}'
-
 
 class AbsenceAccrual(models.Model):
     attendance = models.OneToOneField(

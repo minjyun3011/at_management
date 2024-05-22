@@ -3069,3 +3069,46 @@ Watching for file changes with StatReloader
 Not Found: /favicon.ico
 Not Found: /favicon.ico
 Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+No existing user, creating new user
+New user 杉尾　琢磨 created and saved.
+Bad Request: /api/add_event/
+Bad Request: /api/add_event/
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/forms.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Internal Server Error: /api/add_event/
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Watching for file changes with StatReloader
+Internal Server Error: /api/get_events/
+Internal Server Error: /api/get_events/
+Not Found: /favicon.ico
+Watching for file changes with StatReloader
+Internal Server Error: /api/get_events/
+Internal Server Error: /api/get_events/
+Not Found: /favicon.ico
+Watching for file changes with StatReloader
+Internal Server Error: /api/get_events/
+Internal Server Error: /api/get_events/
+Not Found: /favicon.ico
+Internal Server Error: /api/get_events/
+Not Found: /favicon.ico
+/Users/satoso/Python/at_management/project/attendance/views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Internal Server Error: /api/get_event_details/
+Internal Server Error: /api/get_event_details/
+Internal Server Error: /api/get_event_details/
+Internal Server Error: /api/get_event_details/
+Internal Server Error: /api/get_event_details/

@@ -13,7 +13,6 @@ var calendar;
 //     localStorage.setItem('events', JSON.stringify(existingEvents));
 //     console.log("Saved updated events list to localStorage.");
 // }
-
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     if (calendarEl) {
@@ -25,8 +24,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 right: 'dayGridMonth,timeGridWeek,timeGridDay'
             },
             titleFormat: {
-                year: 'numeric',  // 年は数字で
-                month: 'long',    // 月は長い名前で
+                year: 'numeric',
+                month: 'long',
             },
             selectable: true,
             select: function(info) {
@@ -59,11 +58,12 @@ function fetchAndFormatEvents(fetchInfo, successCallback, failureCallback) {
 
 function formatEvents(eventsData) {
     return eventsData.map(event => {
-        const startDateTime = new Date(`${event.calendar_date}T${event.start_time}`);
-        const endDateTime = new Date(`${event.calendar_date}T${event.end_time}`);
+        const startDateTime = event.start_time ? new Date(`${event.calendar_date}T${event.start_time}`) : new Date(event.calendar_date);
+        const endDateTime = event.end_time ? new Date(`${event.calendar_date}T${event.end_time}`) : startDateTime;
+
         return {
             id: event.recipient_number + event.calendar_date,
-            title: `${startDateTime.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', hour12: false })} ~ ${endDateTime.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', hour12: false })}`,
+            title: event.status === '欠席' ? '欠席予定' : `${startDateTime.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', hour12: false })} ~ ${endDateTime.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', hour12: false })}`,
             start: startDateTime.toISOString(),
             end: endDateTime.toISOString(),
             color: event.status === '出席' ? '#57e32c' : '#f53b57',
@@ -71,6 +71,7 @@ function formatEvents(eventsData) {
         };
     });
 }
+
 
 function fetchEventDetails(date, recipientNumber) {
     axios.get(`/api/get_event_details/`, {
@@ -165,7 +166,7 @@ function submitEvent() {
         status: document.getElementById('status').value,
         transportation_to: document.getElementById('transportation_to').value,
         transportation_from: document.getElementById('transportation_from').value,
-        absence_reason: document.getElementById('absence_reason').value
+        absence_reason: document.getElementById('absence_reason').value || ""
     };
 
     axios.post('/api/add_event/', eventData, {
@@ -191,13 +192,11 @@ function submitEvent() {
         }
 
         eventModal.hide();
-    })
-    .catch(function(error) {
+    }).catch(function(error) {
         console.error('Error adding event:', error);
         alert('イベントの追加に失敗しました。');
     });
 }
-
 
 function closeModal(modalId) {
     var modalElement = document.getElementById(modalId);
@@ -283,6 +282,14 @@ document.addEventListener('DOMContentLoaded', function() {
     eventModal.addEventListener('shown.bs.modal', function() {
         const status = document.getElementById('status').value;
         toggleFields(status);
+    });
+    // ステータスが変更されたときにフィールドの表示を更新
+    document.getElementById('edit_status').addEventListener('change', function() {
+        toggleFields(this.value);
+    });
+
+    document.getElementById('status').addEventListener('change', function() {
+        toggleFields(this.value);
     });
 });
 

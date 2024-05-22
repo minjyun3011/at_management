@@ -33,27 +33,26 @@ class AttendanceInfoForm(forms.ModelForm):
             'absence_reason': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
         }
 
-    def clean_calendar_date(self):
-        date = self.cleaned_data.get('calendar_date')
-        # ここで日付の形式や論理を検証する
-        if not date:  # 日付が正しくない場合
-            raise ValidationError('Invalid date format')
-        return date
-
     def clean(self):
         cleaned_data = super().clean()
+        status = cleaned_data.get('status')
         start_time = cleaned_data.get('start_time')
         end_time = cleaned_data.get('end_time')
-        if start_time and end_time and end_time <= start_time:
-            raise ValidationError('End time must be after start time.')
-        return cleaned_data
-    
-def is_valid_calendar_date(calendar_date):
-    # calendar_dateを文字列に変換する
-    calendar_date_str = calendar_date.strftime('%Y-%m-%d') if isinstance(calendar_date, datetime.date) else calendar_date
-    pattern = r'^\d{4}-\d{2}-\d{2}$'
-    return re.match(pattern, calendar_date_str) is not None
 
+        if status == Attendance_info.AttendanceStatus.PRESENT:
+            if not start_time:
+                self.add_error('start_time', '出席の場合、開始時間は必須です。')
+            if not end_time:
+                self.add_error('end_time', '出席の場合、終了時間は必須です。')
+            if start_time and end_time and end_time <= start_time:
+                self.add_error('end_time', '終了時間は開始時間より後である必要があります。')
+        elif status == Attendance_info.AttendanceStatus.ABSENT:
+            cleaned_data['start_time'] = None
+            cleaned_data['end_time'] = None
+            if not cleaned_data.get('absence_reason'):
+                self.add_error('absence_reason', '欠席の場合、欠席理由は必須です。')
+
+        return cleaned_data
 
 class CheckUserForm(forms.Form):
     recipient_number = forms.CharField(

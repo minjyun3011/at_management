@@ -133,30 +133,30 @@ def add_event(request):
             event.recipient_number = user
             event.save()
 
-            # イベントデータをISO 8601形式に整形して返す
             response_data = {
                 'message': 'Event successfully added',
                 'eventData': {
                     'id': event.id,
                     'calendar_date': event.calendar_date.strftime('%Y-%m-%d'),
-                    'start_time': DateFormat(event.start_time).format('c'),  # ISO 8601 format
-                    'end_time': DateFormat(event.end_time).format('c'),
-                    'status': event.get_status_display(),  # get_status_display() で選択肢の表示用文字列を取得
-                    'transportation_to': event.get_transportation_to_display(),  # 同様に表示用文字列を取得
-                    'transportation_from': event.get_transportation_from_display(),  # 同様に表示用文字列を取得
+                    'start_time': DateFormat(event.start_time).format('c') if event.start_time else None,
+                    'end_time': DateFormat(event.end_time).format('c') if event.end_time else None,
+                    'status': event.get_status_display(),
+                    'transportation_to': event.get_transportation_to_display(),
+                    'transportation_from': event.get_transportation_from_display(),
                     'absence_reason': event.absence_reason or "N/A",
                 }
             }
             return JsonResponse(response_data, status=200)
         else:
-            # フォームエラーがあればJSON形式で返す
             return JsonResponse({'errors': form.errors.get_json_data()}, status=400)
     except ValidationError as e:
         return JsonResponse({'error': str(e)}, status=400)
     except Exception as e:
         return JsonResponse({'error': 'Internal Server Error', 'message': str(e)}, status=500)
 
+
 #カレンダー選択後にその日付の中に入っているイベントデータを取得して入力欄に表示しておくために必要な関数
+
 @require_http_methods(["POST"])
 def get_events(request):
     try:
@@ -176,9 +176,10 @@ def get_events(request):
         # イベントデータをISO 8601形式に整形
         events_data = [{
             'id': event.id,
+            'recipient_number': event.recipient_number.recipient_number,
             'calendar_date': event.calendar_date.strftime('%Y-%m-%d'),
-            'start_time': DateFormat(event.start_time).format('c'),  # ISO 8601 format
-            'end_time': DateFormat(event.end_time).format('c'),
+            'start_time': event.start_time.strftime('%H:%M:%S') if event.start_time else None,
+            'end_time': event.end_time.strftime('%H:%M:%S') if event.end_time else None,
             'status': event.status,
             'transportation_to': event.transportation_to,
             'transportation_from': event.transportation_from,
@@ -189,9 +190,8 @@ def get_events(request):
     except User.DoesNotExist:
         return JsonResponse({'error': 'User not found'}, status=404)
     except Exception as e:
+        print(f'Unexpected error: {str(e)}')
         return JsonResponse({'error': 'Internal Server Error', 'message': str(e)}, status=500)
-
-
 @require_http_methods(["GET"])
 def get_event_details(request):
     date = request.GET.get('date')
