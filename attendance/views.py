@@ -192,6 +192,8 @@ def get_events(request):
     except Exception as e:
         print(f'Unexpected error: {str(e)}')
         return JsonResponse({'error': 'Internal Server Error', 'message': str(e)}, status=500)
+    
+
 @require_http_methods(["GET"])
 def get_event_details(request):
     date = request.GET.get('date')
@@ -206,8 +208,8 @@ def get_event_details(request):
             event = Attendance_info.objects.get(recipient_number=user, calendar_date=date)
             data = {
                 'calendar_date': event.calendar_date.strftime('%Y-%m-%d'),
-                'start_time': event.start_time.strftime('%H:%M'),
-                'end_time': event.end_time.strftime('%H:%M'),
+                'start_time': event.start_time.strftime('%H:%M') if event.start_time else None,
+                'end_time': event.end_time.strftime('%H:%M') if event.end_time else None,
                 'status': event.status,
                 'transportation_to': event.transportation_to,
                 'transportation_from': event.transportation_from,
@@ -219,8 +221,8 @@ def get_event_details(request):
     except User.DoesNotExist:
         return JsonResponse({'error': 'User not found'}, status=404)
     except Exception as e:
-        return JsonResponse({'error': str(e)}, status=500)
-
+        print(f'Unexpected error: {str(e)}')  # デバッグ用ログ
+        return JsonResponse({'error': 'Internal Server Error', 'message': str(e)}, status=500)
 
 @require_http_methods(["POST"])
 def edit_event(request):
@@ -237,8 +239,8 @@ def edit_event(request):
             response_data = {
                 'recipient_number': recipient_number,
                 'calendar_date': updated_event.calendar_date.strftime('%Y-%m-%d'),
-                'start_time': updated_event.start_time.strftime('%H:%M'),
-                'end_time': updated_event.end_time.strftime('%H:%M'),
+                'start_time': updated_event.start_time.strftime('%H:%M') if updated_event.start_time else None,
+                'end_time': updated_event.end_time.strftime('%H:%M') if updated_event.end_time else None,
                 'status': updated_event.status,
                 'transportation_to': updated_event.transportation_to,
                 'transportation_from': updated_event.transportation_from,
@@ -246,10 +248,12 @@ def edit_event(request):
             }
             return JsonResponse({'message': 'Event updated successfully', 'eventData': response_data}, status=200)
         else:
+            print(f'Form errors: {form.errors.get_json_data()}')  # デバッグ用ログ
             return JsonResponse({'errors': form.errors.get_json_data()}, status=400)
     except User.DoesNotExist:
         return JsonResponse({'error': 'User not found'}, status=404)
     except Attendance_info.DoesNotExist:
         return JsonResponse({'error': 'Event not found'}, status=404)
     except Exception as e:
-        return JsonResponse({'error': str(e)}, status=500)
+        print(f'Unexpected error: {str(e)}')  # デバッグ用ログ
+        return JsonResponse({'error': 'Internal Server Error', 'message': str(e)}, status=500)

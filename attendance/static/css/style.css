@@ -163,7 +163,8 @@ nav {
 }
 
 .modal-dialog.modal-lg {
-    max-width: 800px; /* モーダルの幅を調整 */
+    max-width: 800px;
+    /* モーダルの幅を調整 */
 }
 
 .event-form .row {
@@ -171,81 +172,148 @@ nav {
 }
 
 .event-form .col {
-    padding: 0 15px; /* カラム間のスペースを調整 */
+    padding: 0 15px;
+    /* カラム間のスペースを調整 */
 }
 
 /* カスタムスタイリングが必要な場合のみ */
 .form-label {
-    font-weight: bold; /* ラベルを目立たせる */
+    font-weight: bold;
+    /* ラベルを目立たせる */
 }
 
 
 #eventForm {
     display: flex;
-    flex-direction: column; /* 子要素を縦方向に配置 */
+    flex-direction: column;
+    /* 子要素を縦方向に配置 */
 }
-.custom-row-flex > div {
-    flex: 1; /* 子要素に等しい幅を割り当て */
+
+.custom-row-flex>div {
+    flex: 1;
+    /* 子要素に等しい幅を割り当て */
 }
 
 .event-details {
-    font-size: 20px; /* フォントサイズを大きく設定 */
-    font-weight: bold; /* フォントを太くする */
-    margin-bottom: 20px; /* 下にマージンを設定 */
-    color: #333; /* 文字色を濃いグレーに設定 */
+    font-size: 20px;
+    /* フォントサイズを大きく設定 */
+    font-weight: bold;
+    /* フォントを太くする */
+    margin-bottom: 20px;
+    /* 下にマージンを設定 */
+    color: #333;
+    /* 文字色を濃いグレーに設定 */
 }
 
 .info-box {
-            border: 2px solid #4CAF50; /* 緑色の境界線 */
-            background-color: #f9f9f9; /* 薄灰色の背景 */
-            padding: 15px; /* 内側の余白 */
-            margin: 20px 0; /* 上下の余白 */
-        }
+    border: 2px solid #4CAF50;
+    /* 緑色の境界線 */
+    background-color: #f9f9f9;
+    /* 薄灰色の背景 */
+    padding: 15px;
+    /* 内側の余白 */
+    margin: 20px 0;
+    /* 上下の余白 */
+}
+
 .modal-dialog.modal-lg {
-    max-width: 800px; /* モーダルの幅を調整 */
-    width: 100%; /* モーダルの幅を親要素の100%に設定 */
+    max-width: 800px;
+    /* モーダルの幅を調整 */
+    width: 100%;
+    /* モーダルの幅を親要素の100%に設定 */
 }
 
 .modal-body {
-    padding: 20px; /* 内側の余白を20pxに設定 */
+    padding: 20px;
+    /* 内側の余白を20pxに設定 */
 }
 
 #editEventForm .form-group {
-    margin-bottom: 15px; /* 各フォームグループの下部の余白 */
+    margin-bottom: 15px;
+    /* 各フォームグループの下部の余白 */
 }
 
 #editEventForm .form-label {
-    font-weight: bold; /* ラベルのフォントを太字に */
-    color: #333; /* ラベルの色を濃いグレーに設定 */
+    font-weight: bold;
+    /* ラベルのフォントを太字に */
+    color: #333;
+    /* ラベルの色を濃いグレーに設定 */
 }
 
 #editEventForm input[type="date"],
 #editEventForm input[type="time"],
 #editEventForm select,
 #editEventForm textarea {
-    border: 1px solid #ccc; /* 境界線の色と太さ */
-    border-radius: 4px; /* 境界線の角を丸くする */
-    padding: 10px; /* 内側の余白 */
+    border: 1px solid #ccc;
+    /* 境界線の色と太さ */
+    border-radius: 4px;
+    /* 境界線の角を丸くする */
+    padding: 10px;
+    /* 内側の余白 */
 }
 
 .modal-footer {
-    padding: 15px; /* フッター部分の内側の余白 */
-    border-top: 1px solid #eee; /* 上部の境界線 */
+    padding: 15px;
+    /* フッター部分の内側の余白 */
+    border-top: 1px solid #eee;
+    /* 上部の境界線 */
 }
 
 .modal-footer .btn {
-    padding: 10px 20px; /* ボタンのパディング */
+    padding: 10px 20px;
+    /* ボタンのパディング */
 }
 
 .modal-footer .btn-primary {
-    background-color: #4CAF50; /* 背景色を緑に */
-    border-color: #4CAF50; /* 境界線の色も緑に */
+    background-color: #4CAF50;
+    /* 背景色を緑に */
+    border-color: #4CAF50;
+    /* 境界線の色も緑に */
 }
 
 .modal-title {
-    font-size: 1.5em; /* タイトルのフォントサイズ */
-    color: #000; /* タイトルの色を黒に */
+    font-size: 1.5em;
+    /* タイトルのフォントサイズ */
+    color: #000;
+    /* タイトルの色を黒に */
 }
+
 .hidden {
     display: none;
+}
+
+.fc-event {
+    border: 2px solid #57e32c;
+    /* 出席の黄緑色の枠線 */
+    background-color: rgba(87, 227, 44, 0.1);
+    /* 出席の背景色を薄くする */
+}
+
+.fc-event .fc-event-title {
+    color: #000000;
+    /* タイトルの文字色を黒にする */
+}
+
+.fc-event .fc-event-time {
+    color: #000000;
+    /* 時間の文字色を黒にする */
+}
+
+
+.fc-event {
+    border: 2px solid #57e32c;
+    /* 出席の黄緑色の枠線 */
+    background-color: rgba(87, 227, 44, 0.1);
+    /* 出席の背景色を薄くする */
+    color: #000000;
+    /* タイトルの文字色を黒にする */
+}
+
+.fc-event.absent {
+    border: 2px solid #f53b57;
+    /* 欠席の枠線の色 */
+    background-color: rgba(245, 59, 87, 0.1);
+    /* 欠席の背景色を薄くする */
+    color: #000000;
+    /* タイトルの文字色を黒にする */
 }

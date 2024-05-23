@@ -13,6 +13,8 @@
                 <p id="eventDate" class="event-details"></p>
                 <p id="eventTime" class="event-details"></p>
                 <p id="eventStatus" class="event-details"></p>
+                <p id="transportationDetails" class="event-details"></p>
+                <p id="absenceReason" class="event-details" style="display:none;"></p> <!-- 欠席理由フィールド -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
@@ -41,12 +43,12 @@
                         <input type="hidden" id="edit_calendar_date" name="calendar_date">
                     </div>
                     <!-- 開始時間 -->
-                    <div class="form-group">
+                    <div class="form-group time-group">
                         <label for="edit_start_time" class="form-label">開始時間</label>
                         <input type="time" class="form-control" id="edit_start_time" name="start_time">
                     </div>
                     <!-- 終了時間 -->
-                    <div class="form-group">
+                    <div class="form-group time-group">
                         <label for="edit_end_time" class="form-label">終了時間</label>
                         <input type="time" class="form-control" id="edit_end_time" name="end_time">
                     </div>
@@ -88,6 +90,7 @@
         </div>
     </div>
 </div>
+
 
 <!-- Event Modal -->
 <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
