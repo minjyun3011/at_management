@@ -1,6 +1,6 @@
 import json
 import logging
-from .forms import AttendanceInfoForm
+from ..forms import AttendanceInfoForm
 from django.views.generic.edit import FormView
 from django.http import JsonResponse
 from django.views.generic.edit import FormView
@@ -9,10 +9,10 @@ from django.utils.dateparse import parse_datetime
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import redirect
 
-from .forms import UserForm, CheckUserForm
+from ..forms import UserForm, CheckUserForm
 
 from django.views.generic.edit import CreateView
-from .models import User, Attendance_info
+from ..models import User, Attendance_info
 from django.views.generic import TemplateView
 from django.contrib import messages 
 from datetime import datetime
