@@ -15,7 +15,5 @@ urlpatterns = [
     path('api/get_event_details/', input.get_event_details, name='get_event_details'),
     path('api/edit_event/', input.edit_event, name='edit_event'),
 
-
-
 ]
 
