@@ -19,11 +19,11 @@
 
 <body>
     <h1>出力メニュー</h1>
-    
+
     <div class="container">
         <!-- カレンダー表示 -->
         <div id='calendar'></div>
-        
+
         <!-- 選択された日付のイベント詳細表示 -->
         <div id="event-details" class="mt-4">
             <h2>イベント詳細</h2>
@@ -32,12 +32,12 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 selectable: true,
-                select: function(info) {
+                select: function (info) {
                     var date = info.startStr.split('T')[0];
                     fetchEventDetails(date);
                 }
@@ -46,18 +46,24 @@
         });
 
         function fetchEventDetails(date) {
-            axios.get("{% url 'attendance:output' %}", {
+            console.log(`Fetching event details for date: ${date}`);
+            axios.get("/output/", {
                 params: {
                     date: date
+                },
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'  // Ajaxリクエストとして認識させる
                 }
             })
-            .then(function(response) {
-                displayEventDetails(response.data);
-            })
-            .catch(function(error) {
-                console.error('Error fetching event details:', error);
-            });
+                .then(function (response) {
+                    console.log('Response data:', response.data);
+                    displayEventDetails(response.data);
+                })
+                .catch(function (error) {
+                    console.error('Error fetching event details:', error);
+                });
         }
+
 
         function displayEventDetails(data) {
             var detailsContainer = document.getElementById('event-details');
@@ -65,7 +71,7 @@
 
             if (data.combined_data && data.combined_data.length > 0) {
                 var ul = document.createElement('ul');
-                data.combined_data.forEach(function(info) {
+                data.combined_data.forEach(function (info) {
                     var li = document.createElement('li');
                     li.textContent = `${info.name}: ${info.start_time} - ${info.end_time} (${info.status})`;
                     ul.appendChild(li);
