@@ -18,10 +18,13 @@ class CombinedAttendanceView(View):
 
                 for info in attendance_infos:
                     combined_data.append({
-                        'name': info.recipient_number.name,  # 'user'から 'recipient_number'に変更
+                        'name': info.recipient_number.name,  # 名前
                         'start_time': str(info.start_time),
                         'end_time': str(info.end_time),
-                        'status': info.status
+                        'status': info.status,
+                        'transportation_to': info.transportation_to,  # 送迎サービス（往路）
+                        'transportation_from': info.transportation_from,  # 送迎サービス（復路）
+                        'absence_reason': info.absence_reason  # 欠席理由
                     })
             except ValueError:
                 return JsonResponse({'error': 'Invalid date format'}, status=400)
