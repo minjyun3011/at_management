@@ -66,21 +66,81 @@
 
 
         function displayEventDetails(data) {
-            var detailsContainer = document.getElementById('event-details');
-            detailsContainer.innerHTML = '<h2>イベント詳細</h2>';  // Clear previous details and add header
+    var detailsContainer = document.getElementById('event-details');
+    detailsContainer.innerHTML = '<h2>イベント詳細</h2>';  // 前回の詳細をクリアし、ヘッダーを追加
 
-            if (data.combined_data && data.combined_data.length > 0) {
-                var ul = document.createElement('ul');
-                data.combined_data.forEach(function (info) {
-                    var li = document.createElement('li');
-                    li.textContent = `${info.name}: ${info.start_time} - ${info.end_time} (${info.status})`;
-                    ul.appendChild(li);
-                });
-                detailsContainer.appendChild(ul);
+    // 午前と午後のデータを格納する配列
+    var morningData = [];
+    var afternoonData = [];
+
+    // データを午前と午後に分類
+    if (data.combined_data && data.combined_data.length > 0) {
+        data.combined_data.forEach(function (info) {
+            // カレンダーの日付と開始時間、終了時間を組み合わせた日付オブジェクトを作成
+            var datePart = data.selected_date;  // 例えば "2024-05-24"
+            var startTime = new Date(`${datePart}T${info.start_time}`);
+            var endTime = new Date(`${datePart}T${info.end_time}`);
+            var noon = new Date(`${datePart}T12:00:00`);
+
+            if (startTime < noon && endTime <= noon) {
+                // 開始時間が正午より前で、終了時間が正午以下なら午前のデータ
+                morningData.push(info);
+            } else if (startTime >= noon) {
+                // 開始時間が正午以降なら午後のデータ
+                afternoonData.push(info);
             } else {
-                detailsContainer.innerHTML += '<p>選択された日付のデータが見つかりませんでした。</p>';
+                // それ以外の場合（例えば、跨いでいる場合）、両方に含める
+                morningData.push(info);
+                afternoonData.push(info);
             }
-        }
+        });
+    }
+
+    // 午前のデータを表示
+    var morningHeader = document.createElement('h3');
+    morningHeader.textContent = '午前';
+    detailsContainer.appendChild(morningHeader);
+
+    if (morningData.length > 0) {
+        var morningUl = document.createElement('ul');
+        morningData.forEach(function (info) {
+            var li = document.createElement('li');
+            li.textContent = `${info.name}: ${info.start_time} - ${info.end_time} (${info.status})`;
+            morningUl.appendChild(li);
+        });
+        detailsContainer.appendChild(morningUl);
+    } else {
+        var noMorningData = document.createElement('p');
+        noMorningData.textContent = '午前のデータが見つかりませんでした。';
+        detailsContainer.appendChild(noMorningData);
+    }
+
+    // 午後のデータを表示
+    var afternoonHeader = document.createElement('h3');
+    afternoonHeader.textContent = '午後';
+    detailsContainer.appendChild(afternoonHeader);
+
+    if (afternoonData.length > 0) {
+        var afternoonUl = document.createElement('ul');
+        afternoonData.forEach(function (info) {
+            var li = document.createElement('li');
+            li.textContent = `${info.name}: ${info.start_time} - ${info.end_time} (${info.status})`;
+            afternoonUl.appendChild(li);
+        });
+        detailsContainer.appendChild(afternoonUl);
+    } else {
+        var noAfternoonData = document.createElement('p');
+        noAfternoonData.textContent = '午後のデータが見つかりませんでした。';
+        detailsContainer.appendChild(noAfternoonData);
+    }
+
+    // データがない場合のメッセージ
+    if (morningData.length === 0 && afternoonData.length === 0) {
+        detailsContainer.innerHTML += '<p>選択された日付のデータが見つかりませんでした。</p>';
+    }
+}
+
+
     </script>
 </body>
 
