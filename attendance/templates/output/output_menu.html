@@ -115,7 +115,6 @@
                 var morningUl = document.createElement('ul');
                 morningData.forEach(function (info) {
                     var li = document.createElement('li');
-                    var updatedAt = new Date(info.updated_at);
                     var isLateAbsence = info.status === 'AB' && info.is_late_change;
 
                     if (isLateAbsence) {
@@ -141,7 +140,6 @@
                 var afternoonUl = document.createElement('ul');
                 afternoonData.forEach(function (info) {
                     var li = document.createElement('li');
-                    var updatedAt = new Date(info.updated_at);
                     var isLateAbsence = info.status === 'AB' && info.is_late_change;
 
                     if (isLateAbsence) {
@@ -163,6 +161,7 @@
                 detailsContainer.innerHTML += '<p>選択された日付のデータが見つかりませんでした。</p>';
             }
         }
+
 
     </script>
 </body>
