@@ -267,7 +267,7 @@ function closeModal(modalId) {
 
 // 更新ボタンを押した際の処理
 function submitEditEvent() {
-    const recipientNumber = sessionStorage.getItem('recipient_number'); // セッションストレージから取得
+    const recipientNumber = sessionStorage.getItem('recipient_number');
     const eventData = {
         recipient_number: recipientNumber,
         calendar_date: document.getElementById('edit_calendar_date').value,
@@ -286,15 +286,13 @@ function submitEditEvent() {
         }
     }).then(function(response) {
         if (response.status === 200) {
-            const updatedEvent = formatEvents([response.data.eventData])[0];
+            const updatedEvent = response.data.eventData;
             var eventModal = bootstrap.Modal.getInstance(document.getElementById('editEventModal'));
 
             // モーダルが完全に閉じられた後に実行されるイベントハンドラを設定
             document.getElementById('editEventModal').addEventListener('hidden.bs.modal', function (e) {
-                // イベントをカレンダーに追加
-                calendar.addEvent(updatedEvent);
-                // カレンダーを再描画
-                calendar.render();
+                // カレンダーイベントを更新
+                fetchEventDetails(updatedEvent.calendar_date);
 
                 // モーダルが閉じたことを確認した後にアラートを表示
                 alert('イベントが正常に更新されました。');
@@ -311,6 +309,7 @@ function submitEditEvent() {
         alert('Error editing event: ' + (error.response ? error.response.data.message : error.message));
     });
 }
+
 
 // ステータスに応じてフィールドを表示/非表示にする関数
 function toggleFields(status) {

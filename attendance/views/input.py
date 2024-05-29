@@ -21,7 +21,7 @@ from django.core.exceptions import ValidationError
 from django.utils.dateformat import DateFormat
 
 from django.core.exceptions import ObjectDoesNotExist
-from datetime import date
+from datetime import date, time,timedelta
 
 
 
@@ -224,6 +224,7 @@ def get_event_details(request):
         print(f'Unexpected error: {str(e)}')  # デバッグ用ログ
         return JsonResponse({'error': 'Internal Server Error', 'message': str(e)}, status=500)
 
+
 @require_http_methods(["POST"])
 def edit_event(request):
     try:
@@ -236,6 +237,14 @@ def edit_event(request):
         form = AttendanceInfoForm(data, instance=event)
         if form.is_valid():
             updated_event = form.save()
+            is_late_change = False
+            current_time = datetime.now()
+            event_date = updated_event.calendar_date
+            cutoff_time = datetime.combine(event_date, time(17, 0)) - timedelta(days=1)  # 前日の17時
+            
+            if current_time > cutoff_time and updated_event.status == 'AB':
+                is_late_change = True
+            
             response_data = {
                 'recipient_number': recipient_number,
                 'calendar_date': updated_event.calendar_date.strftime('%Y-%m-%d'),
@@ -245,15 +254,15 @@ def edit_event(request):
                 'transportation_to': updated_event.transportation_to,
                 'transportation_from': updated_event.transportation_from,
                 'absence_reason': updated_event.absence_reason or "",
+                'updated_at': updated_event.updated_at.strftime('%Y-%m-%d %H:%M:%S'),
+                'is_late_change': is_late_change
             }
             return JsonResponse({'message': 'Event updated successfully', 'eventData': response_data}, status=200)
         else:
-            print(f'Form errors: {form.errors.get_json_data()}')  # デバッグ用ログ
             return JsonResponse({'errors': form.errors.get_json_data()}, status=400)
     except User.DoesNotExist:
         return JsonResponse({'error': 'User not found'}, status=404)
     except Attendance_info.DoesNotExist:
         return JsonResponse({'error': 'Event not found'}, status=404)
     except Exception as e:
-        print(f'Unexpected error: {str(e)}')  # デバッグ用ログ
         return JsonResponse({'error': 'Internal Server Error', 'message': str(e)}, status=500)

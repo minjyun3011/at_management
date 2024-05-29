@@ -65,9 +65,14 @@
         }
 
 
+        // イベント詳細を表示する関数
         function displayEventDetails(data) {
             var detailsContainer = document.getElementById('event-details');
-            detailsContainer.innerHTML = '<h2>イベント詳細</h2>';  // 前回の詳細をクリアし、ヘッダーを追加
+
+            // 選択した日付をフォーマットして表示
+            var dateObj = new Date(data.selected_date);
+            var formattedDate = dateObj.getFullYear() + '年' + (dateObj.getMonth() + 1) + '月' + dateObj.getDate() + '日';
+            detailsContainer.innerHTML = `<h2>イベント詳細 (${formattedDate})</h2>`;  // 前回の詳細をクリアし、ヘッダーを追加
 
             // 午前と午後のデータを格納する配列
             var morningData = [];
@@ -76,20 +81,16 @@
             // データを午前と午後に分類
             if (data.combined_data && data.combined_data.length > 0) {
                 data.combined_data.forEach(function (info) {
-                    // カレンダーの日付と開始時間、終了時間を組み合わせた日付オブジェクトを作成
-                    var datePart = data.selected_date;  // 例えば "2024-05-24"
+                    var datePart = data.selected_date;
                     var startTime = new Date(`${datePart}T${info.start_time}`);
                     var endTime = new Date(`${datePart}T${info.end_time}`);
                     var noon = new Date(`${datePart}T12:00:00`);
 
                     if (endTime <= noon) {
-                        // 終了時間が正午以下なら午前のデータ
                         morningData.push(info);
                     } else if (startTime >= noon) {
-                        // 開始時間が正午以降なら午後のデータ
                         afternoonData.push(info);
                     } else {
-                        // 終了時間が正午を跨いでいる場合は午前のデータとして扱う
                         morningData.push(info);
                     }
                 });
@@ -98,6 +99,11 @@
             // 送迎情報を変換する関数
             function convertTransportationStatus(status) {
                 return status === 'US' ? '○' : '×';
+            }
+
+            // 欠席情報を表示する関数
+            function formatAbsenceInfo(info) {
+                return `<s>${info.name}: 往路 ${convertTransportationStatus(info.transportation_to)}, 復路 ${convertTransportationStatus(info.transportation_from)}</s> 欠席理由: ${info.absence_reason} 更新日時: ${info.updated_at}`;
             }
 
             // 午前のデータを表示
@@ -109,7 +115,14 @@
                 var morningUl = document.createElement('ul');
                 morningData.forEach(function (info) {
                     var li = document.createElement('li');
-                    li.textContent = `${info.name}: 往路 ${convertTransportationStatus(info.transportation_to)}, 復路 ${convertTransportationStatus(info.transportation_from)}`;  // 名前と送迎情報を表示
+                    var updatedAt = new Date(info.updated_at);
+                    var isLateAbsence = info.status === 'AB' && info.is_late_change;
+
+                    if (isLateAbsence) {
+                        li.innerHTML = formatAbsenceInfo(info);
+                    } else {
+                        li.textContent = `${info.name}: 往路 ${convertTransportationStatus(info.transportation_to)}, 復路 ${convertTransportationStatus(info.transportation_from)}`;  // 名前と送迎情報を表示
+                    }
                     morningUl.appendChild(li);
                 });
                 detailsContainer.appendChild(morningUl);
@@ -128,7 +141,14 @@
                 var afternoonUl = document.createElement('ul');
                 afternoonData.forEach(function (info) {
                     var li = document.createElement('li');
-                    li.textContent = `${info.name}: 往路 ${convertTransportationStatus(info.transportation_to)}, 復路 ${convertTransportationStatus(info.transportation_from)}`;  // 名前と送迎情報を表示
+                    var updatedAt = new Date(info.updated_at);
+                    var isLateAbsence = info.status === 'AB' && info.is_late_change;
+
+                    if (isLateAbsence) {
+                        li.innerHTML = formatAbsenceInfo(info);
+                    } else {
+                        li.textContent = `${info.name}: 往路 ${convertTransportationStatus(info.transportation_to)}, 復路 ${convertTransportationStatus(info.transportation_from)}`;  // 名前と送迎情報を表示
+                    }
                     afternoonUl.appendChild(li);
                 });
                 detailsContainer.appendChild(afternoonUl);
