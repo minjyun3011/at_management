@@ -109,6 +109,7 @@ function formatEvents(eventsData) {
 
 
 function fetchEventDetails(date, recipientNumber) {
+    console.log(`Fetching event details for date: ${date} and recipient_number: ${recipientNumber}`);  // デバッグ用ログ
     axios.get(`/api/get_event_details/`, {
         params: {
             date: date,
@@ -268,6 +269,7 @@ function closeModal(modalId) {
 // 更新ボタンを押した際の処理
 function submitEditEvent() {
     const recipientNumber = sessionStorage.getItem('recipient_number');
+    console.log(`Submitting event edit for recipient_number: ${recipientNumber}`);  // デバッグ用ログ
     const eventData = {
         recipient_number: recipientNumber,
         calendar_date: document.getElementById('edit_calendar_date').value,
@@ -287,18 +289,20 @@ function submitEditEvent() {
     }).then(function(response) {
         if (response.status === 200) {
             const updatedEvent = response.data.eventData;
+            console.log('Event updated:', updatedEvent);  // デバッグ用ログ
             var eventModal = bootstrap.Modal.getInstance(document.getElementById('editEventModal'));
 
             // モーダルが完全に閉じられた後に実行されるイベントハンドラを設定
             document.getElementById('editEventModal').addEventListener('hidden.bs.modal', function (e) {
                 // カレンダーイベントを更新
-                fetchEventDetails(updatedEvent.calendar_date);
+                fetchEventDetails(updatedEvent.calendar_date, updatedEvent.recipient_number);  // recipient_numberを渡す
+                console.log(`Fetching details for date: ${updatedEvent.calendar_date} and recipient_number: ${updatedEvent.recipient_number}`);  // デバッグ用ログ
 
                 // モーダルが閉じたことを確認した後にアラートを表示
                 alert('イベントが正常に更新されました。');
 
                 // リダイレクトはアラート後に実行
-                window.location.href = '/home1/';
+                // window.location.href = '/home1/';
             }, { once: true }); // イベントリスナーは一度だけ実行されるように設定
 
             // モーダルを非表示にする
@@ -309,6 +313,7 @@ function submitEditEvent() {
         alert('Error editing event: ' + (error.response ? error.response.data.message : error.message));
     });
 }
+
 
 
 // ステータスに応じてフィールドを表示/非表示にする関数
