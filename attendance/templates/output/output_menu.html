@@ -57,7 +57,7 @@
             })
                 .then(function (response) {
                     console.log('Response data:', response.data);
-                    displayEventDetails(response.data);
+                    displayEventDetailsForOutput(response.data);
                 })
                 .catch(function (error) {
                     console.error('Error fetching event details:', error);
@@ -66,7 +66,7 @@
 
 
         // イベント詳細を表示する関数
-        function displayEventDetails(data) {
+        function displayEventDetailsForOutput(data) {
             var detailsContainer = document.getElementById('event-details');
 
             // 選択した日付をフォーマットして表示
@@ -161,6 +161,7 @@
                 detailsContainer.innerHTML += '<p>選択された日付のデータが見つかりませんでした。</p>';
             }
         }
+
 
 
     </script>

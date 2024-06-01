@@ -3708,3 +3708,47 @@ Bad Request: /api/get_event_details/
 Bad Request: /api/get_event_details/
 Not Found: /favicon.ico
 Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/input.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+/Users/satoso/Python/at_management/project/attendance/views/input.py changed, reloading.
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+/Users/satoso/Python/at_management/project/attendance/views/input.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/input.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Internal Server Error: /api/edit_event/
+/Users/satoso/Python/at_management/project/attendance/views/input.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+User found: 佐藤　壮
+Queried events: <QuerySet [<Attendance_info: 佐藤　壮 - 2024-05-30 - AB>]>
+Combined data: [{'calendar_date': '2024-05-30', 'start_time': None, 'end_time': None, 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'US', 'absence_reason': '風邪', 'updated_at': '2024-05-29 09:23:54', 'is_late_change': True, 'name': '佐藤\u3000壮', 'original_status': 'AB'}]
+Watching for file changes with StatReloader
+User found: 佐藤　壮
+Queried events: <QuerySet [<Attendance_info: 佐藤　壮 - 2024-05-29 - AB>]>
+Combined data: [{'calendar_date': '2024-05-29', 'start_time': None, 'end_time': None, 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'NU', 'absence_reason': '風邪', 'updated_at': '2024-05-31 05:23:01', 'is_late_change': True, 'name': '佐藤\u3000壮', 'original_status': 'AB'}]
+Not Found: /favicon.ico
+User found: 佐藤　壮
+Queried events: <QuerySet [<Attendance_info: 佐藤　壮 - 2024-05-29 - AB>]>
+Combined data: [{'calendar_date': '2024-05-29', 'start_time': None, 'end_time': None, 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'NU', 'absence_reason': '風邪', 'updated_at': '2024-05-31 05:23:01', 'is_late_change': True, 'name': '佐藤\u3000壮', 'original_status': 'AB'}]
+User found: 佐藤　壮
+Queried events: <QuerySet []>
+Combined data: []
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+User found: 佐藤　壮
+Queried events: <QuerySet [<Attendance_info: 佐藤　壮 - 2024-05-29 - AB>]>
+Combined data: [{'calendar_date': '2024-05-29', 'start_time': None, 'end_time': None, 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'NU', 'absence_reason': '風邪', 'updated_at': '2024-05-31 05:23:01', 'is_late_change': True, 'name': '佐藤\u3000壮', 'original_status': 'AB'}]
+Not Found: /favicon.ico
+User found: 佐藤　壮
+Queried events: <QuerySet []>
+Combined data: []

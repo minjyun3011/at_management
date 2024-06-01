@@ -105,9 +105,6 @@ function formatEvents(eventsData) {
 }
 
 
-
-
-
 function fetchEventDetails(date, recipientNumber) {
     console.log(`Fetching event details for date: ${date} and recipient_number: ${recipientNumber}`);  // デバッグ用ログ
     axios.get(`/api/get_event_details/`, {
@@ -118,21 +115,28 @@ function fetchEventDetails(date, recipientNumber) {
         headers: { 'X-CSRFToken': getCsrfToken() }
     })
     .then(function(response) {
+        console.log('API response status:', response.status);  // APIレスポンスのステータスコードをログに表示
+        console.log('API response data:', response.data);  // APIレスポンスのデータをログに表示
         if (response.status === 200 && response.data) {
             displayEventDetails(response.data);
             var detailsModal = new bootstrap.Modal(document.getElementById('eventDetailsModal'));
             detailsModal.show();
         } else if (response.status === 204) {
+            console.log('No event data found for this date');  // 204の場合のログ
             document.getElementById('calendar_date').value = date;
             document.getElementById('calendar_date_display').textContent = date; // 日付のテキスト表示を設定
             var eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
+            console.log('Showing event modal');  // モーダル表示前のログ
             eventModal.show();
+        } else {
+            console.warn('Unexpected status code:', response.status);  // その他のステータスコードの警告ログ
         }
     })
     .catch(function(error) {
-        console.error("Error fetching event details:", error);
+        console.error("Error fetching event details:", error);  // エラーログ
     });
 }
+
 
 function displayEventDetails(data) {
     if (!data) {

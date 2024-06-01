@@ -194,36 +194,58 @@ def get_events(request):
         return JsonResponse({'error': 'Internal Server Error', 'message': str(e)}, status=500)
     
 
+
 @require_http_methods(["GET"])
 def get_event_details(request):
     date = request.GET.get('date')
     recipient_number = request.GET.get('recipient_number')
     
     if not date or not recipient_number:
+        logger.error('Missing required parameters')  # エラーログ
         return JsonResponse({'error': 'Missing required parameters'}, status=400)
 
     try:
-        user = User.objects.get(recipient_number=recipient_number)
+        user = get_object_or_404(User, recipient_number=recipient_number)
+        logger.debug(f'User found: {user}')  # ユーザー情報のログ
         try:
-            event = Attendance_info.objects.get(recipient_number=user, calendar_date=date)
-            data = {
-                'calendar_date': event.calendar_date.strftime('%Y-%m-%d'),
-                'start_time': event.start_time.strftime('%H:%M') if event.start_time else None,
-                'end_time': event.end_time.strftime('%H:%M') if event.end_time else None,
-                'status': event.status,
-                'transportation_to': event.transportation_to,
-                'transportation_from': event.transportation_from,
-                'absence_reason': event.absence_reason or "",
-            }
-            return JsonResponse(data, status=200)
+            events = Attendance_info.objects.filter(recipient_number=user, calendar_date=date)
+            logger.debug(f'Queried events: {events}')  # クエリ結果をログに記録
+            combined_data = []
+
+            for event in events:
+                is_late_change = False
+                current_time = datetime.now()
+                event_date = datetime.strptime(date, '%Y-%m-%d').date()
+                cutoff_time = datetime.combine(event_date, time(17, 0)) - timedelta(days=1)  # 前日の17時
+
+                if current_time > cutoff_time and event.status == 'AB':
+                    is_late_change = True
+
+                combined_data.append({
+                    'calendar_date': event.calendar_date.strftime('%Y-%m-%d'),
+                    'start_time': event.start_time.strftime('%H:%M') if event.start_time else None,
+                    'end_time': event.end_time.strftime('%H:%M') if event.end_time else None,
+                    'status': event.status,
+                    'transportation_to': event.transportation_to,
+                    'transportation_from': event.transportation_from,
+                    'absence_reason': event.absence_reason or "",
+                    'updated_at': event.updated_at.strftime('%Y-%m-%d %H:%M:%S'),
+                    'is_late_change': is_late_change,
+                    'name': event.recipient_number.name,
+                    'original_status': event.status  # 元の出席データの状態
+                })
+
+            logger.debug(f'Combined data: {combined_data}')  # 結合データをログに記録
+            return JsonResponse({'combined_data': combined_data, 'selected_date': date}, status=200)
         except Attendance_info.DoesNotExist:
-            return JsonResponse({'message': 'Event not found'}, status=204)  # 204 No Content を返す
+            logger.warning(f'No events found for date: {date} and recipient_number: {recipient_number}')  # 警告ログ
+            return JsonResponse({'message': 'Event not found'}, status=204)
     except User.DoesNotExist:
+        logger.error(f'User not found with recipient_number: {recipient_number}')  # エラーログ
         return JsonResponse({'error': 'User not found'}, status=404)
     except Exception as e:
-        print(f'Unexpected error: {str(e)}')  # デバッグ用ログ
+        logger.error(f'Unexpected error: {str(e)}')  # エラーログ
         return JsonResponse({'error': 'Internal Server Error', 'message': str(e)}, status=500)
-
 
 @require_http_methods(["POST"])
 def edit_event(request):
