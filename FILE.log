@@ -3832,3 +3832,30 @@ Combined data: [{'calendar_date': '2024-05-29', 'start_time': None, 'end_time': 
 User found: 佐藤　壮
 Queried events: <QuerySet []>
 No events found for date: 2024-06-05 and recipient_number: 00007182
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+User found: 佐藤　壮
+Queried events: <QuerySet []>
+No events found for date: 2024-06-02 and recipient_number: 00007182
+User found: 佐藤　壮
+Queried events: <QuerySet [<Attendance_info: 佐藤　壮 - 2024-06-02 - PR>]>
+Combined data: [{'calendar_date': '2024-06-02', 'start_time': '18:09', 'end_time': '20:09', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': '', 'updated_at': '2024-06-02 08:09:04', 'is_late_change': False, 'name': '佐藤\u3000壮', 'original_status': 'PR'}]
+Watching for file changes with StatReloader
+Not Found: /ouput
+Not Found: /ouput
+/Users/satoso/Python/at_management/project/attendance/views/output.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/output.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/output.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Context for response: {'combined_data': [], 'selected_date': None}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': '熱'}], 'selected_date': '2024-05-23'}
+Context for response: {'combined_data': [{'name': '杉尾\u3000琢磨', 'start_time': '12:51:00', 'end_time': '18:51:00', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'NU', 'absence_reason': ''}, {'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': '風邪'}], 'selected_date': '2024-05-22'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': '熱'}], 'selected_date': '2024-05-24'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': '熱'}], 'selected_date': '2024-05-23'}
+Context for response: {'combined_data': [{'name': '杉尾\u3000琢磨', 'start_time': '12:51:00', 'end_time': '18:51:00', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'NU', 'absence_reason': ''}, {'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': '風邪'}], 'selected_date': '2024-05-22'}
+Watching for file changes with StatReloader
+Context for response: {'combined_data': [], 'selected_date': None}
+Context for response: {'combined_data': [{'name': '杉尾\u3000琢磨', 'start_time': '12:51:00', 'end_time': '18:51:00', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'NU', 'absence_reason': ''}, {'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': '風邪'}], 'selected_date': '2024-05-22'}

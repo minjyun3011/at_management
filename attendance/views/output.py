@@ -3,6 +3,9 @@ from django.views import View
 from attendance.models import Attendance_info  # モデル名を修正
 from django.http import JsonResponse
 from datetime import datetime
+import logging
+
+logger = logging.getLogger(__name__)
 
 class CombinedAttendanceView(View):
     template_name = 'output/output_menu.html'
@@ -33,6 +36,7 @@ class CombinedAttendanceView(View):
             'combined_data': combined_data,
             'selected_date': selected_date,
         }
+        logger.debug(f'Context for response: {context}')
 
         if request.headers.get('x-requested-with') == 'XMLHttpRequest':
             return JsonResponse(context)
