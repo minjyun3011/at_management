@@ -117,7 +117,7 @@ function fetchEventDetails(date, recipientNumber) {
         console.log('API response status:', response.status);  // APIレスポンスのステータスコードをログに表示
         console.log('API response data:', response.data);  // APIレスポンスのデータをログに表示
         if (response.status === 200 && response.data.combined_data && response.data.combined_data.length > 0) {
-            displayEventDetails(response.data);
+            displayEventDetails(response.data.combined_data[0]); 
             var detailsModal = new bootstrap.Modal(document.getElementById('eventDetailsModal'));
             detailsModal.show();
         } else if (response.status === 204) {
@@ -137,14 +137,15 @@ function fetchEventDetails(date, recipientNumber) {
 }
 
 
+function displayEventDetails(event) {
+    console.log('Displaying event details with data:', event);  // 受け取ったデータをログに表示
 
-function displayEventDetails(data) {
-    if (!data) {
+    if (!event) {
         console.error('No data available to display.');
+        document.getElementById('eventDate').textContent = 'No date provided';
         return;
     }
 
-    const event = data;
     document.getElementById('eventDate').textContent = `日付: ${event.calendar_date || 'No date provided'}`;
 
     // ステータスを日本語で表示
@@ -185,11 +186,10 @@ function displayEventDetails(data) {
         detailsModal.hide();
 
         document.getElementById('eventDetailsModal').addEventListener('hidden.bs.modal', function onModalHidden() {
-            displayEditEventDetails(data);
+            displayEditEventDetails(event);
         }, { once: true });
     });
 }
-
 
 
 function displayEditEventDetails(data) {
