@@ -104,7 +104,6 @@ function formatEvents(eventsData) {
     });
 }
 
-
 function fetchEventDetails(date, recipientNumber) {
     console.log(`Fetching event details for date: ${date} and recipient_number: ${recipientNumber}`);  // デバッグ用ログ
     axios.get(`/api/get_event_details/`, {
@@ -117,7 +116,7 @@ function fetchEventDetails(date, recipientNumber) {
     .then(function(response) {
         console.log('API response status:', response.status);  // APIレスポンスのステータスコードをログに表示
         console.log('API response data:', response.data);  // APIレスポンスのデータをログに表示
-        if (response.status === 200 && response.data) {
+        if (response.status === 200 && response.data.combined_data && response.data.combined_data.length > 0) {
             displayEventDetails(response.data);
             var detailsModal = new bootstrap.Modal(document.getElementById('eventDetailsModal'));
             detailsModal.show();
@@ -136,6 +135,7 @@ function fetchEventDetails(date, recipientNumber) {
         console.error("Error fetching event details:", error);  // エラーログ
     });
 }
+
 
 
 function displayEventDetails(data) {

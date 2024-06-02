@@ -235,6 +235,10 @@ def get_event_details(request):
                     'original_status': event.status  # 元の出席データの状態
                 })
 
+            if not combined_data:
+                logger.warning(f'No events found for date: {date} and recipient_number: {recipient_number}')  # 警告ログ
+                return JsonResponse({'message': 'Event not found'}, status=204)
+
             logger.debug(f'Combined data: {combined_data}')  # 結合データをログに記録
             return JsonResponse({'combined_data': combined_data, 'selected_date': date}, status=200)
         except Attendance_info.DoesNotExist:
