@@ -81,14 +81,20 @@
                         <label for="edit_absence_reason" class="form-label">欠席理由</label>
                         <textarea class="form-control" id="edit_absence_reason" name="absence_reason" rows="3"></textarea>
                     </div>
+                    <div class="form-group">
+                        <label for="edit_updater" class="form-label">更新者</label>
+                        <input type="text" class="form-control" id="edit_updater" name="updater">
+                    </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="submitEditEvent()">更新</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
-            </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick="submitEditEvent()">更新</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
         </div>
     </div>
+</div>
 </div>
 
 
@@ -149,6 +155,12 @@
                     <div class="form-group absence-group">
                         <label for="absence_reason" class="form-label">欠席理由</label>
                         <textarea class="form-control" id="absence_reason" name="absence_reason" rows="3"></textarea>
+                    </div>
+
+                    <!-- 入力者 -->
+                    <div class="form-group">
+                        <label for="inputter" class="form-label">入力者</label>
+                        <input type="text" class="form-control" id="inputter" name="inputter">
                     </div>
                 </form>
             </div>

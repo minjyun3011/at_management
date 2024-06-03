@@ -4167,3 +4167,19 @@ Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time
 Watching for file changes with StatReloader
 Context for response: {'combined_data': [], 'selected_date': None}
 Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'NU', 'absence_reason': 'インフル'}], 'selected_date': '2024-06-03'}
+Watching for file changes with StatReloader
+User found: 佐藤　壮
+Queried events: <QuerySet []>
+No events found for date: 2024-06-07 and recipient_number: 00007182
+User found: 佐藤　壮
+Queried events: <QuerySet [<Attendance_info: 佐藤　壮 - 2024-06-04 - PR>]>
+Combined data: [{'calendar_date': '2024-06-04', 'start_time': '17:57', 'end_time': '19:58', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': '', 'updated_at': '2024-06-02 07:58:05', 'is_late_change': False, 'name': '佐藤\u3000壮'}]
+User found: 佐藤　壮
+Queried events: <QuerySet []>
+No events found for date: 2024-06-07 and recipient_number: 00007182
+User found: 佐藤　壮
+Queried events: <QuerySet [<Attendance_info: 佐藤　壮 - 2024-06-03 - AB>]>
+Combined data: [{'calendar_date': '2024-06-03', 'start_time': None, 'end_time': None, 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'NU', 'absence_reason': 'インフル', 'updated_at': '2024-06-03 01:35:35', 'is_late_change': True, 'name': '佐藤\u3000壮'}]
+User found: 佐藤　壮
+Queried events: <QuerySet []>
+No events found for date: 2024-06-07 and recipient_number: 00007182
