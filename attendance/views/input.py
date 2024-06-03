@@ -232,7 +232,6 @@ def get_event_details(request):
                     'updated_at': event.updated_at.strftime('%Y-%m-%d %H:%M:%S'),
                     'is_late_change': is_late_change,
                     'name': event.recipient_number.name,
-                    'original_status': event.status  # 元の出席データの状態
                 })
 
             if not combined_data:
