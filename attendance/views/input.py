@@ -253,24 +253,34 @@ def get_event_details(request):
 
 @require_http_methods(["POST"])
 def edit_event(request):
+    logger.debug("edit_event called with request: %s", request.body)
     try:
         data = json.loads(request.body)
         recipient_number = data.get('recipient_number')
+        logger.debug("Parsed recipient_number: %s", recipient_number)
+
         user = get_object_or_404(User, recipient_number=recipient_number)
-        
+        logger.debug("Fetched user: %s", user)
+
         event = Attendance_info.objects.get(recipient_number=user, calendar_date=data.get('calendar_date'))
+        logger.debug("Fetched event: %s", event)
 
         form = AttendanceInfoForm(data, instance=event)
         if form.is_valid():
+            logger.debug("Form is valid")
             updated_event = form.save()
+            logger.debug("Updated event saved: %s", updated_event)
+
             is_late_change = False
             current_time = datetime.now()
             event_date = updated_event.calendar_date
             cutoff_time = datetime.combine(event_date, time(17, 0)) - timedelta(days=1)  # 前日の17時
-            
+
+            logger.debug("Current time: %s, Cutoff time: %s", current_time, cutoff_time)
             if current_time > cutoff_time and updated_event.status == 'AB':
                 is_late_change = True
-            
+                logger.debug("Event is a late change")
+
             response_data = {
                 'recipient_number': recipient_number,
                 'calendar_date': updated_event.calendar_date.strftime('%Y-%m-%d'),
@@ -283,12 +293,17 @@ def edit_event(request):
                 'updated_at': updated_event.updated_at.strftime('%Y-%m-%d %H:%M:%S'),
                 'is_late_change': is_late_change
             }
+            logger.debug("Response data: %s", response_data)
             return JsonResponse({'message': 'Event updated successfully', 'eventData': response_data}, status=200)
         else:
+            logger.debug("Form is invalid: %s", form.errors)
             return JsonResponse({'errors': form.errors.get_json_data()}, status=400)
     except User.DoesNotExist:
+        logger.error("User not found")
         return JsonResponse({'error': 'User not found'}, status=404)
     except Attendance_info.DoesNotExist:
+        logger.error("Event not found")
         return JsonResponse({'error': 'Event not found'}, status=404)
     except Exception as e:
+        logger.error("Internal Server Error: %s", str(e))
         return JsonResponse({'error': 'Internal Server Error', 'message': str(e)}, status=500)

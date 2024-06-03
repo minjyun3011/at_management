@@ -306,7 +306,7 @@ function submitEditEvent() {
                 alert('イベントが正常に更新されました。');
 
                 // リダイレクトはアラート後に実行
-                // window.location.href = '/home1/';
+                window.location.href = '/home1/';
             }, { once: true }); // イベントリスナーは一度だけ実行されるように設定
 
             // モーダルを非表示にする
