@@ -4183,3 +4183,126 @@ Combined data: [{'calendar_date': '2024-06-03', 'start_time': None, 'end_time': 
 User found: 佐藤　壮
 Queried events: <QuerySet []>
 No events found for date: 2024-06-07 and recipient_number: 00007182
+Watching for file changes with StatReloader
+User found: 佐藤　壮
+Queried events: <QuerySet [<Attendance_info: 佐藤　壮 - 2024-05-30 - AB>]>
+Combined data: [{'calendar_date': '2024-05-30', 'start_time': None, 'end_time': None, 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'US', 'absence_reason': '風邪', 'updated_at': '2024-05-29 09:23:54', 'is_late_change': True, 'name': '佐藤\u3000壮'}]
+User found: 佐藤　壮
+Queried events: <QuerySet []>
+No events found for date: 2024-06-07 and recipient_number: 00007182
+User found: 佐藤　壮
+Queried events: <QuerySet [<Attendance_info: 佐藤　壮 - 2024-06-06 - PR>]>
+Combined data: [{'calendar_date': '2024-06-06', 'start_time': '11:31', 'end_time': '14:31', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': '', 'updated_at': '2024-06-03 01:31:09', 'is_late_change': False, 'name': '佐藤\u3000壮'}]
+User found: 佐藤　壮
+Queried events: <QuerySet []>
+No events found for date: 2024-06-12 and recipient_number: 00007182
+Context for response: {'combined_data': [], 'selected_date': None}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'NU', 'absence_reason': 'インフル'}], 'selected_date': '2024-06-03'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': '11:30:00', 'end_time': '12:30:00', 'status': 'PR', 'transportation_to': 'NU', 'transportation_from': 'NU', 'absence_reason': ''}], 'selected_date': '2024-06-05'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': '11:30:00', 'end_time': '12:30:00', 'status': 'PR', 'transportation_to': 'NU', 'transportation_from': 'NU', 'absence_reason': ''}], 'selected_date': '2024-06-05'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': '17:57:00', 'end_time': '19:58:00', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': ''}], 'selected_date': '2024-06-04'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'NU', 'absence_reason': 'インフル'}], 'selected_date': '2024-06-03'}
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+Context for response: {'combined_data': [], 'selected_date': None}
+Internal Server Error: /home1/
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/backends/sqlite3/base.py", line 329, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such column: attendance_attendance_info.updater
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 226, in get
+    context = self.get_context_data(**kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/Python/at_management/project/attendance/views/input.py", line 98, in get_context_data
+    attendance = Attendance_info.objects.filter(recipient_number=user, calendar_date=today).first()
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/models/query.py", line 1097, in first
+    for obj in queryset[:1]:
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/models/query.py", line 400, in __iter__
+    self._fetch_all()
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/models/query.py", line 1928, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/db/backends/sqlite3/base.py", line 329, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such column: attendance_attendance_info.updater
