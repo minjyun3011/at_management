@@ -266,7 +266,9 @@ def edit_event(request):
         form = AttendanceInfoForm(data, instance=event)
         if form.is_valid():
             logger.debug("Form is valid")
-            updated_event = form.save()
+            updated_event = form.save(commit=False)
+            updated_event.updater = data.get('updater')  # 更新者を設定
+            updated_event.save()
             logger.debug("Updated event saved: %s", updated_event)
 
             is_late_change = False

@@ -284,7 +284,8 @@ function submitEditEvent() {
         status: document.getElementById('edit_status').value,
         transportation_to: document.getElementById('edit_transportation_to').value,
         transportation_from: document.getElementById('edit_transportation_from').value,
-        absence_reason: document.getElementById('edit_absence_reason').value
+        absence_reason: document.getElementById('edit_absence_reason').value,
+        updater: document.getElementById('edit_updater').value // 更新者フィールドを追加
     };
 
     axios.post('/api/edit_event/', eventData, {
@@ -319,6 +320,7 @@ function submitEditEvent() {
         alert('Error editing event: ' + (error.response ? error.response.data.message : error.message));
     });
 }
+
 
 
 
