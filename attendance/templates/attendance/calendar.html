@@ -15,6 +15,8 @@
                 <p id="eventStatus" class="event-details"></p>
                 <p id="transportationDetails" class="event-details"></p>
                 <p id="absenceReason" class="event-details" style="display:none;"></p> <!-- 欠席理由フィールド -->
+                <p id="eventInputter" class="event-details"></p> <!-- 入力者フィールド -->
+                <p id="eventUpdater" class="event-details" style="display:none;"></p> <!-- 更新者フィールド -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
@@ -37,23 +39,23 @@
             <div class="modal-body">
                 <form id="editEventForm">
                     <!-- 日付 -->
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                         <label for="edit_calendar_date_display" class="form-label">日付</label>
                         <p id="edit_calendar_date_display" class="form-control-plaintext"></p>
                         <input type="hidden" id="edit_calendar_date" name="calendar_date">
                     </div>
                     <!-- 開始時間 -->
-                    <div class="form-group time-group">
+                    <div class="form-group mb-3">
                         <label for="edit_start_time" class="form-label">開始時間</label>
                         <input type="time" class="form-control" id="edit_start_time" name="start_time">
                     </div>
                     <!-- 終了時間 -->
-                    <div class="form-group time-group">
+                    <div class="form-group mb-3">
                         <label for="edit_end_time" class="form-label">終了時間</label>
                         <input type="time" class="form-control" id="edit_end_time" name="end_time">
                     </div>
                     <!-- 出席状態の選択 -->
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                         <label for="edit_status" class="form-label">出席状態:</label>
                         <select id="edit_status" name="status" class="form-control" onchange="toggleFields(this.value)">
                             <option value="PR">出席</option>
@@ -61,7 +63,7 @@
                         </select>
                     </div>
                     <!-- 送迎サービス（往路）の選択 -->
-                    <div class="form-group transportation-group">
+                    <div class="form-group mb-3 transportation-group">
                         <label for="edit_transportation_to" class="form-label">送迎サービス（往路）:</label>
                         <select id="edit_transportation_to" name="transportation_to" class="form-control">
                             <option value="US">利用</option>
@@ -69,7 +71,7 @@
                         </select>
                     </div>
                     <!-- 送迎サービス（復路）の選択 -->
-                    <div class="form-group transportation-group">
+                    <div class="form-group mb-3 transportation-group">
                         <label for="edit_transportation_from" class="form-label">送迎サービス（復路）:</label>
                         <select id="edit_transportation_from" name="transportation_from" class="form-control">
                             <option value="US">利用</option>
@@ -77,25 +79,23 @@
                         </select>
                     </div>
                     <!-- 欠席理由 -->
-                    <div class="form-group absence-group">
+                    <div class="form-group mb-3 absence-group">
                         <label for="edit_absence_reason" class="form-label">欠席理由</label>
                         <textarea class="form-control" id="edit_absence_reason" name="absence_reason" rows="3"></textarea>
                     </div>
-                    <!-- 更新者-->
-                    <div class="form-group">
+                    <!-- 更新者 -->
+                    <div class="form-group mb-3">
                         <label for="edit_updater" class="form-label">更新者</label>
                         <input type="text" class="form-control" id="edit_updater" name="updater">
                     </div>
                 </form>
             </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary" onclick="submitEditEvent()">更新</button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="submitEditEvent()">更新</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+            </div>
         </div>
     </div>
-</div>
 </div>
 
 

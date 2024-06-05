@@ -193,7 +193,6 @@ def get_events(request):
         return JsonResponse({'error': 'Internal Server Error', 'message': str(e)}, status=500)
     
 
-
 @require_http_methods(["GET"])
 def get_event_details(request):
     date = request.GET.get('date')
@@ -231,6 +230,8 @@ def get_event_details(request):
                     'updated_at': event.updated_at.strftime('%Y-%m-%d %H:%M:%S'),
                     'is_late_change': is_late_change,
                     'name': event.recipient_number.name,
+                    'inputter': event.inputter,
+                    'updater': event.updater
                 })
 
             if not combined_data:
@@ -248,6 +249,7 @@ def get_event_details(request):
     except Exception as e:
         logger.error(f'Unexpected error: {str(e)}')  # エラーログ
         return JsonResponse({'error': 'Internal Server Error', 'message': str(e)}, status=500)
+
 
 @require_http_methods(["POST"])
 def edit_event(request):
@@ -291,7 +293,8 @@ def edit_event(request):
                 'transportation_from': updated_event.transportation_from,
                 'absence_reason': updated_event.absence_reason or "",
                 'updated_at': updated_event.updated_at.strftime('%Y-%m-%d %H:%M:%S'),
-                'is_late_change': is_late_change
+                'is_late_change': is_late_change,
+                'updater': updated_event.updater  # 更新者を追加
             }
             logger.debug("Response data: %s", response_data)
             return JsonResponse({'message': 'Event updated successfully', 'eventData': response_data}, status=200)

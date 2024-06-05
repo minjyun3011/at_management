@@ -103,7 +103,6 @@ function formatEvents(eventsData) {
         };
     });
 }
-
 function fetchEventDetails(date, recipientNumber) {
     console.log(`Fetching event details for date: ${date} and recipient_number: ${recipientNumber}`);  // デバッグ用ログ
     axios.get(`/api/get_event_details/`, {
@@ -135,7 +134,6 @@ function fetchEventDetails(date, recipientNumber) {
         console.error("Error fetching event details:", error);  // エラーログ
     });
 }
-
 
 function displayEventDetails(event) {
     console.log('Displaying event details with data:', event);  // 受け取ったデータをログに表示
@@ -181,6 +179,19 @@ function displayEventDetails(event) {
         document.getElementById('absenceReason').style.display = 'none';
     }
 
+    if (event.updater) {
+        document.getElementById('eventUpdater').textContent = `更新者: ${event.updater}`;
+        document.getElementById('eventUpdater').style.display = 'block';
+        document.getElementById('eventInputter').style.display = 'none';
+    } else if (event.inputter) {
+        document.getElementById('eventInputter').textContent = `入力者: ${event.inputter}`;
+        document.getElementById('eventInputter').style.display = 'block';
+        document.getElementById('eventUpdater').style.display = 'none';
+    } else {
+        document.getElementById('eventUpdater').style.display = 'none';
+        document.getElementById('eventInputter').style.display = 'none';
+    }
+
     document.querySelector('.edit-button').addEventListener('click', function() {
         var detailsModal = bootstrap.Modal.getInstance(document.getElementById('eventDetailsModal'));
         detailsModal.hide();
@@ -190,7 +201,6 @@ function displayEventDetails(event) {
         }, { once: true });
     });
 }
-
 
 function displayEditEventDetails(data) {
     if (!data) {
@@ -206,10 +216,12 @@ function displayEditEventDetails(data) {
     document.getElementById('edit_transportation_to').value = data.transportation_to || '';
     document.getElementById('edit_transportation_from').value = data.transportation_from || '';
     document.getElementById('edit_absence_reason').value = data.absence_reason || '';
+    document.getElementById('edit_updater').value = data.updater || '';
 
     var editModal = bootstrap.Modal.getOrCreateInstance(document.getElementById('editEventModal'));
     editModal.show();
 }
+
 
 function parseISODateTime(dateTimeString) {
     return new Date(dateTimeString);
