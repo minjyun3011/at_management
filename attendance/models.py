@@ -78,7 +78,8 @@ class Attendance_info(models.Model):
     )
     absence_reason = models.TextField(blank=True, null=True, verbose_name="欠席理由")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="更新日時")
-    updater = models.CharField(max_length=5, verbose_name="更新者")
+    updater = models.CharField(max_length=50, null=True, blank=True, verbose_name="更新者")  # オプションに変更
+    inputter = models.CharField(max_length=50, null=True, blank=True, verbose_name="入力者")  # オプションに変更
 
     class Meta:
         unique_together = ('recipient_number', 'calendar_date')  # recipient_numberと日付の組み合わせはユニーク
@@ -86,7 +87,8 @@ class Attendance_info(models.Model):
     def __str__(self):
         user_name = self.recipient_number.name if self.recipient_number else "Unknown User"
         return f'{user_name} - {self.calendar_date} - {self.status}'
-
+    
+    
 class AbsenceAccrual(models.Model):
     attendance = models.OneToOneField(
         'Attendance_info',

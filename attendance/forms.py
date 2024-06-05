@@ -22,7 +22,7 @@ class UserForm(forms.ModelForm):
 class AttendanceInfoForm(forms.ModelForm):
     class Meta:
         model = Attendance_info
-        fields = ['calendar_date', 'start_time', 'end_time', 'status', 'transportation_to', 'transportation_from', 'absence_reason']
+        fields = ['calendar_date', 'start_time', 'end_time', 'status', 'transportation_to', 'transportation_from', 'absence_reason', 'updater', 'inputter']  # 新しいフィールドを追加
         widgets = {
             'calendar_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'start_time': forms.TimeInput(attrs={'type': 'time', 'class': 'form-control'}),
@@ -31,6 +31,8 @@ class AttendanceInfoForm(forms.ModelForm):
             'transportation_to': forms.Select(attrs={'class': 'form-control'}),
             'transportation_from': forms.Select(attrs={'class': 'form-control'}),
             'absence_reason': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'updater': forms.TextInput(attrs={'class': 'form-control'}),
+            'inputter': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
     def clean(self):
@@ -53,7 +55,8 @@ class AttendanceInfoForm(forms.ModelForm):
                 self.add_error('absence_reason', '欠席の場合、欠席理由は必須です。')
 
         return cleaned_data
-
+    
+    
 class CheckUserForm(forms.Form):
     recipient_number = forms.CharField(
         label="受給者番号",
