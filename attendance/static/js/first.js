@@ -221,7 +221,7 @@ function formatTime(date) {
 
 
 
-//追加の出欠情報をモデルに保存＆カレンダー再描画するメインの関数
+// 追加の出欠情報をモデルに保存＆カレンダー再描画するメインの関数
 function submitEvent() {
     const eventData = {
         calendar_date: document.getElementById('calendar_date').value,
@@ -230,7 +230,8 @@ function submitEvent() {
         status: document.getElementById('status').value,
         transportation_to: document.getElementById('transportation_to').value,
         transportation_from: document.getElementById('transportation_from').value,
-        absence_reason: document.getElementById('absence_reason').value || ""
+        absence_reason: document.getElementById('absence_reason').value || "",
+        inputter: document.getElementById('inputter').value  // 入力者フィールドを追加
     };
 
     axios.post('/api/add_event/', eventData, {
@@ -261,6 +262,7 @@ function submitEvent() {
         alert('イベントの追加に失敗しました。');
     });
 }
+
 
 function closeModal(modalId) {
     var modalElement = document.getElementById(modalId);

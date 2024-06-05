@@ -138,12 +138,13 @@ def add_event(request):
                 'eventData': {
                     'id': event.id,
                     'calendar_date': event.calendar_date.strftime('%Y-%m-%d'),
-                    'start_time': DateFormat(event.start_time).format('c') if event.start_time else None,
-                    'end_time': DateFormat(event.end_time).format('c') if event.end_time else None,
-                    'status': event.get_status_display(),
-                    'transportation_to': event.get_transportation_to_display(),
-                    'transportation_from': event.get_transportation_from_display(),
-                    'absence_reason': event.absence_reason or "N/A",
+                    'start_time': event.start_time.strftime('%H:%M') if event.start_time else None,
+                    'end_time': event.end_time.strftime('%H:%M') if event.end_time else None,
+                    'status': event.status,
+                    'transportation_to': event.transportation_to,
+                    'transportation_from': event.transportation_from,
+                    'absence_reason': event.absence_reason or "",
+                    'inputter': event.inputter  # 入力者を追加
                 }
             }
             return JsonResponse(response_data, status=200)
@@ -154,9 +155,7 @@ def add_event(request):
     except Exception as e:
         return JsonResponse({'error': 'Internal Server Error', 'message': str(e)}, status=500)
 
-
 #カレンダー選択後にその日付の中に入っているイベントデータを取得して入力欄に表示しておくために必要な関数
-
 @require_http_methods(["POST"])
 def get_events(request):
     try:
