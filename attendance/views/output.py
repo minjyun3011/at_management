@@ -7,6 +7,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 class CombinedAttendanceView(View):
     template_name = 'output/output_menu.html'
 
@@ -27,7 +28,8 @@ class CombinedAttendanceView(View):
                         'status': info.status,
                         'transportation_to': info.transportation_to,  # 送迎サービス（往路）
                         'transportation_from': info.transportation_from,  # 送迎サービス（復路）
-                        'absence_reason': info.absence_reason  # 欠席理由
+                        'absence_reason': info.absence_reason,  # 欠席理由
+                        'updater': info.updater  # 更新者
                     })
             except ValueError:
                 return JsonResponse({'error': 'Invalid date format'}, status=400)

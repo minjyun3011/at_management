@@ -126,7 +126,7 @@
             }
 
             function formatAbsenceInfo(info) {
-                return `<s>${info.name}: 往路 ${convertTransportationStatus(info.transportation_to)}, 復路 ${convertTransportationStatus(info.transportation_from)}</s> 欠席理由: ${info.absence_reason}`;
+                return `<s>${info.name}: 往路 ${convertTransportationStatus(info.transportation_to)}, 復路 ${convertTransportationStatus(info.transportation_from)}</s> 欠席理由: ${info.absence_reason} 更新者: ${info.updater}`;
             }
 
             // 午前のヘッダーとデータを追加
