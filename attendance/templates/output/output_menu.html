@@ -46,122 +46,147 @@
         });
 
         function fetchEventDetailsForOutput(date) {
-    console.log(`Fetching event details for date: ${date}`);
-    axios.get("/output/", {
-        params: {
-            date: date
-        },
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest'  // Ajaxリクエストとして認識させる
+            console.log(`Fetching event details for date: ${date}`);
+            axios.get("/output/", {
+                params: {
+                    date: date
+                },
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'  // Ajaxリクエストとして認識させる
+                }
+            })
+                .then(function (response) {
+                    console.log('API response data:', response.data);  // ここでレスポンス全体をログに表示
+                    if (response.data.combined_data) {
+                        console.log('Combined Data:', response.data.combined_data);  // ここで combined_data をログに表示
+                    }
+                    displayEventDetailsForOutput(response.data);
+                })
+                .catch(function (error) {
+                    console.error('Error fetching event details:', error);
+                });
         }
-    })
-    .then(function (response) {
-        console.log('API response data:', response.data);  // ここでレスポンス全体をログに表示
-        if (response.data.combined_data) {
-            console.log('Combined Data:', response.data.combined_data);  // ここで combined_data をログに表示
+
+        function displayEventDetailsForOutput(data) {
+            console.log('Displaying event details for output with data:', data);  // 受け取ったデータをログに表示
+
+            var detailsContainer = document.getElementById('event-details');
+
+            // 日付をフォーマットして表示
+            var dateObj = new Date(data.selected_date);
+            var formattedDate = `${dateObj.getFullYear()}年${dateObj.getMonth() + 1}月${dateObj.getDate()}日`;
+            detailsContainer.innerHTML = `<h2>イベント詳細 (${formattedDate})</h2>`;
+
+            if (!data.combined_data || data.combined_data.length === 0) {
+
+                // 午前のヘッダーとメッセージを追加
+                const morningHeader = document.createElement('h3');
+                morningHeader.textContent = '午前';
+                detailsContainer.appendChild(morningHeader);
+
+                const noMorningData = document.createElement('p');
+                noMorningData.textContent = '午前のデータが見つかりませんでした。';
+                detailsContainer.appendChild(noMorningData);
+
+                // 午後のヘッダーとメッセージを追加
+                const afternoonHeader = document.createElement('h3');
+                afternoonHeader.textContent = '午後';
+                detailsContainer.appendChild(afternoonHeader);
+
+                const noAfternoonData = document.createElement('p');
+                noAfternoonData.textContent = '午後のデータが見つかりませんでした。';
+                detailsContainer.appendChild(noAfternoonData);
+
+                return;
+            }
+
+            const morningData = [];
+            const afternoonData = [];
+
+            if (data.combined_data && data.combined_data.length > 0) {
+                data.combined_data.forEach(function (info) {
+                    console.log('Event Info:', info);
+                    const datePart = data.selected_date;
+                    const startTime = new Date(`${datePart}T${info.start_time}`);
+                    const endTime = new Date(`${datePart}T${info.end_time}`);
+                    const noon = new Date(`${datePart}T12:00:00`);
+
+                    if (endTime <= noon) {
+                        morningData.push(info);
+                    } else if (startTime >= noon) {
+                        afternoonData.push(info);
+                    } else {
+                        morningData.push(info);
+                    }
+                });
+            }
+
+            function convertTransportationStatus(status) {
+                return status === 'US' ? '○' : '×';
+            }
+
+            function formatAbsenceInfo(info) {
+                return `<s>${info.name}: 往路 ${convertTransportationStatus(info.transportation_to)}, 復路 ${convertTransportationStatus(info.transportation_from)}</s> 欠席理由: ${info.absence_reason}`;
+            }
+
+            // 午前のヘッダーとデータを追加
+            const morningHeader = document.createElement('h3');
+            morningHeader.textContent = '午前';
+            detailsContainer.appendChild(morningHeader);
+
+            if (morningData.length > 0) {
+                const morningUl = document.createElement('ul');
+                morningData.forEach(function (info) {
+                    const li = document.createElement('li');
+                    if (info.status === 'AB') {
+                        const isLateChange = info.is_late_change;
+
+                        if (isLateChange) {
+                            li.innerHTML = `<strong>【遅延変更】</strong> ${formatAbsenceInfo(info)}`;
+                        } else {
+                            li.innerHTML = formatAbsenceInfo(info);
+                        }
+                    } else {
+                        li.textContent = `${info.name}: 往路 ${convertTransportationStatus(info.transportation_to)}, 復路 ${convertTransportationStatus(info.transportation_from)}`;
+                    }
+                    morningUl.appendChild(li);
+                });
+                detailsContainer.appendChild(morningUl);
+            } else {
+                const noMorningData = document.createElement('p');
+                noMorningData.textContent = '午前のデータが見つかりませんでした。';
+                detailsContainer.appendChild(noMorningData);
+            }
+
+            // 午後のヘッダーとデータを追加
+            const afternoonHeader = document.createElement('h3');
+            afternoonHeader.textContent = '午後';
+            detailsContainer.appendChild(afternoonHeader);
+
+            if (afternoonData.length > 0) {
+                const afternoonUl = document.createElement('ul');
+                afternoonData.forEach(function (info) {
+                    const li = document.createElement('li');
+                    if (info.status === 'AB') {
+                        const isLateChange = info.is_late_change;
+
+                        if (isLateChange) {
+                            li.innerHTML = `<strong>【遅延変更】</strong> ${formatAbsenceInfo(info)}`;
+                        } else {
+                            li.innerHTML = formatAbsenceInfo(info);
+                        }
+                    } else {
+                        li.textContent = `${info.name}: 往路 ${convertTransportationStatus(info.transportation_to)}, 復路 ${convertTransportationStatus(info.transportation_from)}`;
+                    }
+                    afternoonUl.appendChild(li);
+                });
+                detailsContainer.appendChild(afternoonUl);
+            } else {
+                const noAfternoonData = document.createElement('p');
+                noAfternoonData.textContent = '午後のデータが見つかりませんでした。';
+                detailsContainer.appendChild(noAfternoonData);
+            }
         }
-        displayEventDetailsForOutput(response.data);
-    })
-    .catch(function (error) {
-        console.error('Error fetching event details:', error);
-    });
-}
-
-function displayEventDetailsForOutput(data) {
-    console.log('Displaying event details for output with data:', data);  // 受け取ったデータをログに表示
-
-    var detailsContainer = document.getElementById('event-details');
-
-    if (!data.combined_data || data.combined_data.length === 0) {
-        detailsContainer.innerHTML = '<p>No events found for this date.</p>';
-        return;
-    }
-
-    // 選択した日付をフォーマットして表示
-    var dateObj = new Date(data.selected_date);
-    var formattedDate = `${dateObj.getFullYear()}年${dateObj.getMonth() + 1}月${dateObj.getDate()}日`;
-    detailsContainer.innerHTML = `<h2>イベント詳細 (${formattedDate})</h2>`;
-
-    const morningData = [];
-    const afternoonData = [];
-
-    // データを午前と午後に分類
-    if (data.combined_data && data.combined_data.length > 0) {
-        data.combined_data.forEach(function (info) {
-            console.log('Event Info:', info);  // 各イベントの情報をログに表示
-            const datePart = data.selected_date;
-            const startTime = new Date(`${datePart}T${info.start_time}`);
-            const endTime = new Date(`${datePart}T${info.end_time}`);
-            const noon = new Date(`${datePart}T12:00:00`);
-
-            if (endTime <= noon) {
-                morningData.push(info);
-            } else if (startTime >= noon) {
-                afternoonData.push(info);
-            } else {
-                morningData.push(info);
-            }
-        });
-    }
-
-    function convertTransportationStatus(status) {
-        return status === 'US' ? '○' : '×';
-    }
-
-    function formatAbsenceInfo(info) {
-        return `<s>${info.name}: 往路 ${convertTransportationStatus(info.transportation_to)}, 復路 ${convertTransportationStatus(info.transportation_from)}</s> 欠席理由: ${info.absence_reason}`;
-    }
-
-    //午前に関する出欠情報のHTML表示
-    const morningHeader = document.createElement('h3');
-    morningHeader.textContent = '午前';
-    detailsContainer.appendChild(morningHeader);
-
-    if (morningData.length > 0) {
-        const morningUl = document.createElement('ul');
-        morningData.forEach(function (info) {
-            const li = document.createElement('li');
-            if (info.status === 'AB') {
-                li.innerHTML = formatAbsenceInfo(info);
-            } else {
-                li.textContent = `${info.name}: 往路 ${convertTransportationStatus(info.transportation_to)}, 復路 ${convertTransportationStatus(info.transportation_from)}`;
-            }
-            morningUl.appendChild(li);
-        });
-        detailsContainer.appendChild(morningUl);
-    } else {
-        const noMorningData = document.createElement('p');
-        noMorningData.textContent = '午前のデータが見つかりませんでした。';
-        detailsContainer.appendChild(noMorningData);
-    }
-
-
-    //午後に関する出欠情報のHTML表示
-    const afternoonHeader = document.createElement('h3');
-    afternoonHeader.textContent = '午後';
-    detailsContainer.appendChild(afternoonHeader);
-
-    if (afternoonData.length > 0) {
-        const afternoonUl = document.createElement('ul');
-        afternoonData.forEach(function (info) {
-            const li = document.createElement('li');
-            if (info.status === 'AB') {
-                li.innerHTML = formatAbsenceInfo(info);
-            } else {
-                li.textContent = `${info.name}: 往路 ${convertTransportationStatus(info.transportation_to)}, 復路 ${convertTransportationStatus(info.transportation_from)}`;
-            }
-            afternoonUl.appendChild(li);
-        });
-        detailsContainer.appendChild(afternoonUl);
-    } else {
-        const noAfternoonData = document.createElement('p');
-        noAfternoonData.textContent = '午後のデータが見つかりませんでした。';
-        detailsContainer.appendChild(noAfternoonData);
-    }
-}
-
-
-
 
     </script>
 </body>

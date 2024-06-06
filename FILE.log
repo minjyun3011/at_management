@@ -4515,3 +4515,94 @@ Queried events: <QuerySet [<Attendance_info: 佐藤　壮 - 2024-06-07 - AB>]>
 Combined data: [{'calendar_date': '2024-06-07', 'start_time': None, 'end_time': None, 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'US', 'absence_reason': 'インフル', 'updated_at': '2024-06-06 05:54:05', 'is_late_change': False, 'name': '佐藤\u3000壮', 'inputter': None, 'updater': '父'}]
 Context for response: {'combined_data': [], 'selected_date': None}
 Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'US', 'absence_reason': 'インフル'}], 'selected_date': '2024-06-07'}
+Watching for file changes with StatReloader
+User found: 佐藤　壮
+Queried events: <QuerySet [<Attendance_info: 佐藤　壮 - 2024-06-06 - AB>]>
+Combined data: [{'calendar_date': '2024-06-06', 'start_time': None, 'end_time': None, 'status': 'AB', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': 'コロナ', 'updated_at': '2024-06-06 05:15:01', 'is_late_change': True, 'name': '佐藤\u3000壮', 'inputter': None, 'updater': '父'}]
+edit_event called with request: b'{"recipient_number":"00007182","calendar_date":"2024-06-06","start_time":"15:58","end_time":"17:58","status":"PR","transportation_to":"US","transportation_from":"NU","absence_reason":"\xe3\x82\xb3\xe3\x83\xad\xe3\x83\x8a","updater":"\xe6\xaf\x8d"}'
+Parsed recipient_number: 00007182
+Fetched user: 佐藤　壮
+Fetched event: 佐藤　壮 - 2024-06-06 - AB
+Form is valid
+Updated event saved: 佐藤　壮 - 2024-06-06 - PR
+Current time: 2024-06-06 14:58:51.762474, Cutoff time: 2024-06-05 17:00:00
+Response data: {'recipient_number': '00007182', 'calendar_date': '2024-06-06', 'start_time': '15:58', 'end_time': '17:58', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'NU', 'absence_reason': 'コロナ', 'updated_at': '2024-06-06 05:58:51', 'is_late_change': False, 'updater': '母'}
+User found: 佐藤　壮
+Queried events: <QuerySet [<Attendance_info: 佐藤　壮 - 2024-06-06 - PR>]>
+Combined data: [{'calendar_date': '2024-06-06', 'start_time': '15:58', 'end_time': '17:58', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'NU', 'absence_reason': 'コロナ', 'updated_at': '2024-06-06 05:58:51', 'is_late_change': False, 'name': '佐藤\u3000壮', 'inputter': None, 'updater': '母'}]
+User found: 佐藤　壮
+Queried events: <QuerySet [<Attendance_info: 佐藤　壮 - 2024-06-05 - PR>]>
+Combined data: [{'calendar_date': '2024-06-05', 'start_time': '11:30', 'end_time': '12:30', 'status': 'PR', 'transportation_to': 'NU', 'transportation_from': 'NU', 'absence_reason': '', 'updated_at': '2024-06-03 01:30:56', 'is_late_change': False, 'name': '佐藤\u3000壮', 'inputter': None, 'updater': None}]
+Context for response: {'combined_data': [], 'selected_date': None}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': '15:58:00', 'end_time': '17:58:00', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'NU', 'absence_reason': 'コロナ'}], 'selected_date': '2024-06-06'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': '11:30:00', 'end_time': '12:30:00', 'status': 'PR', 'transportation_to': 'NU', 'transportation_from': 'NU', 'absence_reason': ''}], 'selected_date': '2024-06-05'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': '15:58:00', 'end_time': '17:58:00', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'NU', 'absence_reason': 'コロナ'}], 'selected_date': '2024-06-06'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'US', 'absence_reason': 'インフル'}], 'selected_date': '2024-06-07'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': 'インフル'}], 'selected_date': '2024-06-04'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'US', 'absence_reason': 'インフル'}], 'selected_date': '2024-06-07'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': '15:58:00', 'end_time': '17:58:00', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'NU', 'absence_reason': 'コロナ'}], 'selected_date': '2024-06-06'}
+Watching for file changes with StatReloader
+Context for response: {'combined_data': [], 'selected_date': None}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'US', 'absence_reason': 'インフル'}], 'selected_date': '2024-06-07'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': '15:58:00', 'end_time': '17:58:00', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'NU', 'absence_reason': 'コロナ'}], 'selected_date': '2024-06-06'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'US', 'absence_reason': 'インフル'}], 'selected_date': '2024-06-07'}
+Context for response: {'combined_data': [], 'selected_date': None}
+Not Found: /favicon.ico
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': '15:58:00', 'end_time': '17:58:00', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'NU', 'absence_reason': 'コロナ'}], 'selected_date': '2024-06-06'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'US', 'absence_reason': 'インフル'}], 'selected_date': '2024-06-07'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': 'インフル'}], 'selected_date': '2024-06-04'}
+Context for response: {'combined_data': [], 'selected_date': None}
+User found: 佐藤　壮
+Queried events: <QuerySet [<Attendance_info: 佐藤　壮 - 2024-06-06 - PR>]>
+Combined data: [{'calendar_date': '2024-06-06', 'start_time': '15:58', 'end_time': '17:58', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'NU', 'absence_reason': 'コロナ', 'updated_at': '2024-06-06 05:58:51', 'is_late_change': False, 'name': '佐藤\u3000壮', 'inputter': None, 'updater': '母'}]
+User found: 佐藤　壮
+Queried events: <QuerySet [<Attendance_info: 佐藤　壮 - 2024-06-05 - PR>]>
+Combined data: [{'calendar_date': '2024-06-05', 'start_time': '11:30', 'end_time': '12:30', 'status': 'PR', 'transportation_to': 'NU', 'transportation_from': 'NU', 'absence_reason': '', 'updated_at': '2024-06-03 01:30:56', 'is_late_change': False, 'name': '佐藤\u3000壮', 'inputter': None, 'updater': None}]
+edit_event called with request: b'{"recipient_number":"00007182","calendar_date":"2024-06-05","start_time":"11:30","end_time":"12:30","status":"AB","transportation_to":"NU","transportation_from":"NU","absence_reason":"\xe3\x82\xa4\xe3\x83\xb3\xe3\x83\x95\xe3\x83\xab","updater":"\xe6\xaf\x8d"}'
+Parsed recipient_number: 00007182
+Fetched user: 佐藤　壮
+Fetched event: 佐藤　壮 - 2024-06-05 - PR
+Form is valid
+Updated event saved: 佐藤　壮 - 2024-06-05 - AB
+Current time: 2024-06-06 15:03:22.166850, Cutoff time: 2024-06-04 17:00:00
+Event is a late change
+Response data: {'recipient_number': '00007182', 'calendar_date': '2024-06-05', 'start_time': None, 'end_time': None, 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'NU', 'absence_reason': 'インフル', 'updated_at': '2024-06-06 06:03:22', 'is_late_change': True, 'updater': '母'}
+User found: 佐藤　壮
+Queried events: <QuerySet [<Attendance_info: 佐藤　壮 - 2024-06-05 - AB>]>
+Combined data: [{'calendar_date': '2024-06-05', 'start_time': None, 'end_time': None, 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'NU', 'absence_reason': 'インフル', 'updated_at': '2024-06-06 06:03:22', 'is_late_change': True, 'name': '佐藤\u3000壮', 'inputter': None, 'updater': '母'}]
+User found: 佐藤　壮
+Queried events: <QuerySet [<Attendance_info: 佐藤　壮 - 2024-06-05 - AB>]>
+Combined data: [{'calendar_date': '2024-06-05', 'start_time': None, 'end_time': None, 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'NU', 'absence_reason': 'インフル', 'updated_at': '2024-06-06 06:03:22', 'is_late_change': True, 'name': '佐藤\u3000壮', 'inputter': None, 'updater': '母'}]
+Context for response: {'combined_data': [], 'selected_date': None}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'NU', 'absence_reason': 'インフル'}], 'selected_date': '2024-06-05'}
+Context for response: {'combined_data': [], 'selected_date': None}
+Not Found: /favicon.ico
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': 'インフル'}], 'selected_date': '2024-06-04'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'NU', 'absence_reason': 'インフル'}], 'selected_date': '2024-06-05'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': '15:58:00', 'end_time': '17:58:00', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'NU', 'absence_reason': 'コロナ'}], 'selected_date': '2024-06-06'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'NU', 'absence_reason': 'インフル'}], 'selected_date': '2024-06-05'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'US', 'absence_reason': 'インフル'}], 'selected_date': '2024-06-07'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'NU', 'absence_reason': 'インフル'}], 'selected_date': '2024-06-05'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': '15:58:00', 'end_time': '17:58:00', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'NU', 'absence_reason': 'コロナ'}], 'selected_date': '2024-06-06'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': '15:58:00', 'end_time': '17:58:00', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'NU', 'absence_reason': 'コロナ'}], 'selected_date': '2024-06-06'}
+Context for response: {'combined_data': [], 'selected_date': '2024-06-08'}
+Context for response: {'combined_data': [], 'selected_date': '2024-06-15'}
+Context for response: {'combined_data': [], 'selected_date': '2024-06-14'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'US', 'absence_reason': 'インフル'}], 'selected_date': '2024-06-07'}
+Watching for file changes with StatReloader
+Context for response: {'combined_data': [], 'selected_date': None}
+Context for response: {'combined_data': [], 'selected_date': '2024-06-15'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': '15:58:00', 'end_time': '17:58:00', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'NU', 'absence_reason': 'コロナ'}], 'selected_date': '2024-06-06'}
+Context for response: {'combined_data': [], 'selected_date': '2024-06-15'}
+Context for response: {'combined_data': [], 'selected_date': None}
+Not Found: /favicon.ico
+Context for response: {'combined_data': [], 'selected_date': '2024-06-15'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'US', 'absence_reason': 'インフル'}], 'selected_date': '2024-06-07'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': '15:58:00', 'end_time': '17:58:00', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'NU', 'absence_reason': 'コロナ'}], 'selected_date': '2024-06-06'}
+Context for response: {'combined_data': [], 'selected_date': '2024-06-08'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': '熱'}], 'selected_date': '2024-05-31'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'US', 'absence_reason': '熱'}], 'selected_date': '2024-06-01'}
+Context for response: {'combined_data': [], 'selected_date': '2024-06-21'}
+Context for response: {'combined_data': [], 'selected_date': '2024-06-22'}
+Context for response: {'combined_data': [], 'selected_date': '2024-06-21'}
+Context for response: {'combined_data': [], 'selected_date': '2024-06-26'}
