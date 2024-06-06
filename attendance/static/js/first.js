@@ -218,9 +218,12 @@ function displayEditEventDetails(data) {
     document.getElementById('edit_absence_reason').value = data.absence_reason || '';
     document.getElementById('edit_updater').value = data.updater || '';
 
+    toggleFields(data.status);  // ステータスに基づいてフィールドを表示/非表示にする
+
     var editModal = bootstrap.Modal.getOrCreateInstance(document.getElementById('editEventModal'));
     editModal.show();
 }
+
 
 
 function parseISODateTime(dateTimeString) {
