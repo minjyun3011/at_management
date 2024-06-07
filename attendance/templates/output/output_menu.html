@@ -125,8 +125,26 @@
                 return status === 'US' ? '○' : '×';
             }
 
+            function formatTimeDifference(updatedAt) {
+                const now = new Date();
+                const updatedDate = new Date(updatedAt);
+                const diffMs = now - updatedDate;
+                const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+                if (diffDays < 1) {
+                    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+                    if (diffHours < 1) {
+                        const diffMinutes = Math.floor(diffMs / (1000 * 60));
+                        return `${diffMinutes}分前に更新`;
+                    }
+                    return `${diffHours}時間前に更新`;
+                }
+                return `${diffDays}日前に更新`;
+            }
+
             function formatAbsenceInfo(info) {
-                return `<s>${info.name}: 往路 ${convertTransportationStatus(info.transportation_to)}, 復路 ${convertTransportationStatus(info.transportation_from)}</s> 欠席理由: ${info.absence_reason} 更新者: ${info.updater}`;
+                const timeDifference = formatTimeDifference(info.updated_at);
+                return `<s>${info.name}: 往路 ${convertTransportationStatus(info.transportation_to)}, 復路 ${convertTransportationStatus(info.transportation_from)}</s> 欠席理由: ${info.absence_reason} 更新者: ${info.updater} 更新日: ${timeDifference}`;
             }
 
             // 午前のヘッダーとデータを追加

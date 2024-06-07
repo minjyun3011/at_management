@@ -29,7 +29,8 @@ class CombinedAttendanceView(View):
                         'transportation_to': info.transportation_to,  # 送迎サービス（往路）
                         'transportation_from': info.transportation_from,  # 送迎サービス（復路）
                         'absence_reason': info.absence_reason,  # 欠席理由
-                        'updater': info.updater  # 更新者
+                        'updater': info.updater,  # 更新者
+                        'updated_at': info.updated_at.isoformat()  # 更新日時
                     })
             except ValueError:
                 return JsonResponse({'error': 'Invalid date format'}, status=400)
