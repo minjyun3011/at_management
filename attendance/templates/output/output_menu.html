@@ -147,6 +147,20 @@
                 return `<s>${info.name}: 往路 ${convertTransportationStatus(info.transportation_to)}, 復路 ${convertTransportationStatus(info.transportation_from)}</s> 欠席理由: ${info.absence_reason} 更新者: ${info.updater} 更新日: ${timeDifference}`;
             }
 
+
+            // 出席人数と送迎人数を計算
+            const totalPresent = data.combined_data.filter(info => info.status === 'PR').length;
+            const totalTransport = data.combined_data.reduce((sum, info) => {
+                if (info.status === 'PR') {
+                    return sum + (info.transportation_to === 'US' ? 1 : 0) + (info.transportation_from === 'US' ? 1 : 0);
+                }
+                return sum;
+            }, 0);
+
+            const summary = document.createElement('p');
+            summary.innerHTML = `出席人数: ${totalPresent}人<br>送迎人数: ${totalTransport}人`;
+            detailsContainer.appendChild(summary);
+
             // 午前のヘッダーとデータを追加
             const morningHeader = document.createElement('h3');
             morningHeader.textContent = '午前';
