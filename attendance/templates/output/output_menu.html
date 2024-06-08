@@ -77,33 +77,21 @@
             var formattedDate = `${dateObj.getFullYear()}年${dateObj.getMonth() + 1}月${dateObj.getDate()}日`;
             detailsContainer.innerHTML = `<h2>イベント詳細 (${formattedDate})</h2>`;
 
-            if (!data.combined_data || data.combined_data.length === 0) {
+            // 児童発達支援のヘッダーを追加
+            const supportHeader = document.createElement('h2');
+            supportHeader.textContent = '児童発達支援';
+            detailsContainer.appendChild(supportHeader);
 
-                // 午前のヘッダーとメッセージを追加
-                const morningHeader = document.createElement('h3');
-                morningHeader.textContent = '午前';
-                detailsContainer.appendChild(morningHeader);
+            // 午前のヘッダーを追加
+            const morningHeader = document.createElement('h3');
+            morningHeader.textContent = '午前';
+            detailsContainer.appendChild(morningHeader);
 
-                const noMorningData = document.createElement('p');
-                noMorningData.textContent = '午前のデータが見つかりませんでした。';
-                detailsContainer.appendChild(noMorningData);
-
-                // 午後のヘッダーとメッセージを追加
-                const afternoonHeader = document.createElement('h3');
-                afternoonHeader.textContent = '午後';
-                detailsContainer.appendChild(afternoonHeader);
-
-                const noAfternoonData = document.createElement('p');
-                noAfternoonData.textContent = '午後のデータが見つかりませんでした。';
-                detailsContainer.appendChild(noAfternoonData);
-
-                return;
-            }
-
-            const morningData = [];
-            const afternoonData = [];
-
+            // 午前のデータを追加
             if (data.combined_data && data.combined_data.length > 0) {
+                const morningData = [];
+                const afternoonData = [];
+
                 data.combined_data.forEach(function (info) {
                     console.log('Event Info:', info);
                     const datePart = data.selected_date;
@@ -119,107 +107,112 @@
                         morningData.push(info);
                     }
                 });
-            }
 
-            function convertTransportationStatus(status) {
-                return status === 'US' ? '○' : '×';
-            }
-
-            function formatTimeDifference(updatedAt) {
-                const now = new Date();
-                const updatedDate = new Date(updatedAt);
-                const diffMs = now - updatedDate;
-                const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-
-                if (diffDays < 1) {
-                    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
-                    if (diffHours < 1) {
-                        const diffMinutes = Math.floor(diffMs / (1000 * 60));
-                        return `${diffMinutes}分前に更新`;
-                    }
-                    return `${diffHours}時間前に更新`;
+                function convertTransportationStatus(status) {
+                    return status === 'US' ? '○' : '×';
                 }
-                return `${diffDays}日前に更新`;
-            }
 
-            function formatAbsenceInfo(info) {
-                const timeDifference = formatTimeDifference(info.updated_at);
-                return `<s>${info.name}: 往路 ${convertTransportationStatus(info.transportation_to)}, 復路 ${convertTransportationStatus(info.transportation_from)}</s> 欠席理由: ${info.absence_reason} 更新者: ${info.updater} 更新日: ${timeDifference}`;
-            }
+                function formatTimeDifference(updatedAt) {
+                    const now = new Date();
+                    const updatedDate = new Date(updatedAt);
+                    const diffMs = now - updatedDate;
+                    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-
-            // 出席人数と送迎人数を計算
-            const totalPresent = data.combined_data.filter(info => info.status === 'PR').length;
-            const totalTransport = data.combined_data.reduce((sum, info) => {
-                if (info.status === 'PR') {
-                    return sum + (info.transportation_to === 'US' ? 1 : 0) + (info.transportation_from === 'US' ? 1 : 0);
-                }
-                return sum;
-            }, 0);
-
-            const summary = document.createElement('p');
-            summary.innerHTML = `出席人数: ${totalPresent}人<br>送迎人数: ${totalTransport}人`;
-            detailsContainer.appendChild(summary);
-
-            // 午前のヘッダーとデータを追加
-            const morningHeader = document.createElement('h3');
-            morningHeader.textContent = '午前';
-            detailsContainer.appendChild(morningHeader);
-
-            if (morningData.length > 0) {
-                const morningUl = document.createElement('ul');
-                morningData.forEach(function (info) {
-                    const li = document.createElement('li');
-                    if (info.status === 'AB') {
-                        const isLateChange = info.is_late_change;
-
-                        if (isLateChange) {
-                            li.innerHTML = `<strong>【遅延変更】</strong> ${formatAbsenceInfo(info)}`;
-                        } else {
-                            li.innerHTML = formatAbsenceInfo(info);
+                    if (diffDays < 1) {
+                        const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+                        if (diffHours < 1) {
+                            const diffMinutes = Math.floor(diffMs / (1000 * 60));
+                            return `${diffMinutes}分前に更新`;
                         }
-                    } else {
-                        li.textContent = `${info.name}: 往路 ${convertTransportationStatus(info.transportation_to)}, 復路 ${convertTransportationStatus(info.transportation_from)}`;
+                        return `${diffHours}時間前に更新`;
                     }
-                    morningUl.appendChild(li);
-                });
-                detailsContainer.appendChild(morningUl);
+                    return `${diffDays}日前に更新`;
+                }
+
+                function formatAbsenceInfo(info) {
+                    const timeDifference = formatTimeDifference(info.updated_at);
+                    return `<s>${info.name}: 往路 ${convertTransportationStatus(info.transportation_to)}, 復路 ${convertTransportationStatus(info.transportation_from)}</s> 欠席理由: ${info.absence_reason} 更新者: ${info.updater} 更新日: ${timeDifference}`;
+                }
+
+                if (morningData.length > 0) {
+                    const morningUl = document.createElement('ul');
+                    morningData.forEach(function (info) {
+                        const li = document.createElement('li');
+                        if (info.status === 'AB') {
+                            const isLateChange = info.is_late_change;
+
+                            if (isLateChange) {
+                                li.innerHTML = `<strong>【遅延変更】</strong> ${formatAbsenceInfo(info)}`;
+                            } else {
+                                li.innerHTML = formatAbsenceInfo(info);
+                            }
+                        } else {
+                            li.textContent = `${info.name}: 往路 ${convertTransportationStatus(info.transportation_to)}, 復路 ${convertTransportationStatus(info.transportation_from)}`;
+                        }
+                        morningUl.appendChild(li);
+                    });
+                    detailsContainer.appendChild(morningUl);
+                } else {
+                    const noMorningData = document.createElement('p');
+                    noMorningData.textContent = '午前のデータが見つかりませんでした。';
+                    detailsContainer.appendChild(noMorningData);
+                }
+
+                // 午後のヘッダーを追加
+                const afternoonHeader = document.createElement('h3');
+                afternoonHeader.textContent = '午後';
+                detailsContainer.appendChild(afternoonHeader);
+
+                if (afternoonData.length > 0) {
+                    const afternoonUl = document.createElement('ul');
+                    afternoonData.forEach(function (info) {
+                        const li = document.createElement('li');
+                        if (info.status === 'AB') {
+                            const isLateChange = info.is_late_change;
+
+                            if (isLateChange) {
+                                li.innerHTML = `<strong>【遅延変更】</strong> ${formatAbsenceInfo(info)}`;
+                            } else {
+                                li.innerHTML = formatAbsenceInfo(info);
+                            }
+                        } else {
+                            li.textContent = `${info.name}: 往路 ${convertTransportationStatus(info.transportation_to)}, 復路 ${convertTransportationStatus(info.transportation_from)}`;
+                        }
+                        afternoonUl.appendChild(li);
+                    });
+                    detailsContainer.appendChild(afternoonUl);
+                } else {
+                    const noAfternoonData = document.createElement('p');
+                    noAfternoonData.textContent = '午後のデータが見つかりませんでした。';
+                    detailsContainer.appendChild(noAfternoonData);
+                }
             } else {
                 const noMorningData = document.createElement('p');
                 noMorningData.textContent = '午前のデータが見つかりませんでした。';
                 detailsContainer.appendChild(noMorningData);
-            }
 
-            // 午後のヘッダーとデータを追加
-            const afternoonHeader = document.createElement('h3');
-            afternoonHeader.textContent = '午後';
-            detailsContainer.appendChild(afternoonHeader);
+                const afternoonHeader = document.createElement('h3');
+                afternoonHeader.textContent = '午後';
+                detailsContainer.appendChild(afternoonHeader);
 
-            if (afternoonData.length > 0) {
-                const afternoonUl = document.createElement('ul');
-                afternoonData.forEach(function (info) {
-                    const li = document.createElement('li');
-                    if (info.status === 'AB') {
-                        const isLateChange = info.is_late_change;
-
-                        if (isLateChange) {
-                            li.innerHTML = `<strong>【遅延変更】</strong> ${formatAbsenceInfo(info)}`;
-                        } else {
-                            li.innerHTML = formatAbsenceInfo(info);
-                        }
-                    } else {
-                        li.textContent = `${info.name}: 往路 ${convertTransportationStatus(info.transportation_to)}, 復路 ${convertTransportationStatus(info.transportation_from)}`;
-                    }
-                    afternoonUl.appendChild(li);
-                });
-                detailsContainer.appendChild(afternoonUl);
-            } else {
                 const noAfternoonData = document.createElement('p');
                 noAfternoonData.textContent = '午後のデータが見つかりませんでした。';
                 detailsContainer.appendChild(noAfternoonData);
             }
-        }
 
+            // 出席人数と送迎人数を計算
+            const totalPresent = data.combined_data ? data.combined_data.filter(info => info.status === 'PR').length : 0;
+            const totalTransport = data.combined_data ? data.combined_data.reduce((sum, info) => {
+                if (info.status === 'PR') {
+                    return sum + (info.transportation_to === 'US' ? 1 : 0) + (info.transportation_from === 'US' ? 1 : 0);
+                }
+                return sum;
+            }, 0) : 0;
+
+            const summary = document.createElement('p');
+            summary.innerHTML = `出席人数: ${totalPresent}人<br>送迎人数: ${totalTransport}人`;
+            detailsContainer.appendChild(summary);
+        }
     </script>
 </body>
 
