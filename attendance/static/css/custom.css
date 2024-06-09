@@ -20,3 +20,12 @@
     padding-left: 20px;  /* 左側にスペースを追加 */
     box-sizing: border-box;  /* パディングを含むようにボックスサイズを調整 */
 }
+
+.red-text {
+    color: red;
+}
+
+.strikethrough {
+    text-decoration: line-through;
+}
+

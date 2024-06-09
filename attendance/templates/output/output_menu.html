@@ -131,8 +131,9 @@
 
                 function formatAbsenceInfo(info) {
                     const timeDifference = formatTimeDifference(info.updated_at);
-                    return `<s>${info.name}: 往路 ${convertTransportationStatus(info.transportation_to)}, 復路 ${convertTransportationStatus(info.transportation_from)}</s> 欠席理由: ${info.absence_reason} 更新者: ${info.updater} 更新日: ${timeDifference}`;
+                    return `<span class="strikethrough">${info.name}: 往路 ${convertTransportationStatus(info.transportation_to)}, 復路 ${convertTransportationStatus(info.transportation_from)}</span> <span class="red-text">欠席理由: ${info.absence_reason} 更新者: ${info.updater} 更新日: ${timeDifference}</span>`;
                 }
+
 
                 if (morningData.length > 0) {
                     const morningUl = document.createElement('ul');
