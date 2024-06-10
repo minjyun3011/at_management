@@ -4877,3 +4877,484 @@ Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time
 Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'US', 'absence_reason': 'インフル', 'updater': '父', 'updated_at': '2024-06-06T05:54:05.538516+00:00'}], 'selected_date': '2024-06-07'}
 Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'NU', 'absence_reason': 'インフル', 'updater': '母', 'updated_at': '2024-06-06T06:03:22.163986+00:00'}], 'selected_date': '2024-06-05'}
 Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': '15:58:00', 'end_time': '17:58:00', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'NU', 'absence_reason': 'コロナ', 'updater': '母', 'updated_at': '2024-06-06T05:58:51.758895+00:00'}], 'selected_date': '2024-06-06'}
+Watching for file changes with StatReloader
+User found: 佐藤　壮
+Queried events: <QuerySet [<Attendance_info: 佐藤　壮 - 2024-05-30 - AB>]>
+Combined data: [{'calendar_date': '2024-05-30', 'start_time': None, 'end_time': None, 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'US', 'absence_reason': '風邪', 'updated_at': '2024-05-29 09:23:54', 'is_late_change': True, 'name': '佐藤\u3000壮', 'inputter': None, 'updater': None}]
+User found: 佐藤　壮
+Queried events: <QuerySet [<Attendance_info: 佐藤　壮 - 2024-05-29 - PR>]>
+Combined data: [{'calendar_date': '2024-05-29', 'start_time': '22:16', 'end_time': '23:16', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'NU', 'absence_reason': '風邪', 'updated_at': '2024-06-08 12:16:42', 'is_late_change': False, 'name': '佐藤\u3000壮', 'inputter': None, 'updater': '母'}]
+User found: 佐藤　壮
+Queried events: <QuerySet []>
+No events found for date: 2024-05-27 and recipient_number: 00007182
+User found: 佐藤　壮
+Queried events: <QuerySet [<Attendance_info: 佐藤　壮 - 2024-05-31 - AB>]>
+Combined data: [{'calendar_date': '2024-05-31', 'start_time': None, 'end_time': None, 'status': 'AB', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': '熱', 'updated_at': '2024-05-30 12:10:15', 'is_late_change': True, 'name': '佐藤\u3000壮', 'inputter': None, 'updater': None}]
+User found: 佐藤　壮
+Queried events: <QuerySet []>
+No events found for date: 2024-06-08 and recipient_number: 00007182
+User found: 佐藤　壮
+Queried events: <QuerySet [<Attendance_info: 佐藤　壮 - 2024-06-07 - AB>]>
+Combined data: [{'calendar_date': '2024-06-07', 'start_time': None, 'end_time': None, 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'US', 'absence_reason': 'インフル', 'updated_at': '2024-06-06 05:54:05', 'is_late_change': True, 'name': '佐藤\u3000壮', 'inputter': None, 'updater': '父'}]
+User found: 佐藤　壮
+Queried events: <QuerySet [<Attendance_info: 佐藤　壮 - 2024-05-31 - AB>]>
+Combined data: [{'calendar_date': '2024-05-31', 'start_time': None, 'end_time': None, 'status': 'AB', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': '熱', 'updated_at': '2024-05-30 12:10:15', 'is_late_change': True, 'name': '佐藤\u3000壮', 'inputter': None, 'updater': None}]
+User found: 佐藤　壮
+Queried events: <QuerySet [<Attendance_info: 佐藤　壮 - 2024-06-06 - PR>]>
+Combined data: [{'calendar_date': '2024-06-06', 'start_time': '15:58', 'end_time': '17:58', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'NU', 'absence_reason': 'コロナ', 'updated_at': '2024-06-06 05:58:51', 'is_late_change': False, 'name': '佐藤\u3000壮', 'inputter': None, 'updater': '母'}]
+User found: 佐藤　壮
+Queried events: <QuerySet []>
+No events found for date: 2024-06-13 and recipient_number: 00007182
+Context for response: {'combined_data': [], 'selected_date': None}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': '15:58:00', 'end_time': '17:58:00', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'NU', 'absence_reason': 'コロナ', 'updater': '母', 'updated_at': '2024-06-06T05:58:51.758895+00:00'}], 'selected_date': '2024-06-06'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'NU', 'absence_reason': 'インフル', 'updater': '母', 'updated_at': '2024-06-06T06:03:22.163986+00:00'}], 'selected_date': '2024-06-05'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'US', 'absence_reason': 'インフル', 'updater': '父', 'updated_at': '2024-06-06T05:54:05.538516+00:00'}], 'selected_date': '2024-06-07'}
+Context for response: {'combined_data': [], 'selected_date': '2024-06-21'}
+Context for response: {'combined_data': [], 'selected_date': '2024-06-12'}
+Context for response: {'combined_data': [], 'selected_date': '2024-06-11'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': 'インフル', 'updater': '母', 'updated_at': '2024-06-06T05:53:11.563565+00:00'}], 'selected_date': '2024-06-04'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'NU', 'absence_reason': 'インフル', 'updater': '母', 'updated_at': '2024-06-06T06:03:22.163986+00:00'}], 'selected_date': '2024-06-05'}
+Watching for file changes with StatReloader
+Context for response: {'combined_data': [], 'selected_date': None}
+Context for response: {'combined_data': [], 'selected_date': '2024-06-12'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': '15:58:00', 'end_time': '17:58:00', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'NU', 'absence_reason': 'コロナ', 'updater': '母', 'updated_at': '2024-06-06T05:58:51.758895+00:00'}], 'selected_date': '2024-06-06'}
+Context for response: {'combined_data': [], 'selected_date': '2024-06-14'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'US', 'absence_reason': 'インフル', 'updater': '父', 'updated_at': '2024-06-06T05:54:05.538516+00:00'}], 'selected_date': '2024-06-07'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': '15:58:00', 'end_time': '17:58:00', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'NU', 'absence_reason': 'コロナ', 'updater': '母', 'updated_at': '2024-06-06T05:58:51.758895+00:00'}], 'selected_date': '2024-06-06'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'NU', 'absence_reason': 'インフル', 'updater': '母', 'updated_at': '2024-06-06T06:03:22.163986+00:00'}], 'selected_date': '2024-06-05'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': 'インフル', 'updater': '母', 'updated_at': '2024-06-06T05:53:11.563565+00:00'}], 'selected_date': '2024-06-04'}
+Context for response: {'combined_data': [], 'selected_date': None}
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+Context for response: {'combined_data': [], 'selected_date': None}
+/Users/satoso/Python/at_management/project/attendance/views/output.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/urls.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/urls.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/output.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/output.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Context for response: {'combined_data': [], 'selected_date': None}
+Internal Server Error: /output/
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/Python/at_management/project/attendance/views/output.py", line 47, in get
+    return render(request, self.template_name, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/defaulttags.py", line 479, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/urls/resolvers.py", line 851, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'daily_report' not found. 'daily_report' is not a valid view function or pattern name.
+Context for response: {'combined_data': [], 'selected_date': None}
+Internal Server Error: /output/
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/Python/at_management/project/attendance/views/output.py", line 47, in get
+    return render(request, self.template_name, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/defaulttags.py", line 479, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/urls/resolvers.py", line 851, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'daily_report' not found. 'daily_report' is not a valid view function or pattern name.
+/Users/satoso/Python/at_management/project/attendance/views/output.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/output.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Context for response: {'combined_data': [], 'selected_date': None}
+Internal Server Error: /output/
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/Python/at_management/project/attendance/views/output.py", line 47, in get
+    return render(request, self.template_name, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/defaulttags.py", line 479, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/urls/resolvers.py", line 851, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'daily_report' not found. 'daily_report' is not a valid view function or pattern name.
+Context for response: {'combined_data': [], 'selected_date': None}
+Internal Server Error: /output/
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/Python/at_management/project/attendance/views/output.py", line 47, in get
+    return render(request, self.template_name, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/defaulttags.py", line 479, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/urls/resolvers.py", line 851, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'daily_report' not found. 'daily_report' is not a valid view function or pattern name.
+Context for response: {'combined_data': [], 'selected_date': None}
+Internal Server Error: /output/
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/Python/at_management/project/attendance/views/output.py", line 47, in get
+    return render(request, self.template_name, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/defaulttags.py", line 479, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/urls/resolvers.py", line 851, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'daily_report' not found. 'daily_report' is not a valid view function or pattern name.
+Not Found: /favicon.ico
+/Users/satoso/Python/at_management/project/attendance/urls.py changed, reloading.
+Watching for file changes with StatReloader
+Context for response: {'combined_data': [], 'selected_date': None}
+Internal Server Error: /output/
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/Python/at_management/project/attendance/views/output.py", line 47, in get
+    return render(request, self.template_name, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/defaulttags.py", line 479, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/urls/resolvers.py", line 851, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'daily_report' not found. 'daily_report' is not a valid view function or pattern name.
+Context for response: {'combined_data': [], 'selected_date': None}
+Internal Server Error: /output/
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/Python/at_management/project/attendance/views/output.py", line 47, in get
+    return render(request, self.template_name, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/defaulttags.py", line 479, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/urls/resolvers.py", line 851, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'daily_report' not found. 'daily_report' is not a valid view function or pattern name.
+Context for response: {'combined_data': [], 'selected_date': None}
+Internal Server Error: /output/
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/Python/at_management/project/attendance/views/output.py", line 47, in get
+    return render(request, self.template_name, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/template/defaulttags.py", line 479, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/urls/resolvers.py", line 851, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'daily_report' not found. 'daily_report' is not a valid view function or pattern name.
+Watching for file changes with StatReloader
+Context for response: {'combined_data': [], 'selected_date': None}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': '15:58:00', 'end_time': '17:58:00', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'NU', 'absence_reason': 'コロナ', 'updater': '母', 'updated_at': '2024-06-06T05:58:51.758895+00:00'}], 'selected_date': '2024-06-06'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'NU', 'absence_reason': 'インフル', 'updater': '母', 'updated_at': '2024-06-06T06:03:22.163986+00:00'}], 'selected_date': '2024-06-05'}

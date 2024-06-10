@@ -50,7 +50,6 @@ class Attendance_info(models.Model):
         PRESENT = 'PR', '出席'
         ABSENT = 'AB', '欠席'
 
-
     class TransportationService(models.TextChoices):
         USED = 'US', '利用'
         NOT_USED = 'NU', '未利用'

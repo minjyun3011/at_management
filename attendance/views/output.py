@@ -45,3 +45,11 @@ class CombinedAttendanceView(View):
             return JsonResponse(context)
         else:
             return render(request, self.template_name, context)
+
+
+class DailyReportView(View):
+    template_name = 'output/reports.html'
+    def get(self, request):
+        # 必要なデータの取得と処理をここに追加
+        context = {}
+        return render(request, self.template_name, context)

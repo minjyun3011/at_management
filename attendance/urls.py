@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import input
 from .views.input import HomePageView, CheckUserView, UserRegistrationView, Home1View
-from .views.output import CombinedAttendanceView
+from .views.output import CombinedAttendanceView, DailyReportView
 
 
 app_name = "attendance"
@@ -17,5 +17,6 @@ urlpatterns = [
     path('api/get_event_details/', input.get_event_details, name='get_event_details'),
     path('api/edit_event/', input.edit_event, name='edit_event'),
     path('output/', CombinedAttendanceView.as_view(), name='output'),
+    path('daily-report/', DailyReportView.as_view(), name='daily_report'),
 ]
 
