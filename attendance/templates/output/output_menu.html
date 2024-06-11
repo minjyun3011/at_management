@@ -18,8 +18,10 @@
 </head>
 
 <body>
-    <h1>出力メニュー</h1>
+    <h1>職員管理用ページ</h1>
     <a href="{% url 'attendance:daily_report' %}" class="btn btn-primary ms-3">業務日誌</a>
+    <a href="{% url 'attendance:service_setting' %}" class="btn btn-secondary ms-3">サービス提供時間帯設定</a>
+
 
     <div class="container">
         <!-- カレンダー表示 -->

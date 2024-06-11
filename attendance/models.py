@@ -106,3 +106,28 @@ class AbsenceAccrual(models.Model):
         eligible_status = "Eligible" if self.accrual_eligible else "Not Eligible"
         return f'{user_name} - {calendar_date} - {eligible_status}'
 
+class ServiceTime(models.Model):
+    WEEKDAYS = [
+        ('mon', '月曜日'),
+        ('tue', '火曜日'),
+        ('wed', '水曜日'),
+        ('thu', '木曜日'),
+        ('fri', '金曜日'),
+        ('sat', '土曜日'),
+        ('sun', '日曜日'),
+    ]
+
+    SERVICE_TYPES = [
+        ('group_morning', '集団 (午前)'),
+        ('group_afternoon', '集団 (午後)'),
+        ('individual_afternoon', '個別 (午後)'),
+        ('after_school', '放課後デイサービス (個別午後)'),
+    ]
+
+    weekday = models.CharField(max_length=3, choices=WEEKDAYS)
+    service_type = models.CharField(max_length=20, choices=SERVICE_TYPES)
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+
+    def __str__(self):
+        return f"{self.get_weekday_display()} - {self.get_service_type_display()} ({self.start_time} - {self.end_time})"

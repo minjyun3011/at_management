@@ -70,3 +70,27 @@ class CheckUserForm(forms.Form):
             raise forms.ValidationError("この受給者番号は登録されていません。")
         return recipient_number
 
+class ServiceTimeForm(forms.Form):
+    WEEKDAYS = [
+        ('mon', '月曜日'),
+        ('tue', '火曜日'),
+        ('wed', '水曜日'),
+        ('thu', '木曜日'),
+        ('fri', '金曜日'),
+        ('sat', '土曜日'),
+        ('sun', '日曜日'),
+    ]
+
+    SERVICE_TYPES = [
+        ('group_morning', '集団 (午前)'),
+        ('group_afternoon', '集団 (午後)'),
+        ('individual_afternoon', '個別 (午後)'),
+        ('after_school', '放課後デイサービス (個別午後)'),
+    ]
+
+    def __init__(self, *args, **kwargs):
+        super(ServiceTimeForm, self).__init__(*args, **kwargs)
+        for day in self.WEEKDAYS:
+            for service in self.SERVICE_TYPES:
+                self.fields[f"{day[0]}_{service[0]}_start"] = forms.TimeField(label=f"{day[1]} {service[1]} 開始時間", required=False)
+                self.fields[f"{day[0]}_{service[0]}_end"] = forms.TimeField(label=f"{day[1]} {service[1]} 終了時間", required=False)

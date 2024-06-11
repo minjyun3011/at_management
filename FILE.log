@@ -5358,3 +5358,79 @@ Watching for file changes with StatReloader
 Context for response: {'combined_data': [], 'selected_date': None}
 Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': '15:58:00', 'end_time': '17:58:00', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'NU', 'absence_reason': 'コロナ', 'updater': '母', 'updated_at': '2024-06-06T05:58:51.758895+00:00'}], 'selected_date': '2024-06-06'}
 Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'NU', 'absence_reason': 'インフル', 'updater': '母', 'updated_at': '2024-06-06T06:03:22.163986+00:00'}], 'selected_date': '2024-06-05'}
+Watching for file changes with StatReloader
+Context for response: {'combined_data': [], 'selected_date': None}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': '熱', 'updater': None, 'updated_at': '2024-05-30T12:10:15.888659+00:00'}], 'selected_date': '2024-05-31'}
+Context for response: {'combined_data': [], 'selected_date': None}
+User found: 佐藤　壮
+Queried events: <QuerySet []>
+No events found for date: 2024-06-11 and recipient_number: 00007182
+Context for response: {'combined_data': [], 'selected_date': None}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': 'インフル', 'updater': '母', 'updated_at': '2024-06-06T05:53:11.563565+00:00'}], 'selected_date': '2024-06-04'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'NU', 'absence_reason': 'インフル', 'updater': '母', 'updated_at': '2024-06-06T06:03:22.163986+00:00'}], 'selected_date': '2024-06-05'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'NU', 'absence_reason': 'インフル', 'updater': '母', 'updated_at': '2024-06-06T06:03:22.163986+00:00'}], 'selected_date': '2024-06-05'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': '15:58:00', 'end_time': '17:58:00', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'NU', 'absence_reason': 'コロナ', 'updater': '母', 'updated_at': '2024-06-06T05:58:51.758895+00:00'}], 'selected_date': '2024-06-06'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'US', 'absence_reason': 'インフル', 'updater': '父', 'updated_at': '2024-06-06T05:54:05.538516+00:00'}], 'selected_date': '2024-06-07'}
+Context for response: {'combined_data': [], 'selected_date': '2024-06-13'}
+Context for response: {'combined_data': [], 'selected_date': '2024-06-14'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'US', 'absence_reason': 'インフル', 'updater': '父', 'updated_at': '2024-06-06T05:54:05.538516+00:00'}], 'selected_date': '2024-06-07'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': '15:58:00', 'end_time': '17:58:00', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'NU', 'absence_reason': 'コロナ', 'updater': '母', 'updated_at': '2024-06-06T05:58:51.758895+00:00'}], 'selected_date': '2024-06-06'}
+Context for response: {'combined_data': [], 'selected_date': '2024-06-08'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'US', 'absence_reason': 'インフル', 'updater': '父', 'updated_at': '2024-06-06T05:54:05.538516+00:00'}], 'selected_date': '2024-06-07'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'US', 'absence_reason': '熱', 'updater': None, 'updated_at': '2024-06-03T00:59:58.119230+00:00'}], 'selected_date': '2024-06-01'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'US', 'absence_reason': 'インフル', 'updater': '父', 'updated_at': '2024-06-06T05:54:05.538516+00:00'}], 'selected_date': '2024-06-07'}
+Context for response: {'combined_data': [], 'selected_date': None}
+Context for response: {'combined_data': [], 'selected_date': None}
+/Users/satoso/Python/at_management/project/attendance/forms.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/output.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/output.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/output.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/output.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/output.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/output.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/output.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/output.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/output.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/output.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/output.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/output.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/output.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/output.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/output.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/output.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/output.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/output.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/output.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/output.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/output.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Context for response: {'combined_data': [], 'selected_date': None}

@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from django.views import View
-from attendance.models import Attendance_info  # モデル名を修正
+from attendance.models import Attendance_info, ServiceTime
 from django.http import JsonResponse
 from datetime import datetime
 import logging
+from django.shortcuts import render, redirect
+from attendance.forms import ServiceTimeForm
 
 logger = logging.getLogger(__name__)
 
@@ -53,3 +55,18 @@ class DailyReportView(View):
         # 必要なデータの取得と処理をここに追加
         context = {}
         return render(request, self.template_name, context)
+
+class SettingView(View):
+    template_name = 'output/setting.html'
+
+    def get(self, request):
+        form = ServiceTimeForm()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = ServiceTimeForm(request.POST)
+        if form.is_valid():
+            # フォームデータを保存または処理
+            # ここで保存のためのロジックを追加
+            return redirect('success')  # 成功ページまたは同じ設定ページにリダイレクト
+        return render(request, self.template_name, {'form': form})
