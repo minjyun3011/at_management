@@ -66,7 +66,16 @@ class SettingView(View):
     def post(self, request):
         form = ServiceTimeForm(request.POST)
         if form.is_valid():
-            # フォームデータを保存または処理
-            # ここで保存のためのロジックを追加
+            # フォームデータを保存
+            for day in form.WEEKDAYS:
+                for service in form.SERVICE_TYPES:
+                    start_time = form.cleaned_data.get(f"{day[0]}_{service[0]}_start")
+                    end_time = form.cleaned_data.get(f"{day[0]}_{service[0]}_end")
+                    if start_time and end_time:
+                        ServiceTime.objects.update_or_create(
+                            weekday=day[0],
+                            service_type=service[0],
+                            defaults={'start_time': start_time, 'end_time': end_time}
+                        )
             return redirect('success')  # 成功ページまたは同じ設定ページにリダイレクト
         return render(request, self.template_name, {'form': form})

@@ -70,6 +70,7 @@ class CheckUserForm(forms.Form):
             raise forms.ValidationError("この受給者番号は登録されていません。")
         return recipient_number
 
+
 class ServiceTimeForm(forms.Form):
     WEEKDAYS = [
         ('mon', '月曜日'),
@@ -94,3 +95,14 @@ class ServiceTimeForm(forms.Form):
             for service in self.SERVICE_TYPES:
                 self.fields[f"{day[0]}_{service[0]}_start"] = forms.TimeField(label=f"{day[1]} {service[1]} 開始時間", required=False)
                 self.fields[f"{day[0]}_{service[0]}_end"] = forms.TimeField(label=f"{day[1]} {service[1]} 終了時間", required=False)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        for day in self.WEEKDAYS:
+            for service in self.SERVICE_TYPES:
+                start_time = cleaned_data.get(f"{day[0]}_{service[0]}_start")
+                end_time = cleaned_data.get(f"{day[0]}_{service[0]}_end")
+                if start_time and end_time:
+                    if start_time >= end_time:
+                        self.add_error(f"{day[0]}_{service[0]}_end", "終了時間は開始時間より後でなければなりません。")
+        return cleaned_data
