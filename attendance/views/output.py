@@ -61,12 +61,30 @@ class SettingView(View):
 
     def get(self, request):
         form = ServiceTimeForm()
-        return render(request, self.template_name, {'form': form})
+        weekdays = ServiceTimeForm.WEEKDAYS
+        service_types = ServiceTimeForm.SERVICE_TYPES
+
+        fields = []
+        for day in weekdays:
+            day_fields = {}
+            for service in service_types:
+                start_field = f"{day[0]}_{service[0]}_start"
+                end_field = f"{day[0]}_{service[0]}_end"
+                day_fields[service[0]] = {
+                    'start': form[start_field],
+                    'end': form[end_field]
+                }
+            fields.append({ 'day': day, 'fields': day_fields })
+
+        context = {
+            'form': form,
+            'fields': fields,
+        }
+        return render(request, self.template_name, context)
 
     def post(self, request):
         form = ServiceTimeForm(request.POST)
         if form.is_valid():
-            # フォームデータを保存
             for day in form.WEEKDAYS:
                 for service in form.SERVICE_TYPES:
                     start_time = form.cleaned_data.get(f"{day[0]}_{service[0]}_start")
@@ -77,5 +95,5 @@ class SettingView(View):
                             service_type=service[0],
                             defaults={'start_time': start_time, 'end_time': end_time}
                         )
-            return redirect('success')  # 成功ページまたは同じ設定ページにリダイレクト
+            return redirect('success')
         return render(request, self.template_name, {'form': form})
