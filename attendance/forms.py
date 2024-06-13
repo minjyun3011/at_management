@@ -88,14 +88,24 @@ class ServiceTimeForm(forms.Form):
         ('individual_afternoon', '個別 (午後)'),
         ('after_school', '放課後デイサービス (個別午後)'),
     ]
-
+    
+    #入力内容(フィールド）とフォームを紐付け＆HTML設定
     def __init__(self, *args, **kwargs):
         super(ServiceTimeForm, self).__init__(*args, **kwargs)
         for day in self.WEEKDAYS:
             for service in self.SERVICE_TYPES:
-                self.fields[f"{day[0]}_{service[0]}_start"] = forms.TimeField(label=f"{day[1]} {service[1]} 開始時間", required=False)
-                self.fields[f"{day[0]}_{service[0]}_end"] = forms.TimeField(label=f"{day[1]} {service[1]} 終了時間", required=False)
+                self.fields[f"{day[0]}_{service[0]}_start"] = forms.TimeField(
+                    label=f"{day[1]} {service[1]} 開始時間",
+                    required=False,
+                    widget=forms.TimeInput(format='%H:%M', attrs={'type': 'time'})
+                )
+                self.fields[f"{day[0]}_{service[0]}_end"] = forms.TimeField(
+                    label=f"{day[1]} {service[1]} 終了時間",
+                    required=False,
+                    widget=forms.TimeInput(format='%H:%M', attrs={'type': 'time'})
+                )
 
+    #ここでは入力された開始時間と終了時間の順番を審査しているパート
     def clean(self):
         cleaned_data = super().clean()
         for day in self.WEEKDAYS:
