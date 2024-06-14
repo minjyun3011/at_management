@@ -93,6 +93,7 @@ class ServiceTimeForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(ServiceTimeForm, self).__init__(*args, **kwargs)
         for day in self.WEEKDAYS:
+            self.fields[f"{day[0]}_select"] = forms.BooleanField(label=f"{day[1]} 選択", required=False)
             for service in self.SERVICE_TYPES:
                 self.fields[f"{day[0]}_{service[0]}_start"] = forms.TimeField(
                     label=f"{day[1]} {service[1]} 開始時間",

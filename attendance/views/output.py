@@ -74,11 +74,12 @@ class SettingView(View):
                     'start': form[start_field],
                     'end': form[end_field]
                 }
-            fields.append({ 'day': day, 'fields': day_fields })
+            fields.append({'day': day, 'fields': day_fields})
 
         context = {
             'form': form,
             'fields': fields,
+            'service_types': service_types,  # 追加
         }
         return render(request, self.template_name, context)
 
@@ -95,5 +96,5 @@ class SettingView(View):
                             service_type=service[0],
                             defaults={'start_time': start_time, 'end_time': end_time}
                         )
-            return redirect('success')
+            return redirect('output:output_menu')
         return render(request, self.template_name, {'form': form})
