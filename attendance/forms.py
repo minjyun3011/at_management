@@ -85,6 +85,7 @@ class ServiceTimeForm(forms.Form):
     SERVICE_TYPES = [
         ('group_morning', '集団 (午前)'),
         ('group_afternoon', '集団 (午後)'),
+        ('individual_morning', '個別（午前）'),
         ('individual_afternoon', '個別 (午後)'),
         ('after_school', '放課後デイサービス (個別午後)'),
     ]

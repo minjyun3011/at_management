@@ -9,10 +9,33 @@
     <style>
         .time-field-group {
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            margin-bottom: 1rem;
+            /* 各フィールドの間隔を調整 */
+        }
+
+        .time-field-group label {
+            margin-right: 0.5rem;
+            /* ラベルと入力フィールドの間隔を調整 */
         }
 
         .time-field-group input[type="time"] {
+            width: auto;
+            /* 入力フィールドの幅を調整 */
+        }
+
+        .time-field-group-end {
+            display: flex;
+            align-items: center;
+            margin-left: 1rem;
+            /* 開始時間と終了時間の間隔を調整 */
+        }
+
+        .time-field-group-end label {
+            margin-right: 0.5rem;
+        }
+
+        .time-field-group-end input[type="time"] {
             width: auto;
         }
     </style>
@@ -26,13 +49,15 @@
             {% for day in fields %}
             <h3>{{ day.day.1 }}</h3>
             {% for service, field in day.fields.items %}
-            <div class="mb-3 time-field-group">
-                <label for="{{ field.start.id_for_label }}">{{ field.start.label }}</label>
-                {{ field.start }}
-            </div>
-            <div class="mb-3 time-field-group">
-                <label for="{{ field.end.id_for_label }}">終了時間</label>
-                {{ field.end }}
+            <div class="form-group">
+                <div class="time-field-group">
+                    <label for="{{ field.start.id_for_label }}">{{ field.start.label }}</label>
+                    {{ field.start }}
+                    <div class="time-field-group-end">
+                        <label for="{{ field.end.id_for_label }}">終了時間</label>
+                        {{ field.end }}
+                    </div>
+                </div>
             </div>
             {% endfor %}
             {% endfor %}
