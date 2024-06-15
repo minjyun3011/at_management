@@ -100,8 +100,9 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('apply_bulk_time').addEventListener('click', function () {
-                const start_time = document.getElementById('bulk_start_time').value;
-                const end_time = document.getElementById('bulk_end_time').value;
+                //ここのパートで一括選択された具体的な時間帯と選択した曜日とサービスをそれぞれ抽出する
+                const start_time = document.getElementById('{{ day.day.0 }}_{{ service.0 }}_start" name="{{ day.day.0 }}_{{ service.0 }}_start').value;
+                const end_time = document.getElementById('{{ day.day.0 }}_{{ service.0 }}_start" name="{{ day.day.0 }}_{{ service.0 }}_end').value;
                 const selected_days = Array.from(document.querySelectorAll('input[name="weekday_select"]:checked')).map(cb => cb.value);
                 const selected_services = Array.from(document.querySelectorAll('input[name="service_select"]:checked')).map(cb => cb.value);
 
