@@ -100,25 +100,30 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('apply_bulk_time').addEventListener('click', function () {
-                //ここのパートで一括選択された具体的な時間帯と選択した曜日とサービスをそれぞれ抽出する
-                const start_time = document.getElementById('{{ day.day.0 }}_{{ service.0 }}_start" name="{{ day.day.0 }}_{{ service.0 }}_start').value;
-                const end_time = document.getElementById('{{ day.day.0 }}_{{ service.0 }}_start" name="{{ day.day.0 }}_{{ service.0 }}_end').value;
-                const selected_days = Array.from(document.querySelectorAll('input[name="weekday_select"]:checked')).map(cb => cb.value);
-                const selected_services = Array.from(document.querySelectorAll('input[name="service_select"]:checked')).map(cb => cb.value);
+                // 開始時間と終了時間を取得
+                const start_time = document.getElementById('bulk_start_time').value;
+                const end_time = document.getElementById('bulk_end_time').value;
 
-                selected_days.forEach(day => {
-                    selected_services.forEach(service => {
-                        const start_field_id = `${day}_${service}_start`;
-                        const end_field_id = `${day}_${service}_end`;
+                // Djangoテンプレートから曜日とサービスのリストを取得
+                const days = JSON.parse('{{ fields|safe|escapejs }}');
+                const services = JSON.parse('{{ service_types|safe|escapejs }}');
+
+                // 選択された曜日とサービスに対して時間を適用
+                days.forEach(day => {
+                    services.forEach(service => {
+                        const start_field_id = `${day.day[0]}_${service[0]}_start`;
+                        const end_field_id = `${day.day[0]}_${service[0]}_end`;
                         console.log(`Processing ${start_field_id} and ${end_field_id}`);
                         const start_field = document.getElementById(start_field_id);
                         const end_field = document.getElementById(end_field_id);
+
                         if (start_field) {
                             start_field.value = start_time;
                             console.log(`Setting ${start_field_id} to ${start_time}`);
                         } else {
                             console.log(`Field ${start_field_id} not found`);
                         }
+
                         if (end_field) {
                             end_field.value = end_time;
                             console.log(`Setting ${end_field_id} to ${end_time}`);
@@ -129,6 +134,7 @@
                 });
             });
 
+            // 開始時間が変更された場合に終了時間を自動設定するイベントリスナー
             const startFields = document.querySelectorAll('input[id$="_start"]');
             startFields.forEach(startField => {
                 startField.addEventListener('change', function () {
