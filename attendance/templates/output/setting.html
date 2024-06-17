@@ -42,34 +42,37 @@
         <h1>サービス提供時間帯設定</h1>
         <form method="post">
             {% csrf_token %}
-            <div id="weekday-selection">
-                <h3>曜日選択</h3>
-                {% for day in fields %}
-                <div class="day-group">
-                    <input type="checkbox" id="{{ day.day.0 }}_select" name="weekday_select" value="{{ day.day.0 }}">
-                    <label for="{{ day.day.0 }}_select">{{ day.day.1 }}</label>
+            <div id="bulk-settings">
+                <div id="weekday-selection">
+                    <h3>曜日選択</h3>
+                    {% for day in fields %}
+                    <div class="day-group">
+                        <input type="checkbox" id="{{ day.day.0 }}_select" name="weekday_select" value="{{ day.day.0 }}">
+                        <label for="{{ day.day.0 }}_select">{{ day.day.1 }}</label>
+                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
-            </div>
 
-            <div id="service-selection">
-                <h3>サービス選択</h3>
-                {% for service in service_types %}
-                <div class="form-group">
-                    <label for="service_{{ service.0 }}">
-                        <input type="checkbox" id="service_{{ service.0 }}" name="service_select" value="{{ service.0 }}">
-                        {{ service.1 }}
-                    </label>
+                <div id="service-selection">
+                    <h3>サービス選択</h3>
+                    {% for service in service_types %}
+                    <div class="form-group">
+                        <label for="service_{{ service.0 }}">
+                            <input type="checkbox" id="service_{{ service.0 }}" name="service_select" value="{{ service.0 }}">
+                            {{ service.1 }}
+                        </label>
+                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
-            </div>
 
-            <div class="bulk-time-selection">
-                <h3>時間設定</h3>
-                <label for="bulk_start_time">開始時間:</label>
-                <input type="time" id="bulk_start_time">
-                <label for="bulk_end_time">終了時間:</label>
-                <input type="time" id="bulk_end_time">
+                <div class="bulk-time-selection">
+                    <h3>時間設定</h3>
+                    <label for="bulk_start_time">開始時間:</label>
+                    <input type="time" id="bulk_start_time">
+                    <label for="bulk_end_time">終了時間:</label>
+                    <input type="time" id="bulk_end_time">
+                </div>
+
                 <button type="button" id="apply_bulk_time" class="btn btn-secondary mb-3">一括適用</button>
             </div>
 
@@ -104,15 +107,15 @@
                 const start_time = document.getElementById('bulk_start_time').value;
                 const end_time = document.getElementById('bulk_end_time').value;
 
-                // Djangoテンプレートから曜日とサービスのリストを取得
-                const days = JSON.parse('{{ fields|safe|escapejs }}');
-                const services = JSON.parse('{{ service_types|safe|escapejs }}');
+                // 選択された曜日とサービスを取得
+                const selected_days = Array.from(document.querySelectorAll('input[name="weekday_select"]:checked')).map(cb => cb.value);
+                const selected_services = Array.from(document.querySelectorAll('input[name="service_select"]:checked')).map(cb => cb.value);
 
                 // 選択された曜日とサービスに対して時間を適用
-                days.forEach(day => {
-                    services.forEach(service => {
-                        const start_field_id = `${day.day[0]}_${service[0]}_start`;
-                        const end_field_id = `${day.day[0]}_${service[0]}_end`;
+                selected_days.forEach(day => {
+                    selected_services.forEach(service => {
+                        const start_field_id = `${day}_${service}_start`;
+                        const end_field_id = `${day}_${service}_end`;
                         console.log(`Processing ${start_field_id} and ${end_field_id}`);
                         const start_field = document.getElementById(start_field_id);
                         const end_field = document.getElementById(end_field_id);
