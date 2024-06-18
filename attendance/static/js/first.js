@@ -2,10 +2,11 @@
 function getCsrfToken() {
     return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 }
-//カレンダー環境本体のセット
+
+// カレンダー環境本体のセット
 var calendar;
 
-// ローカルストレージからイベントデータを保存する関数
+// ローカルストレージからイベントデータを保存する関数（現在使用していない）
 // function saveEventToLocalstorage(eventData) {
 //     const eventsJson = localStorage.getItem('events');
 //     const existingEvents = eventsJson ? JSON.parse(eventsJson) : [];
@@ -56,10 +57,42 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         console.log('Calendar element not found.');
     }
+
+    // サービス時間を反映するための関数
+    const serviceTimes = JSON.parse('{{ service_times_json|escapejs }}');
+
+    function setServiceTimes(date, status) {
+        const selectedDate = new Date(date);
+        const selectedDay = selectedDate.toLocaleString('en-us', { weekday: 'short' }).toLowerCase();
+
+        if (status === 'PR') {
+            const startTimeField = document.getElementById('start_time');
+            const endTimeField = document.getElementById('end_time');
+            const serviceTime = serviceTimes[selectedDay];
+
+            if (serviceTime) {
+                startTimeField.value = serviceTime.start;
+                endTimeField.value = serviceTime.end;
+            } else {
+                startTimeField.value = '';
+                endTimeField.value = '';
+            }
+        }
+    }
+
+    // ステータス変更時にサービス時間を設定
+    document.getElementById('status').addEventListener('change', function() {
+        const date = document.getElementById('calendar_date').value;
+        const status = this.value;
+        setServiceTimes(date, status);
+    });
+
+    document.getElementById('edit_status').addEventListener('change', function() {
+        const date = document.getElementById('edit_calendar_date').value;
+        const status = this.value;
+        setServiceTimes(date, status);
+    });
 });
-
-
-
 
 function fetchAndFormatEvents(fetchInfo, successCallback, failureCallback) {
     axios.post("/api/get_events/", {
@@ -75,6 +108,7 @@ function fetchAndFormatEvents(fetchInfo, successCallback, failureCallback) {
         failureCallback(error);
     });
 }
+
 function formatEvents(eventsData) {
     return eventsData.map(event => {
         const startDateTime = event.start_time ? new Date(`${event.calendar_date}T${event.start_time}`) : null;
@@ -103,6 +137,7 @@ function formatEvents(eventsData) {
         };
     });
 }
+
 function fetchEventDetails(date, recipientNumber) {
     console.log(`Fetching event details for date: ${date} and recipient_number: ${recipientNumber}`);  // デバッグ用ログ
     axios.get(`/api/get_event_details/`, {
@@ -224,8 +259,6 @@ function displayEditEventDetails(data) {
     editModal.show();
 }
 
-
-
 function parseISODateTime(dateTimeString) {
     return new Date(dateTimeString);
 }
@@ -233,8 +266,6 @@ function parseISODateTime(dateTimeString) {
 function formatTime(date) {
     return date.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', hour12: false });
 }
-
-
 
 // 追加の出欠情報をモデルに保存＆カレンダー再描画するメインの関数
 function submitEvent() {
@@ -277,7 +308,6 @@ function submitEvent() {
         alert('イベントの追加に失敗しました。');
     });
 }
-
 
 function closeModal(modalId) {
     var modalElement = document.getElementById(modalId);
@@ -336,9 +366,6 @@ function submitEditEvent() {
     });
 }
 
-
-
-
 // ステータスに応じてフィールドを表示/非表示にする関数
 function toggleFields(status) {
     const transportationFields = document.querySelectorAll('.transportation-group');
@@ -380,9 +407,6 @@ document.addEventListener('DOMContentLoaded', function() {
         toggleFields(this.value);
     });
 });
-
-
-
 
 function clearAllEventsFromLocalStorage() {
     localStorage.removeItem('events');  // 'events' キーに関連するデータを削除
