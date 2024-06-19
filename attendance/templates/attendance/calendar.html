@@ -27,6 +27,7 @@
         </div>
     </div>
 </div>
+
 <!-- Edit Event Modal -->
 <div class="modal fade" id="editEventModal" tabindex="-1" aria-labelledby="editEventModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -42,16 +43,6 @@
                         <label for="edit_calendar_date_display" class="form-label">日付</label>
                         <p id="edit_calendar_date_display" class="form-control-plaintext"></p>
                         <input type="hidden" id="edit_calendar_date" name="calendar_date">
-                    </div>
-                    <!-- 開始時間 -->
-                    <div class="form-group mb-3 time-group">
-                        <label for="edit_start_time" class="form-label">開始時間</label>
-                        <input type="time" class="form-control" id="edit_start_time" name="start_time">
-                    </div>
-                    <!-- 終了時間 -->
-                    <div class="form-group mb-3 time-group">
-                        <label for="edit_end_time" class="form-label">終了時間</label>
-                        <input type="time" class="form-control" id="edit_end_time" name="end_time">
                     </div>
                     <!-- 出席状態の選択 -->
                     <div class="form-group mb-3">
@@ -87,6 +78,10 @@
                         <label for="edit_updater" class="form-label">更新者</label>
                         <input type="text" class="form-control" id="edit_updater" name="updater">
                     </div>
+                    <!-- 隠しフィールド：開始時間 -->
+                    <input type="hidden" id="edit_start_time" name="start_time">
+                    <!-- 隠しフィールド：終了時間 -->
+                    <input type="hidden" id="edit_end_time" name="end_time">
                 </form>
             </div>
             <div class="modal-footer">
@@ -96,7 +91,6 @@
         </div>
     </div>
 </div>
-
 
 <!-- Event Modal -->
 <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
@@ -114,16 +108,6 @@
                         <p id="calendar_date_display" class="form-control-plaintext"></p>
                         <input type="hidden" id="calendar_date" name="calendar_date">
                     </div>
-                    <!-- 開始時間 -->
-                    <div class="form-group time-group">
-                        <label for="start_time" class="form-label">開始時間</label>
-                        <input type="time" class="form-control" id="start_time" name="start_time">
-                    </div>
-                    <!-- 終了時間 -->
-                    <div class="form-group time-group">
-                        <label for="end_time" class="form-label">終了時間</label>
-                        <input type="time" class="form-control" id="end_time" name="end_time">
-                    </div>
                     <!-- 出席状態の選択 -->
                     <div class="form-group">
                         <label for="status" class="form-label">出席状態:</label>
@@ -132,7 +116,6 @@
                             <option value="AB">欠席</option>
                         </select>
                     </div>
-
                     <!-- 送迎サービス（往路）の選択 -->
                     <div class="form-group transportation-group">
                         <label for="transportation_to" class="form-label">送迎サービス（往路）:</label>
@@ -141,7 +124,6 @@
                             <option value="NU">未利用</option>
                         </select>
                     </div>
-
                     <!-- 送迎サービス（復路）の選択 -->
                     <div class="form-group transportation-group">
                         <label for="transportation_from" class="form-label">送迎サービス（復路）:</label>
@@ -150,18 +132,20 @@
                             <option value="NU">未利用</option>
                         </select>
                     </div>
-
                     <!-- 欠席理由 -->
                     <div class="form-group absence-group">
                         <label for="absence_reason" class="form-label">欠席理由</label>
                         <textarea class="form-control" id="absence_reason" name="absence_reason" rows="3"></textarea>
                     </div>
-
                     <!-- 入力者 -->
                     <div class="form-group">
                         <label for="inputter" class="form-label">入力者</label>
                         <input type="text" class="form-control" id="inputter" name="inputter">
                     </div>
+                    <!-- 隠しフィールド：開始時間 -->
+                    <input type="hidden" id="start_time" name="start_time">
+                    <!-- 隠しフィールド：終了時間 -->
+                    <input type="hidden" id="end_time" name="end_time">
                 </form>
             </div>
             <div class="modal-footer">

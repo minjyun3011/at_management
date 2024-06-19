@@ -6950,3 +6950,9 @@ Watching for file changes with StatReloader
 /Users/satoso/Python/at_management/project/attendance/views/input.py changed, reloading.
 Watching for file changes with StatReloader
 Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+User found: 佐藤　壮
+Queried events: <QuerySet []>
+No events found for date: 2024-06-08 and recipient_number: 00007182
+Bad Request: /api/add_event/

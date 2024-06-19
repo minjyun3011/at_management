@@ -21,23 +21,23 @@
 <body>
     <!-- 一番上のメニューバー -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">
-        {{ request.session.user_name }}
-        {% if request.session.user_gender == 'M' %}
+        <a class="navbar-brand" href="#">
+            {{ request.session.user_name }}
+            {% if request.session.user_gender == 'M' %}
             くん
-        {% elif request.session.user_gender == 'F' %}
+            {% elif request.session.user_gender == 'F' %}
             ちゃん
-        {% else %}
+            {% else %}
             さん/さま
-        {% endif %}
-        ({{ request.session.recipient_number }})
-    </a>
-    <div class="navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-            </li>
-        </ul>
-    </div>
+            {% endif %}
+            ({{ request.session.recipient_number }})
+        </a>
+        <div class="navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                </li>
+            </ul>
+        </div>
     </nav>
     <script>
         sessionStorage.setItem('recipient_number', '{{ request.session.recipient_number }}');
@@ -49,6 +49,44 @@
     <!-- イベントモーダル表示 -->
     {% include "attendance/calendar.html" %}
     <button onclick="clearAllEventsFromLocalStorage()">Clear All Events</button>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const serviceTimes = JSON.parse('{{ service_times_json|escapejs }}');
+
+            function setServiceTimes(date, status) {
+                const selectedDate = new Date(date);
+                const selectedDay = selectedDate.toLocaleString('en-us', { weekday: 'short' }).toLowerCase();
+
+                if (status === 'PR') {
+                    const serviceTime = serviceTimes[selectedDay];
+
+                    if (serviceTime) {
+                        document.getElementById('start_time_display').textContent = serviceTime.start;
+                        document.getElementById('end_time_display').textContent = serviceTime.end;
+                        document.getElementById('start_time').value = serviceTime.start;
+                        document.getElementById('end_time').value = serviceTime.end;
+                    } else {
+                        document.getElementById('start_time_display').textContent = '';
+                        document.getElementById('end_time_display').textContent = '';
+                        document.getElementById('start_time').value = '';
+                        document.getElementById('end_time').value = '';
+                    }
+                }
+            }
+
+            document.getElementById('status').addEventListener('change', function () {
+                const date = document.getElementById('calendar_date').value;
+                const status = this.value;
+                setServiceTimes(date, status);
+            });
+
+            document.getElementById('edit_status').addEventListener('change', function () {
+                const date = document.getElementById('edit_calendar_date').value;
+                const status = this.value;
+                setServiceTimes(date, status);
+            });
+        });
+    </script>
 </body>
 
 </html>
