@@ -7,12 +7,12 @@ from django.views.generic.edit import FormView
 from django.urls import reverse, reverse_lazy
 from django.utils.dateparse import parse_datetime
 from django.views.decorators.http import require_http_methods
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 
 from ..forms import UserForm, CheckUserForm
 
 from django.views.generic.edit import CreateView
-from ..models import User, Attendance_info
+from ..models import User, Attendance_info, ServiceTime
 from django.views.generic import TemplateView
 from django.contrib import messages 
 from datetime import datetime
@@ -310,3 +310,18 @@ def edit_event(request):
     except Exception as e:
         logger.error("Internal Server Error: %s", str(e))
         return JsonResponse({'error': 'Internal Server Error', 'message': str(e)}, status=500)
+
+
+# サービス時間を取得するビュー
+def event_input_view(request):
+    service_times_queryset = ServiceTime.objects.all()
+    service_times = {}
+    for service_time in service_times_queryset:
+        day = service_time.weekday.lower()
+        service_times[day] = {
+            'start': service_time.start_time.strftime('%H:%M'),
+            'end': service_time.end_time.strftime('%H:%M')
+        }
+
+    service_times_json = json.dumps(service_times)
+    return render(request, 'event_input.html', {'service_times_json': service_times_json})
