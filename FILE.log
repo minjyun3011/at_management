@@ -7026,3 +7026,57 @@ Traceback (most recent call last):
   File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/urls/base.py", line 82, in reverse
     raise NoReverseMatch("%s is not a registered namespace" % key)
 django.urls.exceptions.NoReverseMatch: 'output' is not a registered namespace
+Watching for file changes with StatReloader
+Context for response: {'combined_data': [], 'selected_date': None}
+Context for response: {'combined_data': [], 'selected_date': '2024-06-08'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'US', 'absence_reason': 'インフル', 'updater': '父', 'updated_at': '2024-06-06T05:54:05.538516+00:00'}], 'selected_date': '2024-06-07'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': '15:58:00', 'end_time': '17:58:00', 'status': 'PR', 'transportation_to': 'US', 'transportation_from': 'NU', 'absence_reason': 'コロナ', 'updater': '母', 'updated_at': '2024-06-06T05:58:51.758895+00:00'}], 'selected_date': '2024-06-06'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'NU', 'absence_reason': 'インフル', 'updater': '母', 'updated_at': '2024-06-06T06:03:22.163986+00:00'}], 'selected_date': '2024-06-05'}
+Context for response: {'combined_data': [], 'selected_date': '2024-06-12'}
+Context for response: {'combined_data': [], 'selected_date': '2024-06-13'}
+User found: 佐藤　壮
+Queried events: <QuerySet [<Attendance_info: 佐藤　壮 - 2024-05-28 - AB>]>
+Combined data: [{'calendar_date': '2024-05-28', 'start_time': None, 'end_time': None, 'status': 'AB', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': '腹痛', 'updated_at': '2024-05-31 05:24:40', 'is_late_change': True, 'name': '佐藤\u3000壮', 'inputter': None, 'updater': None}]
+User found: 佐藤　壮
+Queried events: <QuerySet []>
+No events found for date: 2024-05-27 and recipient_number: 00007182
+User found: 佐藤　壮
+Queried events: <QuerySet []>
+No events found for date: 2024-06-08 and recipient_number: 00007182
+User found: 佐藤　壮
+Queried events: <QuerySet []>
+No events found for date: 2024-06-08 and recipient_number: 00007182
+Bad Request: /api/add_event/
+Bad Request: /api/add_event/
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/forms.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/forms.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/forms.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/forms.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/forms.py changed, reloading.
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+/Users/satoso/Python/at_management/project/attendance/forms.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/forms.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Watching for file changes with StatReloader
+Not Found: /favicon.ico

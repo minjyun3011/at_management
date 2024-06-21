@@ -1,6 +1,34 @@
 from django.db import models
 import datetime
 
+class ServiceTime(models.Model):
+    WEEKDAYS = [
+        ('mon', '月曜日'),
+        ('tue', '火曜日'),
+        ('wed', '水曜日'),
+        ('thu', '木曜日'),
+        ('fri', '金曜日'),
+        ('sat', '土曜日'),
+        ('sun', '日曜日'),
+    ]
+
+    SERVICE_TYPES = [
+        ('group_morning', '児童発達支援 (午前)'),
+        ('group_afternoon', '児童発達支援 (午後)'),
+        ('individual_morning', '個別（午前）'),
+        ('individual_afternoon', '個別 (午後)'),
+        ('after_school', '放課後デイサービス (個別午後)'),
+    ]
+
+    weekday = models.CharField(max_length=3, choices=WEEKDAYS)
+    service_type = models.CharField(max_length=20, choices=SERVICE_TYPES)
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+
+    def __str__(self):
+        return f"{self.get_weekday_display()} - {self.get_service_type_display()} ({self.start_time} - {self.end_time})"
+
+
 # 利用者の個人情報テーブル
 class User(models.Model):
     class GenderChoices(models.TextChoices):
@@ -35,6 +63,7 @@ class User(models.Model):
         verbose_name="教育区分"
     )
     welfare_exemption = models.IntegerField(verbose_name="児童福祉関連の免除額")
+    services = models.ManyToManyField(ServiceTime, related_name='users', verbose_name="利用するサービス")
 
     def __str__(self):
         return self.name
@@ -43,6 +72,7 @@ class User(models.Model):
     def age(self):
         today = datetime.date.today()
         return today.year - self.birthdate.year - ((today.month, today.day) < (self.birthdate.month, self.birthdate.day))
+    
 
 # 利用者の日ごとの出欠情報テーブル
 class Attendance_info(models.Model):
@@ -106,29 +136,3 @@ class AbsenceAccrual(models.Model):
         eligible_status = "Eligible" if self.accrual_eligible else "Not Eligible"
         return f'{user_name} - {calendar_date} - {eligible_status}'
 
-class ServiceTime(models.Model):
-    WEEKDAYS = [
-        ('mon', '月曜日'),
-        ('tue', '火曜日'),
-        ('wed', '水曜日'),
-        ('thu', '木曜日'),
-        ('fri', '金曜日'),
-        ('sat', '土曜日'),
-        ('sun', '日曜日'),
-    ]
-
-    SERVICE_TYPES = [
-        ('group_morning', '児童発達支援 (午前)'),
-        ('group_afternoon', '児童発達支援 (午後)'),
-        ('individual_morning', '個別（午前）'),
-        ('individual_afternoon', '個別 (午後)'),
-        ('after_school', '放課後デイサービス (個別午後)'),
-    ]
-
-    weekday = models.CharField(max_length=3, choices=WEEKDAYS)
-    service_type = models.CharField(max_length=20, choices=SERVICE_TYPES)
-    start_time = models.TimeField()
-    end_time = models.TimeField()
-
-    def __str__(self):
-        return f"{self.get_weekday_display()} - {self.get_service_type_display()} ({self.start_time} - {self.end_time})"

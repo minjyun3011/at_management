@@ -1,14 +1,20 @@
 import re
 from django import forms
-from .models import User
+from .models import User, ServiceTime
 from django.core.exceptions import ValidationError
 import datetime
 from .models import Attendance_info
 
 class UserForm(forms.ModelForm):
+    services = forms.ModelMultipleChoiceField(
+        queryset=ServiceTime.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        label='利用するサービス'
+    )
+
     class Meta:
         model = User
-        fields = ['name', 'birthdate', 'gender', 'recipient_number', 'education_level', 'welfare_exemption']
+        fields = ['name', 'birthdate', 'gender', 'recipient_number', 'education_level', 'welfare_exemption', 'services']
         widgets = {
             'birthdate': forms.DateInput(attrs={'type': 'date'}),
             'name': forms.TextInput(attrs={'class': 'form-control'}),
@@ -16,6 +22,8 @@ class UserForm(forms.ModelForm):
             'gender': forms.Select(attrs={'class': 'form-control'}),
             'education_level': forms.Select(attrs={'class': 'form-control'}),
             'welfare_exemption': forms.NumberInput(attrs={'class': 'form-control'}),
+            'services': forms.CheckboxSelectMultiple(attrs={'class': 'form-check'})
+
         }
 
 
