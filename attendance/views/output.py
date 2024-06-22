@@ -71,15 +71,15 @@ class SettingView(View):
                 start_field = f"{day[0]}_{service[0]}_start"
                 end_field = f"{day[0]}_{service[0]}_end"
                 day_fields[service[0]] = {
-                    'start': form[start_field],
-                    'end': form[end_field]
+                    'start': form[start_field].value() or '09:00',  # デフォルト値を設定
+                    'end': form[end_field].value() or '17:00'      # デフォルト値を設定
                 }
             fields.append({'day': day, 'fields': day_fields})
 
         context = {
             'form': form,
             'fields': fields,
-            'service_types': service_types,  # 追加
+            'service_types': service_types,
         }
         return render(request, self.template_name, context)
 

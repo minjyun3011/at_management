@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
 
 <head>
@@ -35,6 +35,39 @@
             width: auto;
         }
     </style>
+    <script>
+        function applyBulkTime() {
+            const selectedDays = document.querySelectorAll('input[name="weekday_select"]:checked');
+            const selectedServices = document.querySelectorAll('input[name="service_select"]:checked');
+
+            selectedDays.forEach(day => {
+                selectedServices.forEach(service => {
+                    const startField = document.getElementById(`${day.value}_${service.value}_start`);
+                    const endField = document.getElementById(`${day.value}_${service.value}_end`);
+
+                    if (startField && endField) {
+                        const startTime = startField.value || '09:00';
+                        const endTime = endField.value || '17:00';
+
+                        const allStartFields = document.querySelectorAll(`#service-time-fields input[id$='_${service.value}_start']`);
+                        const allEndFields = document.querySelectorAll(`#service-time-fields input[id$='_${service.value}_end']`);
+
+                        allStartFields.forEach(field => {
+                            if (field.id.startsWith(day.value)) {
+                                field.value = startTime;
+                            }
+                        });
+
+                        allEndFields.forEach(field => {
+                            if (field.id.startsWith(day.value)) {
+                                field.value = endTime;
+                            }
+                        });
+                    }
+                });
+            });
+        }
+    </script>
 </head>
 
 <body>
@@ -68,12 +101,12 @@
                 <div class="bulk-time-selection">
                     <h3>時間設定</h3>
                     <label for="bulk_start_time">開始時間:</label>
-                    <input type="time" id="bulk_start_time">
+                    <input type="time" id="bulk_start_time" value="09:00">
                     <label for="bulk_end_time">終了時間:</label>
-                    <input type="time" id="bulk_end_time">
+                    <input type="time" id="bulk_end_time" value="17:00">
                 </div>
 
-                <button type="button" id="apply_bulk_time" class="btn btn-secondary mb-3">一括適用</button>
+                <button type="button" id="apply_bulk_time" class="btn btn-secondary mb-3" onclick="applyBulkTime()">一括適用</button>
             </div>
 
             <div id="service-time-fields">
@@ -82,12 +115,18 @@
                     <h3>{{ day.day.1 }}</h3>
                     {% for service, field in day.fields.items %}
                     <div class="form-group">
+                        <!-- サービス名の表示 -->
+                        {% for service_type in service_types %}
+                        {% if service_type.0 == service %}
+                        <h4>{{ service_type.1 }}</h4>
+                        {% endif %}
+                        {% endfor %}
                         <div class="time-field-group">
-                            <label for="{{ day.day.0 }}_{{ service.0 }}_start">{{ field.start.label }}</label>
-                            <input type="time" id="{{ day.day.0 }}_{{ service.0 }}_start" name="{{ day.day.0 }}_{{ service.0 }}_start" value="{{ field.start.value }}">
+                            <label for="{{ day.day.0 }}_{{ service }}_start">{{ field.start.label }}</label>
+                            <input type="time" id="{{ day.day.0 }}_{{ service }}_start" name="{{ day.day.0 }}_{{ service }}_start" value="{{ field.start.value }}">
                             <div class="time-field-group-end">
-                                <label for="{{ day.day.0 }}_{{ service.0 }}_end">終了時間</label>
-                                <input type="time" id="{{ day.day.0 }}_{{ service.0 }}_end" name="{{ day.day.0 }}_{{ service.0 }}_end" value="{{ field.end.value }}">
+                                <label for="{{ day.day.0 }}_{{ service }}_end">終了時間</label>
+                                <input type="time" id="{{ day.day.0 }}_{{ service }}_end" name="{{ day.day.0 }}_{{ service }}_end" value="{{ field.end.value }}">
                             </div>
                         </div>
                     </div>
@@ -99,71 +138,6 @@
             <button type="submit" class="btn btn-primary">保存</button>
         </form>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            document.getElementById('apply_bulk_time').addEventListener('click', function () {
-                // 開始時間と終了時間を取得
-                const start_time = document.getElementById('bulk_start_time').value;
-                const end_time = document.getElementById('bulk_end_time').value;
-
-                // 選択された曜日とサービスを取得
-                const selected_days = Array.from(document.querySelectorAll('input[name="weekday_select"]:checked')).map(cb => cb.value);
-                const selected_services = Array.from(document.querySelectorAll('input[name="service_select"]:checked')).map(cb => cb.value);
-
-                // 選択された曜日とサービスに対して時間を適用
-                selected_days.forEach(day => {
-                    selected_services.forEach(service => {
-                        const start_field_id = `${day}_${service}_start`;
-                        const end_field_id = `${day}_${service}_end`;
-                        console.log(`Processing ${start_field_id} and ${end_field_id}`);
-                        const start_field = document.getElementById(start_field_id);
-                        const end_field = document.getElementById(end_field_id);
-
-                        if (start_field) {
-                            start_field.value = start_time;
-                            console.log(`Setting ${start_field_id} to ${start_time}`);
-                        } else {
-                            console.log(`Field ${start_field_id} not found`);
-                        }
-
-                        if (end_field) {
-                            end_field.value = end_time;
-                            console.log(`Setting ${end_field_id} to ${end_time}`);
-                        } else {
-                            console.log(`Field ${end_field_id} not found`);
-                        }
-                    });
-                });
-            });
-
-            // 開始時間が変更された場合に終了時間を自動設定するイベントリスナー
-            // const startFields = document.querySelectorAll('input[id$="_start"]');
-            // startFields.forEach(startField => {
-            //     startField.addEventListener('change', function () {
-            //         const endFieldId = this.id.replace('_start', '_end');
-            //         const endField = document.getElementById(endFieldId);
-
-            //         if (this.value) {
-            //             const [hours, minutes] = this.value.split(':');
-            //             let endHours = parseInt(hours) + 2;
-            //             if (endHours >= 24) {
-            //                 endHours -= 24;
-            //             }
-
-            //             const endTime = new Date(1970, 0, 1, endHours, parseInt(minutes));
-
-            //             const formattedHours = String(endTime.getHours()).padStart(2, '0');
-            //             const formattedMinutes = String(endTime.getMinutes()).padStart(2, '0');
-            //             endField.value = `${formattedHours}:${formattedMinutes}`;
-            //         } else {
-            //             endField.value = '';
-            //         }
-            //     });
-            // });
-        });
-    </script>
 </body>
 
 </html>
