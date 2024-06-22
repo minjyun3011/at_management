@@ -7227,3 +7227,16 @@ django.template.exceptions.TemplateSyntaxError: Invalid filter: 'get_service_nam
 Watching for file changes with StatReloader
 Context for response: {'combined_data': [], 'selected_date': None}
 Not Found: /favicon.ico
+Watching for file changes with StatReloader
+Context for response: {'combined_data': [], 'selected_date': None}
+Not Found: /favicon.ico
+/Users/satoso/Python/at_management/project/attendance/forms.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/output.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Context for response: {'combined_data': [], 'selected_date': None}
+Not Found: /favicon.ico
+Watching for file changes with StatReloader
+Context for response: {'combined_data': [], 'selected_date': None}
+Not Found: /favicon.ico

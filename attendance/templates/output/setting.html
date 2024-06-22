@@ -39,6 +39,8 @@
         function applyBulkTime() {
             const selectedDays = document.querySelectorAll('input[name="weekday_select"]:checked');
             const selectedServices = document.querySelectorAll('input[name="service_select"]:checked');
+            const startTime = document.getElementById('bulk_start_time').value;
+            const endTime = document.getElementById('bulk_end_time').value;
 
             selectedDays.forEach(day => {
                 selectedServices.forEach(service => {
@@ -46,23 +48,8 @@
                     const endField = document.getElementById(`${day.value}_${service.value}_end`);
 
                     if (startField && endField) {
-                        const startTime = startField.value || '09:00';
-                        const endTime = endField.value || '17:00';
-
-                        const allStartFields = document.querySelectorAll(`#service-time-fields input[id$='_${service.value}_start']`);
-                        const allEndFields = document.querySelectorAll(`#service-time-fields input[id$='_${service.value}_end']`);
-
-                        allStartFields.forEach(field => {
-                            if (field.id.startsWith(day.value)) {
-                                field.value = startTime;
-                            }
-                        });
-
-                        allEndFields.forEach(field => {
-                            if (field.id.startsWith(day.value)) {
-                                field.value = endTime;
-                            }
-                        });
+                        startField.value = startTime;
+                        endField.value = endTime;
                     }
                 });
             });
@@ -123,10 +110,10 @@
                         {% endfor %}
                         <div class="time-field-group">
                             <label for="{{ day.day.0 }}_{{ service }}_start">{{ field.start.label }}</label>
-                            <input type="time" id="{{ day.day.0 }}_{{ service }}_start" name="{{ day.day.0 }}_{{ service }}_start" value="{{ field.start.value }}">
+                            <input type="time" id="{{ day.day.0 }}_{{ service }}_start" name="{{ day.day.0 }}_{{ service }}_start" value="{{ field.start }}">
                             <div class="time-field-group-end">
                                 <label for="{{ day.day.0 }}_{{ service }}_end">終了時間</label>
-                                <input type="time" id="{{ day.day.0 }}_{{ service }}_end" name="{{ day.day.0 }}_{{ service }}_end" value="{{ field.end.value }}">
+                                <input type="time" id="{{ day.day.0 }}_{{ service }}_end" name="{{ day.day.0 }}_{{ service }}_end" value="{{ field.end }}">
                             </div>
                         </div>
                     </div>

@@ -60,7 +60,6 @@ class SettingView(View):
     template_name = 'output/setting.html'
 
     def get(self, request):
-        form = ServiceTimeForm()
         weekdays = ServiceTimeForm.WEEKDAYS
         service_types = ServiceTimeForm.SERVICE_TYPES
 
@@ -68,13 +67,21 @@ class SettingView(View):
         for day in weekdays:
             day_fields = {}
             for service in service_types:
-                start_field = f"{day[0]}_{service[0]}_start"
-                end_field = f"{day[0]}_{service[0]}_end"
+                try:
+                    service_time = ServiceTime.objects.get(weekday=day[0], service_type=service[0])
+                    start_value = service_time.start_time
+                    end_value = service_time.end_time
+                except ServiceTime.DoesNotExist:
+                    start_value = '09:00'
+                    end_value = '17:00'
+
                 day_fields[service[0]] = {
-                    'start': form[start_field].value() or '09:00',  # デフォルト値を設定
-                    'end': form[end_field].value() or '17:00'      # デフォルト値を設定
+                    'start': start_value,
+                    'end': end_value
                 }
             fields.append({'day': day, 'fields': day_fields})
+
+        form = ServiceTimeForm()
 
         context = {
             'form': form,

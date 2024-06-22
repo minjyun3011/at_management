@@ -79,6 +79,9 @@ class CheckUserForm(forms.Form):
         return recipient_number
 
 
+# forms.py
+from django import forms
+
 class ServiceTimeForm(forms.Form):
     WEEKDAYS = [
         ('mon', '月曜日'),
@@ -106,11 +109,13 @@ class ServiceTimeForm(forms.Form):
                 self.fields[f"{day[0]}_{service[0]}_start"] = forms.TimeField(
                     label=f"{day[1]} {service[1]} 開始時間",
                     required=False,
+                    initial='09:00',
                     widget=forms.TimeInput(format='%H:%M', attrs={'type': 'time'})
                 )
                 self.fields[f"{day[0]}_{service[0]}_end"] = forms.TimeField(
                     label=f"{day[1]} {service[1]} 終了時間",
                     required=False,
+                    initial='17:00',
                     widget=forms.TimeInput(format='%H:%M', attrs={'type': 'time'})
                 )
 
