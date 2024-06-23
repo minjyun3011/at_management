@@ -103,5 +103,5 @@ class SettingView(View):
                             service_type=service[0],
                             defaults={'start_time': start_time, 'end_time': end_time}
                         )
-            return redirect('output:output_menu')
+            return redirect('attendance:output_menu')
         return render(request, self.template_name, {'form': form})

@@ -7240,3 +7240,117 @@ Not Found: /favicon.ico
 Watching for file changes with StatReloader
 Context for response: {'combined_data': [], 'selected_date': None}
 Not Found: /favicon.ico
+Watching for file changes with StatReloader
+Context for response: {'combined_data': [], 'selected_date': None}
+Internal Server Error: /setting/
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/urls/base.py", line 71, in reverse
+    extra, resolver = resolver.namespace_dict[ns]
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^
+KeyError: 'output'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/Python/at_management/project/attendance/views/output.py", line 106, in post
+    return redirect('output:output_menu')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/shortcuts.py", line 49, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/shortcuts.py", line 180, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/urls/base.py", line 82, in reverse
+    raise NoReverseMatch("%s is not a registered namespace" % key)
+django.urls.exceptions.NoReverseMatch: 'output' is not a registered namespace
+/Users/satoso/Python/at_management/project/attendance/urls.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/urls.py changed, reloading.
+Watching for file changes with StatReloader
+Internal Server Error: /setting/
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/urls/base.py", line 71, in reverse
+    extra, resolver = resolver.namespace_dict[ns]
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^
+KeyError: 'output'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/Python/at_management/project/attendance/views/output.py", line 106, in post
+    return redirect('output:output_menu')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/shortcuts.py", line 49, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/shortcuts.py", line 180, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/urls/base.py", line 82, in reverse
+    raise NoReverseMatch("%s is not a registered namespace" % key)
+django.urls.exceptions.NoReverseMatch: 'output' is not a registered namespace
+Internal Server Error: /setting/
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/urls/base.py", line 71, in reverse
+    extra, resolver = resolver.namespace_dict[ns]
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^
+KeyError: 'output'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/Python/at_management/project/attendance/views/output.py", line 106, in post
+    return redirect('output:output_menu')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/shortcuts.py", line 49, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/shortcuts.py", line 180, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/satoso/.pyenv/versions/3.11.3/lib/python3.11/site-packages/django/urls/base.py", line 82, in reverse
+    raise NoReverseMatch("%s is not a registered namespace" % key)
+django.urls.exceptions.NoReverseMatch: 'output' is not a registered namespace
+Not Found: /favicon.ico
+/Users/satoso/Python/at_management/project/attendance/views/output.py changed, reloading.
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Context for response: {'combined_data': [], 'selected_date': None}
+Context for response: {'combined_data': [], 'selected_date': None}

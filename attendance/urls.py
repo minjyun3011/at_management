@@ -19,6 +19,8 @@ urlpatterns = [
     path('output/', CombinedAttendanceView.as_view(), name='output'),
     path('daily-report/', DailyReportView.as_view(), name='daily_report'),
     path('setting/', SettingView.as_view(), name='service_setting'),
+    path('output_menu/', CombinedAttendanceView.as_view(), name='output_menu'),  # 新しく追加
+
 
 ]
 
