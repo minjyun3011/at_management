@@ -53,7 +53,6 @@ class CheckUserView(FormView):
         # フォームが無効の場合は、エラーメッセージを設定して同じページに戻る
         return super().form_invalid(form)
 
-
 class UserRegistrationView(CreateView):
     model = User
     form_class = UserForm
@@ -68,7 +67,12 @@ class UserRegistrationView(CreateView):
             return self.form_invalid(form)
         else:
             logger.debug("No existing user, creating new user")
-            self.object = form.save()
+            self.object = form.save(commit=False)
+            self.object.save()
+            selected_services = form.cleaned_data.get('services')
+            if selected_services:
+                self.object.services.set(selected_services)
+            
             logger.debug(f"New user {self.object.name} created and saved.")
             
             # 新規ユーザー登録後にセッションを設定
@@ -82,8 +86,6 @@ class UserRegistrationView(CreateView):
         # Form invalidのログを記録
         logger.debug(f"Form invalid, errors: {form.errors}")
         return super().form_invalid(form)
-
-
 #home0.htmlからのリダイレクト直後の処理内容
 class Home1View(TemplateView):
     template_name = 'attendance/home1.html'

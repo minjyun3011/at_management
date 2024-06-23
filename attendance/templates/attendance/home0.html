@@ -68,7 +68,6 @@
                     <option value="O">その他</option>
                 </select>
             </div>
-
             <div class="form-group">
                 <label for="recipient_number">受給者番号:</label>
                 <input type="text" class="form-control" id="recipient_number" name="recipient_number" value="{{ form.recipient_number.value|default_if_none:'' }}" required>
@@ -94,9 +93,9 @@
                 <label for="services">利用するサービス:</label>
                 <div class="form-check">
                     {% for service in form.services %}
-                    <input class="form-check-input" type="checkbox" name="{{ service.name }}" value="{{ service.choice_value }}" id="{{ service.id_for_label }}">
-                    <label class="form-check-label" for="{{ service.id_for_label }}">
-                        {{ service.choice_label }}
+                    <input class="form-check-input" type="checkbox" name="services" value="{{ service.pk }}" id="service_{{ service.pk }}">
+                    <label class="form-check-label" for="service_{{ service.pk }}">
+                        {{ service.get_name_display }}
                     </label><br>
                     {% endfor %}
                 </div>

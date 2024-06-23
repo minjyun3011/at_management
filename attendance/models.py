@@ -1,6 +1,19 @@
 from django.db import models
 import datetime
 
+class ServiceType(models.Model):
+    SERVICE_TYPES = [
+        ('group_morning', '集団 (午前)'),
+        ('group_afternoon', '集団 (午後)'),
+        ('individual_morning', '個別（午前）'),
+        ('individual_afternoon', '個別 (午後)'),
+        ('after_school', '放課後デイサービス (個別午後)'),
+    ]
+    name = models.CharField(max_length=50, choices=SERVICE_TYPES, unique=True)
+
+    def __str__(self):
+        return self.get_name_display()
+
 class ServiceTime(models.Model):
     WEEKDAYS = [
         ('mon', '月曜日'),
@@ -12,21 +25,13 @@ class ServiceTime(models.Model):
         ('sun', '日曜日'),
     ]
 
-    SERVICE_TYPES = [
-        ('group_morning', '児童発達支援 (午前)'),
-        ('group_afternoon', '児童発達支援 (午後)'),
-        ('individual_morning', '個別（午前）'),
-        ('individual_afternoon', '個別 (午後)'),
-        ('after_school', '放課後デイサービス (個別午後)'),
-    ]
-
+    service_type = models.ForeignKey(ServiceType, on_delete=models.CASCADE)
     weekday = models.CharField(max_length=3, choices=WEEKDAYS)
-    service_type = models.CharField(max_length=20, choices=SERVICE_TYPES)
     start_time = models.TimeField()
     end_time = models.TimeField()
 
     def __str__(self):
-        return f"{self.get_weekday_display()} - {self.get_service_type_display()} ({self.start_time} - {self.end_time})"
+        return f"{self.get_weekday_display()} {self.service_type.get_name_display()}"
 
 
 # 利用者の個人情報テーブル

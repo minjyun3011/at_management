@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 import datetime
 from .models import Attendance_info
 
+
 class UserForm(forms.ModelForm):
     services = forms.ModelMultipleChoiceField(
         queryset=ServiceTime.objects.all(),
@@ -16,14 +17,13 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ['name', 'birthdate', 'gender', 'recipient_number', 'education_level', 'welfare_exemption', 'services']
         widgets = {
-            'birthdate': forms.DateInput(attrs={'type': 'date'}),
             'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'recipient_number': forms.TextInput(attrs={'class': 'form-control'}),
+            'birthdate': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'gender': forms.Select(attrs={'class': 'form-control'}),
+            'recipient_number': forms.TextInput(attrs={'class': 'form-control'}),
             'education_level': forms.Select(attrs={'class': 'form-control'}),
             'welfare_exemption': forms.NumberInput(attrs={'class': 'form-control'}),
             'services': forms.CheckboxSelectMultiple(attrs={'class': 'form-check'})
-
         }
 
 
