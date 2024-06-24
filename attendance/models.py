@@ -1,6 +1,8 @@
 from django.db import models
 import datetime
 
+from django.db import models
+
 class ServiceType(models.Model):
     SERVICE_TYPES = [
         ('group_morning', '集団 (午前)'),
