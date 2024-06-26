@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import View
-from attendance.models import Attendance_info, ServiceTime, ServiceType
+from attendance.models import Attendance_info, ServiceTime
 from django.http import JsonResponse
 from datetime import datetime
 import logging
@@ -61,21 +61,21 @@ class SettingView(View):
 
     def get(self, request):
         weekdays = ServiceTimeForm.WEEKDAYS
-        service_types = ServiceType.objects.all()
+        service_types = ServiceTimeForm.SERVICE_TYPES
 
         fields = []
         for day in weekdays:
             day_fields = {}
             for service in service_types:
                 try:
-                    service_time = ServiceTime.objects.get(weekday=day[0], service_type=service)
+                    service_time = ServiceTime.objects.get(weekday=day[0], service_type=service[0])
                     start_value = service_time.start_time
                     end_value = service_time.end_time
                 except ServiceTime.DoesNotExist:
                     start_value = '09:00'
                     end_value = '17:00'
 
-                day_fields[service.name] = {
+                day_fields[service[0]] = {
                     'start': start_value,
                     'end': end_value
                 }
@@ -98,10 +98,9 @@ class SettingView(View):
                     start_time = form.cleaned_data.get(f"{day[0]}_{service_name}_start")
                     end_time = form.cleaned_data.get(f"{day[0]}_{service_name}_end")
                     if start_time and end_time:
-                        service_type = ServiceType.objects.get(name=service_name)
                         ServiceTime.objects.update_or_create(
                             weekday=day[0],
-                            service_type=service_type,
+                            service_type=service_name,
                             defaults={'start_time': start_time, 'end_time': end_time}
                         )
             return redirect('attendance:output_menu')

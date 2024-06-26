@@ -3,7 +3,7 @@ import datetime
 
 from django.db import models
 
-class ServiceType(models.Model):
+class ServiceTime(models.Model):
     SERVICE_TYPES = [
         ('group_morning', '集団 (午前)'),
         ('group_afternoon', '集団 (午後)'),
@@ -11,12 +11,7 @@ class ServiceType(models.Model):
         ('individual_afternoon', '個別 (午後)'),
         ('after_school', '放課後デイサービス (個別午後)'),
     ]
-    name = models.CharField(max_length=50, choices=SERVICE_TYPES, unique=True)
 
-    def __str__(self):
-        return self.get_name_display()
-
-class ServiceTime(models.Model):
     WEEKDAYS = [
         ('mon', '月曜日'),
         ('tue', '火曜日'),
@@ -27,15 +22,13 @@ class ServiceTime(models.Model):
         ('sun', '日曜日'),
     ]
 
-    service_type = models.ForeignKey(ServiceType, on_delete=models.CASCADE)
+    service_type = models.CharField(max_length=50, choices=SERVICE_TYPES)
     weekday = models.CharField(max_length=3, choices=WEEKDAYS)
     start_time = models.TimeField()
     end_time = models.TimeField()
 
     def __str__(self):
-        return f"{self.get_weekday_display()} {self.service_type.get_name_display()}"
-
-
+        return f"{self.get_weekday_display()} {self.get_service_type_display()}"
 # 利用者の個人情報テーブル
 class User(models.Model):
     class GenderChoices(models.TextChoices):
