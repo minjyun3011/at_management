@@ -29,6 +29,7 @@ class ServiceTime(models.Model):
 
     def __str__(self):
         return f"{self.get_weekday_display()} {self.get_service_type_display()}"
+    
 # 利用者の個人情報テーブル
 class User(models.Model):
     class GenderChoices(models.TextChoices):

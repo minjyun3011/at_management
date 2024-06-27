@@ -8398,3 +8398,29 @@ Watching for file changes with StatReloader
 Watching for file changes with StatReloader
 Watching for file changes with StatReloader
 Context for response: {'combined_data': [], 'selected_date': None}
+Watching for file changes with StatReloader
+Context for response: {'combined_data': [], 'selected_date': None}
+Context for response: {'combined_data': [], 'selected_date': '2024-06-11'}
+Context for response: {'combined_data': [], 'selected_date': '2024-06-12'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'US', 'transportation_from': 'US', 'absence_reason': '熱', 'updater': None, 'updated_at': '2024-05-25T04:14:02.333561+00:00'}], 'selected_date': '2024-05-09'}
+Context for response: {'combined_data': [{'name': '佐藤\u3000壮', 'start_time': 'None', 'end_time': 'None', 'status': 'AB', 'transportation_to': 'NU', 'transportation_from': 'US', 'absence_reason': '熱', 'updater': None, 'updated_at': '2024-05-23T10:20:27.240076+00:00'}], 'selected_date': '2024-05-10'}
+Watching for file changes with StatReloader
+Context for response: {'combined_data': [], 'selected_date': None}
+Not Found: /favicon.ico
+/Users/satoso/Python/at_management/project/attendance/views/input.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/input.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/models.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Watching for file changes with StatReloader
+Not Found: /favicon.ico

@@ -53,6 +53,7 @@ class CheckUserView(FormView):
         # フォームが無効の場合は、エラーメッセージを設定して同じページに戻る
         return super().form_invalid(form)
 
+
 class UserRegistrationView(CreateView):
     model = User
     form_class = UserForm
@@ -86,6 +87,7 @@ class UserRegistrationView(CreateView):
         # Form invalidのログを記録
         logger.debug(f"Form invalid, errors: {form.errors}")
         return super().form_invalid(form)
+
 #home0.htmlからのリダイレクト直後の処理内容
 class Home1View(TemplateView):
     template_name = 'attendance/home1.html'

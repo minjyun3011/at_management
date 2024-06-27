@@ -317,3 +317,8 @@ nav {
     color: #000000;
     /* タイトルの文字色を黒にする */
 }
+
+.form-check {
+    display: block;
+    background-color: lightblue; /* デバッグ用の背景色 */
+}

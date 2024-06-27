@@ -95,7 +95,7 @@
                     {% for service in form.services %}
                     <input class="form-check-input" type="checkbox" name="services" value="{{ service.pk }}" id="service_{{ service.pk }}">
                     <label class="form-check-label" for="service_{{ service.pk }}">
-                        {{ service.get_name_display }}
+                        {{ service }}
                     </label><br>
                     {% endfor %}
                 </div>
