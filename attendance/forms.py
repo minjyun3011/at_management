@@ -10,7 +10,8 @@ class UserForm(forms.ModelForm):
     services = forms.ModelMultipleChoiceField(
         queryset=ServiceTime.objects.all(),
         widget=forms.CheckboxSelectMultiple,
-        label='利用するサービス'
+        label='利用するサービス',
+        required=True
     )
 
     class Meta:

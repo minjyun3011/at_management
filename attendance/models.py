@@ -30,7 +30,6 @@ class ServiceTime(models.Model):
     def __str__(self):
         return f"{self.get_weekday_display()} {self.get_service_type_display()}"
     
-# 利用者の個人情報テーブル
 class User(models.Model):
     class GenderChoices(models.TextChoices):
         MALE = 'M', 'Male'
@@ -73,7 +72,6 @@ class User(models.Model):
     def age(self):
         today = datetime.date.today()
         return today.year - self.birthdate.year - ((today.month, today.day) < (self.birthdate.month, self.birthdate.day))
-    
 
 # 利用者の日ごとの出欠情報テーブル
 class Attendance_info(models.Model):
