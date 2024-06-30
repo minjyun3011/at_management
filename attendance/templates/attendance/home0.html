@@ -92,7 +92,7 @@
             <div class="form-group">
                 <label for="services">利用するサービス:</label>
                 <div class="form-check">
-                    {% for service in form.services %}
+                    {% for service in form.fields.services.queryset %}
                     <input class="form-check-input" type="checkbox" name="services" value="{{ service.pk }}" id="service_{{ service.pk }}">
                     <label class="form-check-label" for="service_{{ service.pk }}">
                         {{ service }}
@@ -100,6 +100,7 @@
                     {% endfor %}
                 </div>
             </div>
+
             <button type="submit" class="btn btn-primary">登録</button>
         </form>
     </div>
