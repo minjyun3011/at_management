@@ -2,7 +2,6 @@ from django.db import models
 import datetime
 
 from django.db import models
-
 class ServiceTime(models.Model):
     SERVICE_TYPES = [
         ('group_morning', '集団 (午前)'),
@@ -12,7 +11,8 @@ class ServiceTime(models.Model):
         ('after_school', '放課後デイサービス (個別午後)'),
     ]
 
-    WEEKDAYS = [
+    service_type = models.CharField(max_length=50, choices=SERVICE_TYPES)
+    weekday = models.CharField(max_length=3, choices=[
         ('mon', '月曜日'),
         ('tue', '火曜日'),
         ('wed', '水曜日'),
@@ -20,16 +20,13 @@ class ServiceTime(models.Model):
         ('fri', '金曜日'),
         ('sat', '土曜日'),
         ('sun', '日曜日'),
-    ]
-
-    service_type = models.CharField(max_length=50, choices=SERVICE_TYPES)
-    weekday = models.CharField(max_length=3, choices=WEEKDAYS)
+    ])
     start_time = models.TimeField()
     end_time = models.TimeField()
 
     def __str__(self):
-        return f"{self.get_weekday_display()} {self.get_service_type_display()}"
-    
+        return f"{self.get_service_type_display()}"
+
 class User(models.Model):
     class GenderChoices(models.TextChoices):
         MALE = 'M', 'Male'
@@ -63,7 +60,7 @@ class User(models.Model):
         verbose_name="教育区分"
     )
     welfare_exemption = models.IntegerField(verbose_name="児童福祉関連の免除額")
-    services = models.ManyToManyField(ServiceTime, related_name='users', verbose_name="利用するサービス")
+    service_type = models.CharField(max_length=50, choices=ServiceTime.SERVICE_TYPES, verbose_name="サービスの種類", default='group_morning')
 
     def __str__(self):
         return self.name
@@ -72,7 +69,6 @@ class User(models.Model):
     def age(self):
         today = datetime.date.today()
         return today.year - self.birthdate.year - ((today.month, today.day) < (self.birthdate.month, self.birthdate.day))
-
 # 利用者の日ごとの出欠情報テーブル
 class Attendance_info(models.Model):
     class AttendanceStatus(models.TextChoices):

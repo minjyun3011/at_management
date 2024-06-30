@@ -53,7 +53,6 @@ class CheckUserView(FormView):
         # フォームが無効の場合は、エラーメッセージを設定して同じページに戻る
         return super().form_invalid(form)
 
-
 class UserRegistrationView(CreateView):
     model = User
     form_class = UserForm
@@ -70,9 +69,6 @@ class UserRegistrationView(CreateView):
             logger.debug("No existing user, creating new user")
             self.object = form.save(commit=False)
             self.object.save()
-            selected_services = form.cleaned_data.get('services')
-            if selected_services:
-                self.object.services.set(selected_services)
             
             logger.debug(f"New user {self.object.name} created and saved.")
             

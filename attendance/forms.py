@@ -7,16 +7,15 @@ from .models import Attendance_info
 
 
 class UserForm(forms.ModelForm):
-    services = forms.ModelMultipleChoiceField(
-        queryset=ServiceTime.objects.all(),
-        widget=forms.CheckboxSelectMultiple,
+    service_type = forms.ChoiceField(
+        choices=ServiceTime.SERVICE_TYPES,
         label='利用するサービス',
         required=True
     )
 
     class Meta:
         model = User
-        fields = ['name', 'birthdate', 'gender', 'recipient_number', 'education_level', 'welfare_exemption', 'services']
+        fields = ['name', 'birthdate', 'gender', 'recipient_number', 'education_level', 'welfare_exemption', 'service_type']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'birthdate': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
@@ -24,7 +23,7 @@ class UserForm(forms.ModelForm):
             'recipient_number': forms.TextInput(attrs={'class': 'form-control'}),
             'education_level': forms.Select(attrs={'class': 'form-control'}),
             'welfare_exemption': forms.NumberInput(attrs={'class': 'form-control'}),
-            'services': forms.CheckboxSelectMultiple(attrs={'class': 'form-check'})
+            'service_type': forms.Select(attrs={'class': 'form-control'})
         }
 
 
