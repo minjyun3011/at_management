@@ -69,7 +69,8 @@ class UserRegistrationView(CreateView):
             logger.debug("No existing user, creating new user")
             self.object = form.save(commit=False)
             self.object.save()
-            
+            form.save_m2m()  # Many-to-manyフィールドの保存
+
             logger.debug(f"New user {self.object.name} created and saved.")
             
             # 新規ユーザー登録後にセッションを設定
@@ -83,6 +84,11 @@ class UserRegistrationView(CreateView):
         # Form invalidのログを記録
         logger.debug(f"Form invalid, errors: {form.errors}")
         return super().form_invalid(form)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['services'] = ServiceTime.objects.all()
+        return context
 
 #home0.htmlからのリダイレクト直後の処理内容
 class Home1View(TemplateView):

@@ -90,14 +90,19 @@
                 {% endif %}
             </div>
             <div class="form-group">
-                <label for="services">利用するサービス:</label>
-                <div class="form-check">
-                    {% for service in form.fields.services.queryset %}
-                    <input class="form-check-input" type="checkbox" name="services" value="{{ service.pk }}" id="service_{{ service.pk }}">
-                    <label class="form-check-label" for="service_{{ service.pk }}">
-                        {{ service }}
-                    </label><br>
-                    {% endfor %}
+                <label for="id_services">利用するサービス</label>
+                <div>
+                    <input type="checkbox" name="services" value="1" id="id_services_0">
+                    <label for="id_services_0">集団 (午前)</label><br>
+                    <input type="checkbox" name="services" value="2" id="id_services_1">
+                    <label for="id_services_1">集団 (午後)</label><br>
+                    <input type="checkbox" name="services" value="2" id="id_services_1">
+                    <label for="id_services_1">個別（午前）</label><br>
+                    <input type="checkbox" name="services" value="2" id="id_services_1">
+                    <label for="id_services_1">個別 (午後)</label><br>
+                    <input type="checkbox" name="services" value="2" id="id_services_1">
+                    <label for="id_services_1">放課後デイサービス (個別午後)</label><br>
+                    <!-- その他のサービス -->
                 </div>
             </div>
 
