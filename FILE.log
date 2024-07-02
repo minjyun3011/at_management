@@ -8699,3 +8699,30 @@ Watching for file changes with StatReloader
 Watching for file changes with StatReloader
 No existing user, creating new user
 New user 佐藤　壮 created and saved.
+Watching for file changes with StatReloader
+Context for response: {'combined_data': [], 'selected_date': None}
+User found: 佐藤　壮
+Queried events: <QuerySet []>
+No events found for date: 2024-07-02 and recipient_number: 00007201
+User found: 佐藤　壮
+Queried events: <QuerySet []>
+No events found for date: 2024-07-02 and recipient_number: 00007201
+Bad Request: /api/add_event/
+/Users/satoso/Python/at_management/project/attendance/views/input.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/input.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/input.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/input.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/input.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/input.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/input.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/input.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/satoso/Python/at_management/project/attendance/views/input.py changed, reloading.
+Watching for file changes with StatReloader

@@ -188,7 +188,10 @@ def get_events(request):
             'status': event.status,
             'transportation_to': event.transportation_to,
             'transportation_from': event.transportation_from,
-            'absence_reason': event.absence_reason
+            'absence_reason': event.absence_reason,
+            'inputter': event.inputter,
+            'updater': event.updater,
+            'services': list(event.services.values_list('service_type', flat=True)) 
         } for event in events]
 
         return JsonResponse(events_data, safe=False)
